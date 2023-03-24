@@ -1,0 +1,173 @@
+// @import "../../settings/all";
+// @import "../../tools/all";
+// @import "../../helpers/all";
+
+// @import "../error-message/error-message";
+// @import "../input/input";
+// @import "../hint/hint";
+// @import "../label/label";
+
+@include govuk-exports("govuk/component/date-input") {
+  .govuk-date-input {
+    @include govuk-clearfix;
+    // font-size: 0 removes whitespace caused by inline-block
+    font-size: 0;
+  }
+
+  .govuk-date-input__item {
+    display: inline-block;
+    margin-right: govuk-spacing(2);
+    margin-bottom: 0;
+  }
+
+  .govuk-date-input__label {
+    display: block;
+  }
+
+  .govuk-date-input__input {
+    margin-bottom: 0;
+  }
+}
+
+.app-date-input--enhanced {
+  position: relative;
+}
+
+
+
+.datepicker {
+  @include govuk-font($size: 19);
+  margin-top: 10px;
+  display: block;
+  max-width: 405px;
+  position: absolute;
+  border: 2px solid govuk-colour("black");
+  background-color: govuk-colour("white");
+  z-index: 10;
+}
+
+.datepicker:focus {
+  outline: $govuk-focus-width solid $govuk-focus-colour;
+}
+
+.datepicker > div {
+  // display: inline-block;
+}
+
+.datepicker-actions {
+  background-color: govuk-colour("light-grey");
+  position: relative;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.datepicker-actions button {
+  border: none;
+  background: none;
+}
+
+.datepicker-actions button:hover {
+  background-color: govuk-colour("mid-grey");
+}
+
+.datepicker-actions button:first-child {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+  padding: 12px 17px 5px 15px;
+}
+
+.datepicker-actions button:last-child {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  padding: 12px 15px 5px 17px;
+}
+
+.datepicker-actions button:focus {
+  outline: $govuk-focus-width solid $govuk-focus-colour;
+}
+
+.datepicker-actions select:focus {
+  outline: $govuk-focus-width solid $govuk-focus-colour;
+}
+
+.datepicker-actions select {
+  margin-left: auto;
+  margin-right: auto;
+  // margin-top: 5px;
+  display: block;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  background: none;
+  border: none;
+  font-size: 1em;
+  width: 110px;
+}
+
+.datepicker table {
+  width: 100%;
+  table-layout: fixed;
+}
+
+.datepicker table td,
+.datepicker table th {
+  padding: 10px 5px;
+  text-align: center;
+}
+
+.datepicker table td {
+  cursor: default;
+}
+
+.datepicker-day-isToday {
+	position: relative;
+}
+
+.datepicker-today {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	font-size: 0.5em;
+	text-align: center;
+  text-transform: uppercase;
+}
+
+.datepicker .other-month {
+  color: govuk-colour("dark-grey");
+}
+
+.datepicker td:focus {
+  outline: $govuk-focus-width solid $govuk-focus-colour;
+}
+
+.datepicker td[role="gridcell"]:hover {
+  background-color: govuk-colour("light-grey");
+}
+
+.datepicker td[aria-selected="true"] {
+  background-color: govuk-colour("blue");
+  color: govuk-colour('white');
+}
+
+.datepicker-toggle-button {
+  border: 0;
+  background-color: govuk-tint(govuk-colour("mid-grey"), 50);
+  @include govuk-font($size: 19);
+  padding: 8px 10px;
+}
+
+.datepicker-toggle-button svg {
+  position: relative;
+  top: 2px;
+  margin-right: 5px;
+}
+
+.datepicker-toggle-button:hover {
+  background-color: govuk-tint(govuk-colour("mid-grey"), 10);
+}
+
+.datepicker-toggle-button:focus {
+  outline: $govuk-focus-width solid $govuk-focus-colour;
+}

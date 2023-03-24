@@ -3,4 +3,12 @@ For guidance on how to use layouts see:
 https://prototype-kit.service.gov.uk/docs/how-to-use-layouts
 #}
 
-{% extends "govuk-prototype-kit/layouts/govuk-branded.html" %}
+{% extends "govuk-prototype-kit/layouts/unbranded.html" %}
+
+{% block pageScripts %}
+  {{ super() }}
+  <script>
+    var App = {}
+  </script>
+  <script src="/public/javascripts/components/date-input.js"></script>
+{% endblock %}
