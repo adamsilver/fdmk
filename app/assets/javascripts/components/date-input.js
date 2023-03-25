@@ -45,14 +45,14 @@ App.DateInput.prototype.getSelectedDateElementId = function(d) {
 App.DateInput.prototype.getCalendarHtml = function(year, month) {
   var html = '<div id="' + this.getSelectedDateElementId() + '" class="datepicker-selected-date govuk-visually-hidden"></div>';
   html +=		'<div class="datepicker-actions">';
-  html +=			'<button type="button" aria-label="previous month"><svg focusable="false" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="0.8em" height="1.3em"><path d="M7.41 10.59L2.83 6l4.58-4.59L6 0 0 6l6 6z" fill="#000" fill-rule="nonzero"/></svg></button>';
+  html +=			'<button type="button" aria-label="previous month"><svg focusable="false" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="0.6em" height="1.1em"><path d="M7.41 10.59L2.83 6l4.58-4.59L6 0 0 6l6 6z" fill="#000" fill-rule="nonzero"/></svg></button>';
   html += 		'<div role="status" aria-live="polite" class="govuk-visually-hidden">';
   html += 			this.monthNames[month] + " " + year;
   html += 		'</div>';
   html += 		'<select>';
   html +=       this.getSelectOptionsHtml(year, month);
   html += 		'</select>';
-  html +=			'<button type="button" aria-label="next month"><svg focusable="false" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="0.8em" height="1.3em"><path d="M.59 10.59L5.17 6 .59 1.41 2 0l6 6-6 6z" fill="#000" fill-rule="nonzero"/></svg></button>';
+  html +=			'<button type="button" aria-label="next month"><svg focusable="false" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="0.6em" height="1.1em"><path d="M.59 10.59L5.17 6 .59 1.41 2 0l6 6-6 6z" fill="#000" fill-rule="nonzero"/></svg></button>';
   html +=		'</div>';
   html += 	'<table role="grid">';
   html += 		'<thead>';
