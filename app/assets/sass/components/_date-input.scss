@@ -63,46 +63,54 @@
 
 .datepicker-actions button {
   border: none;
-  background: none;
+  border-radius: 0;
+  background: govuk-colour("light-grey");
+  // outline: $govuk-focus-width solid govuk-colour("light-grey");
+}
+
+.datepicker-actions button:first-child {
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  padding: 15px 17px 8px 17px;
+}
+
+.datepicker-actions button:last-child {
+  position: absolute;
+  top: 3px;
+  right: 3px;
+  padding: 15px 17px 8px 17px;
 }
 
 .datepicker-actions button:hover {
   background-color: govuk-colour("mid-grey");
 }
 
-.datepicker-actions button:first-child {
-  position: absolute;
-  top: 5px;
-  left: 5px;
-  padding: 12px 17px 5px 15px;
-}
-
-.datepicker-actions button:last-child {
-  position: absolute;
-  top: 5px;
-  right: 5px;
-  padding: 12px 15px 5px 17px;
-}
-
 .datepicker-actions button:focus {
-  outline: $govuk-focus-width solid $govuk-focus-colour;
+  outline: none;
+  background-color: $govuk-focus-colour;
+  border-bottom: $govuk-focus-width solid $govuk-focus-text-colour;
 }
 
-.datepicker-actions select:focus {
-  outline: $govuk-focus-width solid $govuk-focus-colour;
-}
+
 
 .datepicker-actions select {
   margin-left: auto;
   margin-right: auto;
-  // margin-top: 5px;
   display: block;
-  padding-top: 8px;
+  padding-top: 10px;
   padding-bottom: 8px;
   background: none;
   border: none;
   font-size: 1em;
-  width: 110px;
+  width: 100px;
+  border-bottom: $govuk-focus-width solid govuk-colour('light-grey');
+
+  &:focus {
+    outline: none;
+    background-color: $govuk-focus-colour;
+    border-bottom: $govuk-focus-width solid $govuk-focus-text-colour;
+  }
 }
 
 .datepicker table {
@@ -112,12 +120,43 @@
 
 .datepicker table td,
 .datepicker table th {
-  padding: 10px 5px;
+  padding: 15px 5px 12px;
   text-align: center;
 }
 
 .datepicker table td {
   cursor: default;
+
+  border-bottom: $govuk-focus-width solid govuk-colour('white');
+
+  &:focus {
+    outline: none !important;
+    background-color: $govuk-focus-colour !important;
+    border-bottom: $govuk-focus-width solid $govuk-focus-text-colour !important;
+    color: $govuk-focus-text-colour !important;
+  }
+
+  &[role="gridcell"]:hover {
+    background-color: govuk-colour("light-grey");
+    border-color: govuk-colour("light-grey");
+    color: $govuk-focus-text-colour;
+  }
+
+  &[aria-selected="true"] {
+    background-color: govuk-colour("blue");
+    color: govuk-colour('white');
+    border-bottom: $govuk-focus-width solid govuk-colour("blue");
+    &:hover {
+      background-color: govuk-colour("blue");
+      border-color: govuk-colour("blue");
+      color: govuk-colour('white');
+    }
+  }
+
+}
+
+.datepicker .other-month {
+  color: govuk-colour("dark-grey");
 }
 
 .datepicker-day-isToday {
@@ -126,29 +165,12 @@
 
 .datepicker-today {
 	position: absolute;
-	top: 0;
+	top: 7px;
 	left: 0;
 	width: 100%;
 	font-size: 0.5em;
 	text-align: center;
   text-transform: uppercase;
-}
-
-.datepicker .other-month {
-  color: govuk-colour("dark-grey");
-}
-
-.datepicker td:focus {
-  outline: $govuk-focus-width solid $govuk-focus-colour;
-}
-
-.datepicker td[role="gridcell"]:hover {
-  background-color: govuk-colour("light-grey");
-}
-
-.datepicker td[aria-selected="true"] {
-  background-color: govuk-colour("blue");
-  color: govuk-colour('white');
 }
 
 .datepicker-toggle-button {
