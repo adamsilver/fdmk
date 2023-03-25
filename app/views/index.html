@@ -4,62 +4,20 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds-from-desktop">
       <h1 class="govuk-heading-l">
-        Date picker
+        Examples
       </h1>
 
-      {{ govukDateInput({
-        classes: 'app-appointment-date',
-        id: "appointmentDate",
-        fieldset: {
-          legend: {
-            text: "Appointment date",
-            classes: "govuk-fieldset__legend--s"
-          }
-        },
-        hint: {
-          text: "For example, 31 3 2024"
-        },
-        items: [
-          {
-            id: "appointmentDate[day]",
-            name: "appointmentDate[day]",
-            label: "Day",
-            classes: "govuk-input--width-2 app-date__day",
-            value: "1" if 1 == 2
-          },
-          {
-            id: "appointmentDate[month]",
-            name: "appointmentDate[month]",
-            label: "Month",
-            classes: "govuk-input--width-2 app-date__month",
-            value: "10" if 1 == 2
-          },
-          {
-            id: "appointmentDate[year]",
-            name: "appointmentDate[year]",
-            label: "Year",
-            classes: "govuk-input--width-4 app-date__year",
-            value: "2020" if 1 == 2
-          }
-        ]
-      }) }}
+      <ul class="govuk-list">
+        <li>
+          <a href="/date-input">Date input with calendar</a>
+        </li>
+        <li>
+          <a href="/button-disabler">Button disabler</a>
+        </li>
+        </li>
+      </ul>
 
-      {{ govukButton({
-        text: "Continue"
-      }) }}
+
     </div>
   </div>
 {% endblock %}
-
-{% block pageScripts %}
-  {{super()}}
-  <script>
-    new App.DateInput({
-      container: $('.govuk-date-input')[0],
-      daySelector: '.app-date__day',
-      monthSelector: '.app-date__month',
-      yearSelector: '.app-date__year'
-    });
-  </script>
-{% endblock %}
-

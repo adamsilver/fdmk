@@ -1,0 +1,27 @@
+{% extends "layouts/main.html" %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+      <h1 class="govuk-heading-l">
+       Button disabler
+      </h1>
+
+      <form>
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+      </form>
+    </div>
+  </div>
+{% endblock %}
+
+{% block pageScripts %}
+  {{super()}}
+  <script>
+    new App.ButtonDisabler({
+      container: $('.govuk-button')[0]
+    });
+  </script>
+{% endblock %}
+
