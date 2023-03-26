@@ -31,6 +31,14 @@
 
 .app-date-input--enhanced {
   position: relative;
+
+  .govuk-date-input__item {
+    margin-right: 10px;
+
+    @include govuk-media-query($from: tablet) {
+      margin-right: 20px;
+    }
+  }
 }
 
 
