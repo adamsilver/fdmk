@@ -45,15 +45,15 @@ App.DateInput.prototype.getSelectedDateElementId = function(d) {
 App.DateInput.prototype.getCalendarHtml = function(year, month) {
   var html = '<div id="' + this.getSelectedDateElementId() + '" class="datepicker-selected-date govuk-visually-hidden"></div>';
   html +=		'<div class="datepicker-actions">';
-  html +=			'<button type="button" aria-label="previous month"><svg focusable="false" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="0.7em" height="1.1em"><path d="M7.41 10.59L2.83 6l4.58-4.59L6 0 0 6l6 6z" fill="#000" fill-rule="nonzero"/></svg></button>';
-  html += 		'<div role="status" aria-live="polite" class="govuk-visually-hidden">';
-  html += 			this.monthNames[month] + " " + year;
-  html += 		'</div>';
+  html +=			'<button class="datepicker-previousMonthButton" type="button" aria-label="previous month"><svg focusable="false" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="0.7em" height="1.1em"><path d="M7.41 10.59L2.83 6l4.58-4.59L6 0 0 6l6 6z" fill="#000" fill-rule="nonzero"/></svg></button>';
   html += 		'<select>';
   html +=       this.getSelectOptionsHtml(year, month);
   html += 		'</select>';
-  html +=			'<button type="button" aria-label="next month"><svg focusable="false" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="0.7em" height="1.1em"><path d="M.59 10.59L5.17 6 .59 1.41 2 0l6 6-6 6z" fill="#000" fill-rule="nonzero"/></svg></button>';
+  html +=			'<button class="datepicker-nextMonthButton" type="button" aria-label="next month"><svg focusable="false" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="0.7em" height="1.1em"><path d="M.59 10.59L5.17 6 .59 1.41 2 0l6 6-6 6z" fill="#000" fill-rule="nonzero"/></svg></button>';
   html +=		'</div>';
+  html += 	'<div role="status" aria-live="polite" class="govuk-visually-hidden">';
+  html += 		this.monthNames[month] + " " + year;
+  html += 	'</div>';
   html += 	'<table role="grid">';
   html += 		'<thead>';
   html += 			'<tr>';
@@ -338,7 +338,7 @@ App.DateInput.prototype.onCalendarKeyDown = function(e) {
     case this.keys.esc:
       this.hide();
       this.toggleButton.focus();
-      break
+      break;
   }
 };
 
@@ -359,6 +359,9 @@ App.DateInput.prototype.onCellKeyDown = function(e) {
     case this.keys.space:
     case this.keys.enter:
       this.onDaySpacePressed(e);
+      break;
+    case this.keys.tab:
+      this.onDayTabPressed(e);
       break;
   }
 };
@@ -391,6 +394,16 @@ App.DateInput.prototype.onDaySpacePressed = function(e) {
   this.updateSelectedDateStatusBox();
   this.toggleButton.focus();
 };
+
+App.DateInput.prototype.onDayTabPressed = function(e) {
+  e.preventDefault();
+  if(e.shiftKey) {
+    this.container.find('.datepicker-nextMonthButton')[0].focus();
+  } else {
+    this.container.find('.datepicker-previousMonthButton')[0].focus();
+  }
+};
+
 
 App.DateInput.prototype.selectDate = function(date) {
   this.calendar.find('[aria-selected=true]').attr('aria-selected', 'false');
