@@ -1,0 +1,29 @@
+{% extends "layouts/main.html" %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+      <h1 class="govuk-heading-l">
+        Autofocus
+      </h1>
+
+      <form>
+        {{ govukInput({
+          id: "blah",
+          name: "blah",
+          label: {
+            text: "Email address"
+          },
+          attributes: {
+            autofocus: 'autofocus'
+          }
+        }) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+      </form>
+
+    </div>
+  </div>
+{% endblock %}
