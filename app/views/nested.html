@@ -1,0 +1,54 @@
+{% extends "layouts/main.html" %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+
+
+
+
+
+
+        	{% set inner %}
+						{{ govukInput({
+							id: "mobile",
+							name: "mobile",
+							label: {
+								text: "Mobile number",
+								classes: "govuk-label--s"
+							}
+						}) }}
+
+          {% endset %}
+
+          {{ govukRadios({
+            idPrefix: "outer",
+            name: "outer",
+            fieldset: {
+              legend: {
+                text: "Transfer method",
+                classes: "govuk-fieldset__legend--m"
+              }
+            },
+            items: [
+              {
+                value: "Mobile phone",
+                text: "Mobile phone",
+                conditional: {
+                  html: inner
+                }
+              },
+              {
+                value: "Email",
+                text: "Email"
+              }
+            ]
+          }) }}
+
+					{{ govukButton({
+						text: "Continue"
+					}) }}
+      </form>
+    </div>
+  </div>
+{% endblock %}
