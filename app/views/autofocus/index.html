@@ -1,0 +1,33 @@
+{% extends "layouts/main.html" %}
+
+{% block header %}
+
+<div class="header">
+  <div class="header-inner govuk-width-container">
+    <p class="govuk-!-margin-0">Simple Kit</p>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+      <h1 class="govuk-heading-l">
+        Checkout
+      </h1>
+
+      <p>Eiusmod tempor ad deserunt quis officia ad enim anim voluptate minim in. Aliqua consequat consequat ea eiusmod et culpa aliqua amet nostrud ipsum irure ipsum. Magna ut et esse sit aliquip irure minim ea ex consequat.</p>
+
+      <p>Exercitation excepteur ea est culpa sint nisi pariatur quis. Ex ipsum exercitation esse laborum fugiat enim. Lorem anim aliquip enim qui ad qui nisi ea voluptate.</p>
+
+      <p>Dolore magna Lorem laborum id nulla sunt officia officia officia.</p>
+
+      {{ govukButton({
+        text: "Continue",
+        href: '/autofocus/autofocus'
+      }) }}
+
+    </div>
+  </div>
+{% endblock %}

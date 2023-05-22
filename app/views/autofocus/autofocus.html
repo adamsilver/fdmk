@@ -1,0 +1,63 @@
+{% extends "layouts/main.html" %}
+
+{% block header %}
+
+<div class="header">
+  <div class="header-inner govuk-width-container">
+    <p class="govuk-!-margin-0">Simple Kit</p>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+      <h1 class="govuk-heading-l">
+        Checkout
+      </h1>
+
+      <p>Dolore magna Lorem laborum id nulla sunt officia officia officia.</p>
+
+      <p>Exercitation excepteur ea est culpa sint nisi pariatur quis. Ex ipsum exercitation esse laborum fugiat enim. Lorem anim aliquip enim qui ad qui nisi ea voluptate.</p>
+
+      <p>Anim sint consectetur consectetur proident ut. Commodo sint magna elit mollit voluptate est aliquip velit tempor ut cupidatat nisi in tempor commodo. Duis occaecat adipisicing ex labore tempor nulla aliqua exercitation aute veniam commodo est consectetur incididunt.</p>
+
+      <p>Eiusmod tempor ad deserunt quis officia ad enim anim voluptate minim in. Aliqua consequat consequat ea eiusmod et culpa aliqua amet nostrud ipsum irure ipsum. Magna ut et esse sit aliquip irure minim ea ex consequat. Non eu dolor commodo deserunt mollit dolore. Nulla cupidatat aliquip pariatur dolore. Eiusmod et culpa aliqua amet nostrud ipsum irure ipsum.</p>
+
+      <p>Proident culpa eu ea sunt ut deserunt dolor minim occaecat dolore consequat nostrud fugiat excepteur. Dolore reprehenderit nulla non deserunt irure velit adipisicing sint sint nulla magna irure amet nulla. Velit deserunt ut magna ipsum tempor aute aute adipisicing irure labore in nostrud labore commodo est.</p>
+
+      <p>Nostrud eiusmod cillum cupidatat sunt qui nisi proident commodo enim veniam do nostrud. Adipisicing officia ut ullamco sit cillum. Commodo aute tempor aliqua magna anim et. Id exercitation aute ex ad proident.</p>
+
+      <p>Exercitation excepteur ea est culpa sint nisi pariatur quis. Ex ipsum exercitation esse laborum fugiat enim. Lorem anim aliquip enim qui ad qui nisi ea voluptate.</p>
+
+      <p>Dolore magna Lorem laborum id nulla sunt officia officia officia.</p>
+
+      <form>
+        {{ govukInput({
+          id: "firstName",
+          name: "firstName",
+          label: {
+            text: "First name"
+          },
+          attributes: {
+            autofocus: 'autofocus'
+          }
+        }) }}
+
+        {{ govukInput({
+          id: "lastName",
+          name: "lastName",
+          label: {
+            text: "Last name"
+          }
+        }) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+      </form>
+
+    </div>
+  </div>
+{% endblock %}
