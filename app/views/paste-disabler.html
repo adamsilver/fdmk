@@ -1,0 +1,57 @@
+{% extends "layouts/main.html" %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+      <h1 class="govuk-heading-l">
+       Paste disabler demo
+      </h1>
+
+      <ul class="govuk-list govuk-list--bullet">
+        <li>
+          adam@example.com
+        </li>
+        <li>
+          password
+        </li>
+      </ul>
+
+      <form>
+
+        {{ govukInput({
+          id: "email",
+          name: "email",
+          label: {
+            text: "Email address"
+          },
+          type: "email",
+          autocomplete: "email",
+          spellcheck: false
+        }) }}
+
+        {{ govukInput({
+          id: "password",
+          name: "password",
+          label: {
+            text: "Password"
+          },
+          type: "password"
+        }) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+      </form>
+    </div>
+  </div>
+{% endblock %}
+
+{% block pageScripts %}
+  {{super()}}
+  <script>
+    new App.PasteDisabler({
+      input: $('#password')[0]
+    });
+  </script>
+{% endblock %}
+
