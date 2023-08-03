@@ -4,17 +4,8 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds-from-desktop">
       <h1 class="govuk-heading-l">
-       Paste disabler demo
+        Create account
       </h1>
-
-      <ul class="govuk-list govuk-list--bullet">
-        <li>
-          adam@example.com
-        </li>
-        <li>
-          password
-        </li>
-      </ul>
 
       <form>
 
@@ -29,13 +20,15 @@
           spellcheck: false
         }) }}
 
-        {{ govukInput({
-          id: "password",
-          name: "password",
+         {{ govukInput({
+          id: "email2",
+          name: "email2",
           label: {
-            text: "Password"
+            text: "Confirm email address"
           },
-          type: "password"
+          type: "email",
+          autocomplete: "email",
+          spellcheck: false
         }) }}
 
         {{ govukButton({
@@ -50,7 +43,7 @@
   {{super()}}
   <script>
     new App.PasteDisabler({
-      input: $('#password')[0]
+      input: $('#email2')[0]
     });
   </script>
 {% endblock %}
