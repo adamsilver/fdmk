@@ -1,0 +1,38 @@
+{% extends "layouts/main.html" %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+      <form>
+
+        {{ govukInput({
+        id: "username",
+        name: "username",
+        type: 'email',
+        label: {
+          text: "Email"
+        }
+      }) }}
+
+      {{ govukInput({
+        id: "password",
+        name: "password",
+        type: 'password',
+        label: {
+          text: "Password"
+        },
+        hint: {
+          text: "Must be at least eight characters and include at least
+one number and one symbol"
+        }
+      }) }}
+
+      {{ govukButton({
+        text: "Button text"
+      }) }}
+
+      </form>
+
+    </div>
+  </div>
+{% endblock %}
