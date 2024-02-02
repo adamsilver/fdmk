@@ -1,0 +1,67 @@
+{% extends "layouts/main.html" %}
+
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+      <h1 class="govuk-heading-l">
+        Card details
+      </h1>
+
+			{{ govukInput({
+				id: "blah1",
+				name: "blah1",
+				label: {
+					text: "Name"
+				},
+				hint: {
+					text: "As it appears on card"
+				}
+			}) }}
+
+			{{ govukInput({
+				id: "number",
+				name: "number",
+				label: {
+					text: "Card number"
+				}
+			}) }}
+
+			{{ govukDateInput({
+				id: "expiry",
+				fieldset: {
+					legend: {
+						text: "Expiry date"
+					}
+				},
+				items: [
+					{
+						name: "expiry",
+						label: "Month",
+						value: data.month,
+						classes: "govuk-input--width-2"
+					},
+					{
+						name: "expiry",
+						label: "Year",
+						value: data.year,
+						classes: "govuk-input--width-4"
+					}
+				]
+			}) }}
+
+			{{ govukInput({
+				id: "security",
+				name: "security",
+				label: {
+					text: "Card security code"
+				},
+				classes: "govuk-input--width-5"
+			}) }}
+
+			{{ govukButton({
+				text: "Continue"
+			}) }}
+    </div>
+  </div>
+{% endblock %}

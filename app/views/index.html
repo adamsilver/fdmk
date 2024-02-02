@@ -19,7 +19,66 @@
         <li><a href="/hint-text">Hint text</a></li>
       </ul>
 
+      {% set toggleSearchHtml %}
+        <div class="hmcts-search-toggle">
+          <div class="hmcts-search-toggle__toggle"></div>
+          <div class="hmcts-search-toggle__search">
+            {{ appSearch({
+              classes: 'hmcts-search--ondark hmcts-search--toggle app-hidden',
+              input: {
+                id: 'search2',
+                name: 'search2'
+              },
+              label: {
+                classes: 'govuk-visually-hidden',
+                text: 'Search'
+              },
+              hint: {
+                text: 'Enter case number, for example 123456'
+              },
+              button: {
+                text: 'Search'
+              }
+            }) }}
+          </div>
+        </div>
+      {% endset %}
+
+
+
 
     </div>
   </div>
+
+  {{ appPrimaryNavigation({
+        label: 'Primary navigation',
+        items: [{
+          text: 'Nav item 1',
+          href: '#1',
+          active: true
+        }, {
+          text: 'Nav item 2',
+          href: '#2'
+        }, {
+          text: 'Nav item 3',
+          href: '#3'
+        }],
+        searchHtml: toggleSearchHtml
+      }) }}
+{% endblock %}
+
+{% block pageScripts %}
+  {{super()}}
+  <script>
+    new App.SearchToggleButton({
+      toggleButton: {
+        container: $('.hmcts-search-toggle__toggle'),
+        text: 'Search for case'
+      },
+      search: {
+        container: $('.hmcts-search').last()
+      }
+
+    })
+  </script>
 {% endblock %}

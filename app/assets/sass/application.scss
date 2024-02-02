@@ -3,8 +3,14 @@
 // https://prototype-kit.service.gov.uk/docs/adding-css-javascript-and-images
 //
 
+$hmcts-images-path: "/public/images/";
+
 // Add extra styles here
 @import 'components/date-input';
+@import 'components/primary-navigation';
+@import 'components/search-inline';
+@import 'components/search-toggle';
+
 
 .js-enabled .app-js-hidden,
 .app-hidden {
