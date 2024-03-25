@@ -1,0 +1,59 @@
+{% extends "layouts/main.html" %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+      <h1 class="govuk-heading-l">
+        Autocomplete
+      </h1>
+
+      <form>
+
+        {{ govukSelect({
+          id: "hero",
+          name: "hero",
+          label: {
+            text: "Superhero",
+            classes: "govuk-label--s"
+          },
+          items: [
+            { "value": "", "text": "Please select" },
+            { "value": "Iron Man", "text": "Iron Man", "attributes": { "data-alt": "Tony Stark" } },
+            { "value": "Captain America", "text": "Captain America", "attributes": { "data-alt": "Steve Rogers" } },
+            { "value": "The Hulk", "text": "The Hulk", "attributes": { "data-alt": "Bruce Banner" } },
+            { "value": "Thor", "text": "Thor", "attributes": { "data-alt": "Thor Odinson" } },
+            { "value": "Spider-Man", "text": "Spider-Man", "attributes": { "data-alt": "Peter Parker" } },
+            { "value": "Black Widow", "text": "Black Widow", "attributes": { "data-alt": "Natasha Romanoff" } },
+            { "value": "Hawkeye", "text": "Hawkeye", "attributes": { "data-alt": "Clint Barton" } },
+            { "value": "Black Panther", "text": "Black Panther", "attributes": { "data-alt": "T'Challa" } },
+            { "value": "Captain Marvel", "text": "Captain Marvel", "attributes": { "data-alt": "Carol Danvers" } },
+            { "value": "Doctor Strange", "text": "Doctor Strange", "attributes": { "data-alt": "Stephen Strange" } },
+            { "value": "Scarlet Witch", "text": "Scarlet Witch", "attributes": { "data-alt": "Wanda Maximoff" } },
+            { "value": "Daredevil", "text": "Daredevil", "attributes": { "data-alt": "Matt Murdock" } },
+            { "value": "Jessica Jones", "text": "Jessica Jones", "attributes": { "data-alt": "Jessica Jones" } },
+            { "value": "Luke Cage", "text": "Luke Cage", "attributes": { "data-alt": "Luke Cage" } },
+            { "value": "Iron Fist", "text": "Iron Fist", "attributes": { "data-alt": "Danny Rand" } },
+            { "value": "Ant-Man", "text": "Ant-Man", "attributes": { "data-alt": "Scott Lang" } },
+            { "value": "Wasp", "text": "Wasp", "attributes": { "data-alt": "Hope Van Dyne" } },
+            { "value": "Falcon", "text": "Falcon", "attributes": { "data-alt": "Sam Wilson" } },
+            { "value": "Wolverine", "text": "Wolverine", "attributes": { "data-alt": "James Howlett" } },
+            { "value": "Storm", "text": "Storm", "attributes": { "data-alt": "Ororo Munroe" } }
+        ]}) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+      </form>
+    </div>
+  </div>
+{% endblock %}
+
+{% block pageScripts %}
+  {{super()}}
+  <script>
+    new App.Autocomplete({
+      select: $('#hero')[0]
+    });
+  </script>
+{% endblock %}
+

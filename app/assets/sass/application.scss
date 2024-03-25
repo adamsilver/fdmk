@@ -6,6 +6,7 @@
 $hmcts-images-path: "/public/images/";
 
 // Add extra styles here
+@import 'components/autocomplete';
 @import 'components/date-input';
 @import 'components/primary-navigation';
 @import 'components/search-inline';
