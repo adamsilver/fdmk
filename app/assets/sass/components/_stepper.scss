@@ -1,0 +1,44 @@
+.stepper {
+	display: flex;
+}
+
+.stepper-removeButton,
+.stepper-addButton {
+  border: 2px solid govuk-colour("black");
+  box-shadow: none;
+	vertical-align: bottom;
+	color: govuk-colour("black");
+  margin-bottom: 0;
+  font-weight: bold;
+}
+
+.stepper-removeButton {
+	// border-radius: govuk-spacing(2) 0 0 govuk-spacing(2);
+	padding-right: govuk-spacing(3) - 2;
+	padding-left: govuk-spacing(3);
+  // margin-right: 5px;
+  border-right: 0;
+}
+
+.stepper-addButton {
+	// border-radius: 0 govuk-spacing(2) govuk-spacing(2) 0;
+	padding-left: govuk-spacing(3) - 2;
+	padding-right: govuk-spacing(3);
+  // margin-left: 5px;
+  border-left: 0;
+}
+
+.stepper input[type=number]{
+	display: inline-block;
+	width: 4em;
+	text-align: center;
+	z-index: 2;
+	position: relative;
+	-moz-appearance: textfield;
+}
+
+.stepper input[type=number]::-webkit-inner-spin-button,
+.stepper input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

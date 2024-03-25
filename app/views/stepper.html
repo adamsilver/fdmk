@@ -1,0 +1,44 @@
+{% extends "layouts/main.html" %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+      <h1 class="govuk-heading-l">
+        Stepper
+      </h1>
+
+      <form>
+
+        {{ govukInput({
+          id: "passengers",
+          name: "passengers",
+          label: {
+            text: "Passengers",
+            classes: "govuk-label--s"
+          },
+          type: "number",
+          attributes: {
+            "min": "0",
+            "max": "9"
+          },
+          value: "0"
+        }) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+      </form>
+    </div>
+  </div>
+{% endblock %}
+
+{% block pageScripts %}
+  {{super()}}
+  <script>
+    new App.Stepper({
+      input: document.getElementById('passengers'),
+			labelId: 'adults-label'
+		});
+  </script>
+{% endblock %}
+
