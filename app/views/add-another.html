@@ -1,0 +1,121 @@
+{% extends "layouts/main.html" %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+      <div class="app-add-another">
+          <h1 class="govuk-heading-l app-add-another__heading" tabindex="-1">Juggling tricks</h1>
+          <form method="post">
+
+            {% if application.experience.tricks.length %}
+              {% for trick in application.experience.tricks %}
+                 {% call govukFieldset({
+                  classes: 'app-add-another__item',
+                  legend: {
+                    text: 'Trick ' + loop.index,
+                    classes: 'app-add-another__title govuk-fieldset__legend--m',
+                    isPageHeading: false
+                  },
+                  attributes: {
+                    'data-label': 'Trick %index%'
+                  }
+                }) %}
+
+                {{ govukInput({
+                  id: 'experience[tricks]['+loop.index0+'][name]',
+                  name: 'experience[tricks]['+loop.index0+'][name]',
+                  label: {
+                    html: 'Name',
+                    classes: 'govuk-!-font-weight-bold'
+                  },
+                  attributes: {
+                    'data-name': 'experience[tricks][%index%][name]',
+                    'data-id': 'experience[tricks][%index%][name]'
+                  },
+                  value: application.experience.tricks[loop.index0].name
+                }) }}
+
+                {{ govukTextarea({
+                  id: 'experience[tricks]['+loop.index0+'][description]',
+                  name: 'experience[tricks]['+loop.index0+'][description]',
+                  label: {
+                    html: 'Description',
+                    classes: 'govuk-!-font-weight-bold'
+                  },
+                  attributes: {
+                    'data-name': 'experience[tricks][%index%][description]',
+                    'data-id': 'experience[tricks][%index%][description]'
+                  },
+                  value: application.experience.tricks[loop.index0].description
+                }) }}
+
+                <button type="button" class="govuk-button govuk-button--secondary app-add-another__remove-button">Remove</button>
+
+                {% endcall %}
+              {% endfor %}
+            {% else %}
+              {% call govukFieldset({
+                classes: 'app-add-another__item',
+                legend: {
+                  text: 'Trick 1',
+                  classes: 'app-add-another__title govuk-fieldset__legend--m',
+                  isPageHeading: false
+                },
+                attributes: {
+                  'data-label': 'Trick %index%'
+                }
+              }) %}
+
+              {{ govukInput({
+                id: 'experience[tricks][0][name]',
+                name: 'experience[tricks][0][name]',
+                label: {
+                  html: 'Name',
+                  classes: 'govuk-!-font-weight-bold'
+                },
+                attributes: {
+                  'data-name': 'experience[tricks][%index%][name]',
+                  'data-id': 'experience[tricks][%index%][name]'
+                }
+              }) }}
+
+              {{ govukTextarea({
+                id: 'experience[tricks][0][description]',
+                name: 'experience[tricks][0][description]',
+                label: {
+                  html: 'Description',
+                  classes: 'govuk-!-font-weight-bold'
+                },
+                attributes: {
+                  'data-name': 'experience[tricks][%index%][description]',
+                  'data-id': 'experience[tricks][%index%][description]'
+                }
+              }) }}
+
+              {% endcall %}
+            {% endif %}
+            <div class="app-button-action">
+              {{ govukButton({
+                text: 'Add another trick',
+                classes: 'govuk-button--secondary app-add-another__add-button govuk-!-margin-bottom-6'
+              }) }}
+            </div>
+            {{ govukButton({
+              text: "Save and continue"
+            }) }}
+
+          </form>
+        </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block pageScripts %}
+  {{super()}}
+  <script>
+    new App.AddAnother({
+      container: $('.app-add-another')
+    });
+  </script>
+{% endblock %}
+
