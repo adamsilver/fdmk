@@ -1,0 +1,63 @@
+{% extends "layouts/main.html" %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+      {% if errorSummary.items.length %}
+        {{ govukErrorSummary({
+          titleText: 'There is a problem',
+          errorList: errorSummary.items
+        }) }}
+      {% endif %}
+
+      <h1 class="govuk-heading-xl">Upload files</h1>
+
+      <form method="post" enctype="multipart/form-data">
+        {% set uploadHtml %}
+          {{ govukFileUpload({
+            id: "documents",
+            name: "documents",
+            classes: 'app-multi-file-upload__input',
+            label: {
+              text: "Upload a file",
+              classes: 'govuk-label--m'
+            },
+            attributes: { multiple: '' },
+            errorMessage: errorMessage
+          }) }}
+
+          {{govukButton({
+            text: 'Upload file',
+            classes: 'govuk-button--secondary app-multi-file-upload__button'
+          })}}
+        {% endset %}
+
+        {{ appMultiFileUpload({
+          uploadedFiles: {
+            heading: { text: 'Files added' },
+            items: uploadedFiles
+          } if uploadedFiles,
+          uploadHtml: uploadHtml
+        }) }}
+
+        {{govukButton({
+          text: 'Continue'
+        })}}
+      </form>
+    </div>
+  </div>
+{% endblock %}
+
+{% block pageScripts %}
+  {{super()}}
+  <script>
+    if(typeof App.MultiFileUpload !== 'undefined') {
+     new App.MultiFileUpload({
+       container: $('.app-multi-file-upload'),
+       uploadUrl: '/ajax-upload',
+       deleteUrl: '/ajax-delete'
+      });
+    }
+  </script>
+{% endblock %}
+

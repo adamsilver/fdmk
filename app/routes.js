@@ -19,3 +19,5 @@ router.post('/email-preferences', (req, res) => {
   req.flash('success', 'Email settings saved')
   res.redirect(`/email-preferences`)
 })
+
+require('./routes/multi-upload-file')(router)
