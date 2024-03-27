@@ -30,11 +30,11 @@ App.Stepper.prototype.createRemoveButton = function() {
 	if(this.options.labelId) {
 		this.removeButton.attr('aria-describedby', this.options.labelId);
 	}
-	this.wrapper.prepend(this.removeButton);
+	this.wrapper.append(this.removeButton);
 };
 
 App.Stepper.prototype.createAddButton = function() {
-	this.addButton = $('<button class="govuk-button govuk-button--secondary stepper-addButton" type="button" aria-label="'+this.options.addLabel+'">&#43;</button>');
+	this.addButton = $('<button class="govuk-button govuk-button--secondary stepper-addButton" type="button" aria-label="'+this.options.addLabel+'">&plus;</button>');
 	if(this.options.labelId) {
 		this.addButton.attr('aria-describedby', this.options.labelId);
 	}
