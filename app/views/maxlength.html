@@ -1,0 +1,29 @@
+{% extends "layouts/main.html" %}
+
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+      <h1 class="govuk-heading-l">
+        Maxlength demo
+      </h1>
+
+			{{ govukInput({
+				id: "maxlength",
+				name: "maxlength",
+				classes: "govuk-input--width-5",
+				label: {
+					text: "Sort code",
+					classes: "govuk-label--m"
+				},
+				attributes: {
+					maxlength: 6
+				}
+			}) }}
+
+			{{ govukButton({
+				text: "Continue"
+			}) }}
+    </div>
+  </div>
+{% endblock %}
