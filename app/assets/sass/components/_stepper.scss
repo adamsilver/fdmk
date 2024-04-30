@@ -11,6 +11,13 @@
 	// vertical-align: bottom;
 	// color: govuk-colour("black");
   // font-weight: bold;
+
+	span {
+		// background: red;
+		position: relative;
+		top: -1px;
+		font-weight: bold;
+	}
 }
 
 .stepper-removeButton {

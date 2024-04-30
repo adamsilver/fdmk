@@ -1,11 +1,28 @@
 {% extends "layouts/main.html" %}
 
 {% block header %}
-	<div class="header">
+	{# <div class="header">
 		<div class="header-inner govuk-width-container">
 			<p class="govuk-!-margin-0">Simple Kit | <a href="#heading1">Jump to first heading</a> | <a href="#heading2">Jump to second heading</a></p>
 		</div>
-	</div>
+	</div> #}
+
+	{{ govukHeader({
+		productName: "Simple Kit",
+		classes: 'app-header',
+		navigationClasses: "govuk-header__navigation--end",
+		navigation: [
+    {
+      href: "#heading1",
+      text: "Heading 1"
+    },
+    {
+      href: "#heading2",
+      text: "Heading 2"
+    }
+  ]
+	}) }}
+
 {% endblock %}
 
 {% block content %}

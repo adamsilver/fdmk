@@ -26,7 +26,7 @@ App.Stepper.prototype.setOptions = function(options) {
 };
 
 App.Stepper.prototype.createRemoveButton = function() {
-	this.removeButton = $('<button class="govuk-button govuk-button--secondary stepper-removeButton" type="button" aria-label="'+this.options.removeLabel+'">&minus;</button>');
+	this.removeButton = $('<button class="govuk-button govuk-button--secondary stepper-removeButton" type="button" aria-label="'+this.options.removeLabel+'"><span>&minus;</span></button>');
 	if(this.options.labelId) {
 		this.removeButton.attr('aria-describedby', this.options.labelId);
 	}
@@ -34,7 +34,7 @@ App.Stepper.prototype.createRemoveButton = function() {
 };
 
 App.Stepper.prototype.createAddButton = function() {
-	this.addButton = $('<button class="govuk-button govuk-button--secondary stepper-addButton" type="button" aria-label="'+this.options.addLabel+'">&plus;</button>');
+	this.addButton = $('<button class="govuk-button govuk-button--secondary stepper-addButton" type="button" aria-label="'+this.options.addLabel+'"><span>&plus;</span></button>');
 	if(this.options.labelId) {
 		this.addButton.attr('aria-describedby', this.options.labelId);
 	}

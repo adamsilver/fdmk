@@ -20,9 +20,16 @@ $hmcts-images-path: "/public/images/";
   display: none;
 }
 
-.header {
-  background-color: govuk-colour('mid-grey');
-  padding: 40px 25px;
+.app-header {
   position: sticky;
   top: 0;
+
+  .govuk-header__logotype {
+    display: none;
+  }
+
+  .govuk-header__container {
+    border-bottom: 0;
+    margin-bottom: 0;
+  }
 }
