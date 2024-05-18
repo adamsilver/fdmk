@@ -1,0 +1,198 @@
+{% extends "layouts/main.html" %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+      <form>
+
+        {{ appCheckboxFilter({
+          idPrefix: "subject",
+          name: "subject",
+          classes: "govuk-checkboxes--small subject-filter",
+          legend: {
+            text: "Subject",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+          },
+          values: data.subject,
+          selectedItems: selectedItems,
+          items: [
+            {
+              value: "Accounting",
+              text: "Accounting"
+            },
+            {
+              value: "Art and design",
+              text: "Art and design"
+            },
+            {
+              value: "Biology",
+              text: "Biology"
+            },
+            {
+              value: "Business studies",
+              text: "Business studies"
+            },
+            {
+              value: "Chemistry",
+              text: "Chemistry"
+            },
+            {
+              value: "Citizenship",
+              text: "Citizenship"
+            },
+            {
+              value: "Classics",
+              text: "Classics"
+            },
+            {
+              value: "Computing",
+              text: "Computing"
+            },
+            {
+              value: "Dance",
+              text: "Dance"
+            },
+            {
+              value: "Design and technology",
+              text: "Design and technology"
+            },
+            {
+              value: "Drama",
+              text: "Drama"
+            },
+            {
+              value: "Economics",
+              text: "Economics"
+            },
+            {
+              value: "Engineering",
+              text: "Engineering"
+            },
+            {
+              value: "English",
+              text: "English"
+            },
+            {
+              value: "Food Technology",
+              text: "Food Technology"
+            },
+            {
+              value: "French",
+              text: "French"
+            },
+            {
+              value: "Geography",
+              text: "Geography"
+            },
+            {
+              value: "German",
+              text: "German"
+            },
+            {
+              value: "Health and social care",
+              text: "Health and social care"
+            },
+            {
+              value: "History",
+              text: "History"
+            },
+            {
+              value: "Humanities",
+              text: "Humanities"
+            },
+            {
+              value: "ICT",
+              text: "ICT"
+            },
+            {
+              value: "Law",
+              text: "Law"
+            },
+            {
+              value: "Mandarin",
+              text: "Mandarin"
+            },
+            {
+              value: "Mathematics",
+              text: "Mathematics"
+            },
+            {
+              value: "Media studies",
+              text: "Media studies"
+            },
+            {
+              value: "Music",
+              text: "Music"
+            },
+            {
+              value: "Philosophy",
+              text: "Philosophy"
+            },
+            {
+              value: "Physical education",
+              text: "Physical education"
+            },
+            {
+              value: "Physics",
+              text: "Physics"
+            },
+            {
+              value: "Politics",
+              text: "Politics"
+            },
+            {
+              value: "Psychology",
+              text: "Psychology"
+            },
+            {
+              value: "Religious education",
+              text: "Religious education"
+            },
+            {
+              value: "Relationships and sex education",
+              text: "Relationships and sex education"
+            },
+            {
+              value: "Science",
+              text: "Science"
+            },
+            {
+              value: "Social sciences",
+              text: "Social sciences"
+            },
+            {
+              value: "Sociology",
+              text: "Sociology"
+            },
+            {
+              value: "Spanish",
+              text: "Spanish"
+            },
+            {
+              value: "Statistics",
+              text: "Statistics"
+            }
+          ]
+        }) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+      </form>
+    </div>
+  </div>
+{% endblock %}
+
+{% block pageScripts %}
+  {{super()}}
+  <script>
+    new App.CheckboxFilter({
+      container: $('.subject-filter'),
+      textBox: {
+        label: 'Search for subject'
+      }
+    })
+  </script>
+{% endblock %}
+

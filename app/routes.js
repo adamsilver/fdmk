@@ -20,4 +20,23 @@ router.post('/email-preferences', (req, res) => {
   res.redirect(`/email-preferences`)
 })
 
+// Add your routes here
+router.get('/list-filter', (req, res) => {
+  let selectedItems = []
+
+  if(req.session.data.subject && req.session.data.subject.length > 0) {
+    selectedItems = req.session.data.subject.map(item => {
+      console.log(item)
+      return {
+        href: '/whatever',
+        text: item
+      }
+    })
+  }
+
+  res.render('list-filter', {
+    selectedItems
+  })
+})
+
 require('./routes/multi-upload-file')(router)

@@ -8,6 +8,7 @@ https://prototype-kit.service.gov.uk/docs/how-to-use-layouts
 {% from "_components/primary-navigation/macro.njk" import appPrimaryNavigation %}
 {% from "_components/search/macro.njk" import appSearch %}
 {% from "_components/multi-file-upload/macro.njk" import appMultiFileUpload %}
+{% from "_components/checkbox-filter/macro.njk" import appCheckboxFilter %}
 
 {% block pageScripts %}
   {{ super() }}
@@ -22,4 +23,5 @@ https://prototype-kit.service.gov.uk/docs/how-to-use-layouts
   <script src="/public/javascripts/components/search-toggle-button.js"></script>
   <script src="/public/javascripts/components/stepper.js"></script>
   <script src="/public/javascripts/components/multi-file-upload.js"></script>
+  <script src="/public/javascripts/components/checkbox-filter.js"></script>
 {% endblock %}
