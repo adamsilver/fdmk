@@ -31,17 +31,20 @@
 
 .app-list-filter__container {
   position: relative;
+  // margin-left: - govuk-spacing(2);
+  // background-color: govuk-colour("white");
+}
+
+.app-list-filter__container--max {
   max-height: 300px;
   overflow-x: hidden;
   overflow-y: auto;
-  // margin-left: - govuk-spacing(2);
-  // background-color: govuk-colour("white");
   border-bottom: 1px solid $govuk-border-colour;
 }
 
-.app-list-filter__container-inner {
+.app-list-filter__container--max .app-list-filter__container-inner {
   @include govuk-clearfix;
-  padding: govuk-spacing(1) govuk-spacing(2);
+  padding: govuk-spacing(1) govuk-spacing(0);
 }
 
 .app-list-filter__filter {

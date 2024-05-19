@@ -8,7 +8,9 @@ App.ListFilter = function(params) {
   this.legend = this.container.find('legend')
   this.setupStatusBox()
   this.setupTextBox()
-  this.setupHeight()
+  if(this.container.find('.app-list-filter__container--max')[0]) {
+    this.setupHeight()
+  }
 }
 
 App.ListFilter.prototype.setupHeading = function() {
