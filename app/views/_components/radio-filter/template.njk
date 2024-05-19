@@ -69,7 +69,7 @@
             {% set itemDescribedBy = (itemDescribedBy + " " + itemHintId) | trim %}
 
             <div class="govuk-radios__item app-list-filter__item">
-              <input class="govuk-radios__input" id="{{ id }}" name="{{ name }}" type="checkbox" value="{{ item.value }}"
+              <input class="govuk-radios__input" id="{{ id }}" name="{{ name }}" type="radio" value="{{ item.value }}"
               {{-" checked" if isChecked }}
               {{-" disabled" if item.disabled }}
               {%- if item.conditional.html %} data-aria-controls="{{ conditionalId }}"{% endif -%}

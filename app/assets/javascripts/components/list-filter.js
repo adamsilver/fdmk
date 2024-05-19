@@ -25,16 +25,16 @@ App.ListFilter.prototype.setupTextBox = function() {
 App.ListFilter.prototype.getTextBoxHtml = function() {
   var id = this.container[0].id
   var html = ''
-  html += '<label for="' + id + '-checkbox-filter__filter-input" class="govuk-label govuk-visually-hidden">' + this.params.textBox.label + '</label>'
-  html += '<input id="' + id + '-checkbox-filter__filter-input" class="app-list-filter__filter-input govuk-input" type="text" aria-describedby="' + id + '-checkboxes-status" aria-controls="' + id + '-checkboxes" autocomplete="off" spellcheck="false">'
+  html += '<label for="' + id + '-list-filter__filter-input" class="govuk-label govuk-visually-hidden">' + this.params.textBox.label + '</label>'
+  html += '<input id="' + id + '-list-filter__filter-input" class="app-list-filter__filter-input govuk-input" type="text" aria-describedby="' + id + '-list-filter-status" aria-controls="' + id + '-items" autocomplete="off" spellcheck="false">'
   return html
 }
 
 App.ListFilter.prototype.setupStatusBox = function() {
-  this.statusBox = $('<div class="govuk-visually-hidden" role="status" id="' + this.container[0].id + '-checkboxes-status"></div>')
+  this.statusBox = $('<div class="govuk-visually-hidden" role="status" id="' + this.container[0].id + '-list-filter-status"></div>')
   this.updateStatusBox({
     foundCount: this.getAllVisibleItems().length,
-    checkedCount: this.getAllVisibleCheckedCheckboxes().length
+    checkedCount: this.getAllVisibleCheckedItems().length
   })
   this.container.append(this.statusBox)
 }
@@ -66,7 +66,7 @@ App.ListFilter.prototype.filterList= function() {
   var textValue = this.cleanString(this.textBox.val())
 
   var allItems = this.getAllItems()
-  // hide all checkboxes
+  // hide all items
   allItems.hide()
 
   for(var i = 0; i < allItems.length; i++ ) {
@@ -78,7 +78,7 @@ App.ListFilter.prototype.filterList= function() {
 
   this.updateStatusBox({
     foundCount: this.getAllVisibleItems().length,
-    checkedCount: this.getAllVisibleCheckedCheckboxes().length
+    checkedCount: this.getAllVisibleCheckedItems().length
   })
 }
 
@@ -88,13 +88,13 @@ App.ListFilter.prototype.getAllItems = function() {
 
 App.ListFilter.prototype.getAllVisibleItems = function() {
   return this.getAllItems().filter(function(i, el) {
-    return $(el).css('display') == 'block'
+    return $(el).css('display') != 'none'
   })
 }
 
-App.ListFilter.prototype.getAllVisibleCheckedCheckboxes = function() {
+App.ListFilter.prototype.getAllVisibleCheckedItems = function() {
   return this.getAllVisibleItems().filter(function(i, el) {
-    return $(el).find('.govuk-checkboxes__input')[0].checked
+    return $(el).find("input[type='radio'], input[type='checkbox']")[0].checked
   })
 }
 
@@ -104,19 +104,19 @@ App.ListFilter.prototype.setContainerHeight = function(height) {
   })
 }
 
-App.ListFilter.prototype.isCheckboxInView = function(index, option) {
-  var $checkbox = $(option)
+App.ListFilter.prototype.isItemInView = function(index, option) {
+  var $item = $(option)
   var initialOptionContainerHeight = this.itemsContainer.height()
   var optionListOffsetTop = this.itemsInnerContainer.offset().top
-  var distanceFromTopOfContainer = $checkbox.offset().top - optionListOffsetTop
+  var distanceFromTopOfContainer = $item.offset().top - optionListOffsetTop
   return distanceFromTopOfContainer < initialOptionContainerHeight
 }
 
-App.ListFilter.prototype.getVisibleCheckboxes = function() {
-  var visibleCheckboxes = this.items.filter(this.isCheckboxInView.bind(this))
-  // add an extra checkbox, if the label of the first is too long it collapses onto itself
-  visibleCheckboxes = visibleCheckboxes.add(this.items[visibleCheckboxes.length])
-  return visibleCheckboxes
+App.ListFilter.prototype.getVisibleItems = function() {
+  var visibleItems = this.items.filter(this.isItemInView.bind(this))
+  // add an extra checkbox/radio, if the label of the first is too long it collapses onto itself
+  visibleItems = visibleItems.add(this.items[visibleItems.length])
+  return visibleItems
 }
 
 App.ListFilter.prototype.setupHeight = function() {
@@ -137,7 +137,7 @@ App.ListFilter.prototype.setupHeight = function() {
   }
 
   // Resize to cut last item cleanly in half
-  var lastVisibleCheckbox = this.getVisibleCheckboxes().last()
-  var position = lastVisibleCheckbox.parent()[0].offsetTop // parent element is relative
-  this.setContainerHeight(position + (lastVisibleCheckbox.height() / 1.5))
+  var lastVisibleItem = this.getVisibleItems().last()
+  var position = lastVisibleItem.parent()[0].offsetTop // parent element is relative
+  this.setContainerHeight(position + (lastVisibleItem.height() / 1.5))
 }
