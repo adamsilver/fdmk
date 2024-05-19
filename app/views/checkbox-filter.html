@@ -8,7 +8,10 @@
         {{ appCheckboxFilter({
           idPrefix: "subject",
           name: "subject",
-          classes: "govuk-checkboxes--smal subject-filter",
+          classes: "subject-filter",
+          attributes: {
+            id: 'subject-filter'
+          },
           legend: {
             text: "Subject",
             isPageHeading: true,
@@ -176,6 +179,9 @@
           ]
         }) }}
 
+        {{ govukButton({
+          text: "Continue"
+        }) }}
       </form>
     </div>
   </div>
@@ -184,7 +190,7 @@
 {% block pageScripts %}
   {{super()}}
   <script>
-    new App.CheckboxFilter({
+    new App.ListFilter({
       container: $('.subject-filter'),
       textBox: {
         label: 'Search for subject'
