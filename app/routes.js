@@ -26,7 +26,6 @@ router.get('/list-filter', (req, res) => {
 
   if(req.session.data.subject && req.session.data.subject.length > 0) {
     selectedItems = req.session.data.subject.map(item => {
-      console.log(item)
       return {
         href: '/whatever',
         text: item
