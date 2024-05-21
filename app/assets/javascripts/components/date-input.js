@@ -284,7 +284,7 @@ App.DateInput.prototype.addEventListeners = function() {
 };
 
 App.DateInput.prototype.setupToggleButton = function() {
-  this.toggleButton = $('<button type="button" aria-haspopup="true" aria-describedby="'+this.getSelectedDateElementId()+'" class="govuk-button--secondary datepicker-toggle-button"><svg width="16" height="18" xmlns="http://www.w3.org/2000/svg" focusable="false"><path d="M12.167 10H8v4.167h4.167V10zM11.333.833V2.5H4.667V.833H3V2.5h-.833A1.66 1.66 0 00.508 4.167L.5 15.833c0 .917.742 1.667 1.667 1.667h11.666c.917 0 1.667-.75 1.667-1.667V4.167c0-.917-.75-1.667-1.667-1.667H13V.833h-1.667zm2.5 15H2.167V6.667h11.666v9.166z" fill="#505a5f" fill-rule="nonzero"/></svg><span>Show calendar</span></button>');
+  this.toggleButton = $('<button type="button" aria-haspopup="true" aria-describedby="'+this.getSelectedDateElementId()+'" class="govuk-button--secondary datepicker-toggle-button"><svg width="16" height="18" xmlns="http://www.w3.org/2000/svg" focusable="false"><path d="M12.167 10H8v4.167h4.167V10zM11.333.833V2.5H4.667V.833H3V2.5h-.833A1.66 1.66 0 00.508 4.167L.5 15.833c0 .917.742 1.667 1.667 1.667h11.666c.917 0 1.667-.75 1.667-1.667V4.167c0-.917-.75-1.667-1.667-1.667H13V.833h-1.667zm2.5 15H2.167V6.667h11.666v9.166z" fill="#0b0c0c" fill-rule="nonzero"/></svg><span>Show calendar</span></button>');
   this.container.append(this.toggleButton);
   this.toggleButton.on('click', $.proxy(this, 'onToggleButtonClick'));
 };

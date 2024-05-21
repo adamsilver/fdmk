@@ -3,13 +3,13 @@
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds-from-desktop">
-      <h1 class="govuk-heading-l">
+      {# <h1 class="govuk-heading-l">
         Stepper
       </h1>
 
       <p>Allow users to make small, incremental adjustments to a whole number.</p>
 
-      <h2 class="govuk-heading-m">Demo</h2>
+      <h2 class="govuk-heading-m">Demo</h2> #}
 
       <form>
 
@@ -18,7 +18,8 @@
           name: "passengers",
           label: {
             text: "Passengers",
-            classes: "govuk-label--s"
+            classes: "govuk-label--l",
+            isPageHeading: true
           },
           type: "number",
           attributes: {
