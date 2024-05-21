@@ -21,7 +21,7 @@ router.post('/email-preferences', (req, res) => {
 })
 
 // Add your routes here
-router.get('/list-filter', (req, res) => {
+router.get('/checkbox-filter', (req, res) => {
   let selectedItems = []
 
   if(req.session.data.subject && req.session.data.subject.length > 0) {
@@ -33,7 +33,7 @@ router.get('/list-filter', (req, res) => {
     })
   }
 
-  res.render('list-filter', {
+  res.render('checkbox-filter', {
     selectedItems
   })
 })
