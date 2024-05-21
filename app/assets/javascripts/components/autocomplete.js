@@ -7,7 +7,7 @@ App.Autocomplete = function(options) {
 	this.wrapper = $('<div class="autocomplete"></div>');
 	this.container.append(this.wrapper);
 	this.createTextBox();
-	this.createArrowIcon();
+	// this.createArrowIcon();
 	this.createMenu();
 	this.hideSelectBox();
 	this.createStatusBox();
@@ -377,7 +377,7 @@ App.Autocomplete.prototype.createTextBox = function() {
 	}
 
 	this.wrapper.append(this.textBox);
-	this.textBox.on('click', $.proxy(this, 'onTextBoxClick'));
+	// this.textBox.on('click', $.proxy(this, 'onTextBoxClick'));
 	this.textBox.on('keydown', $.proxy(function(e) {
 		switch (e.keyCode) {
 			// this ensures that when users tabs away
