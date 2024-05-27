@@ -11,6 +11,11 @@ router.use(flash())
 
 router.all('*', (req, res, next) => {
   res.locals.flash = req.flash('success')
+  let flashError = req.flash('error')
+  if(flashError[0]) {
+    res.locals.errorSummary = flashError[0].errorSummary
+    res.locals.inlineErrors = flashError[0].inlineErrors
+  }
   next()
 })
 
@@ -39,3 +44,4 @@ router.get('/checkbox-filter', (req, res) => {
 })
 
 require('./routes/multi-upload-file')(router)
+require('./routes/about-you')(router)
