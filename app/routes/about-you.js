@@ -11,12 +11,14 @@ module.exports = router => {
     const validator = new Validator(req, res);
 
     validator.add({name: 'createJob.title', rules: [{
-      fn:rules.empty,  message: 'Enter job title'
+        fn:rules.empty,
+        message: 'Enter job title'
       }]
     })
 
     validator.add({name: 'createJob.details', rules: [{
-      fn:rules.notEmpty,  message: 'Enter job details'
+        fn:rules.notEmpty,
+        message: 'Enter job details'
       }]
     })
 
@@ -24,13 +26,13 @@ module.exports = router => {
         fn: rules.radioSelected,
         message: 'Select working pattern'
       }]
-    });
+    })
 
     validator.add({name: 'createJob.benefits', rules: [{
-      fn: rules.checkboxSelected,
-      message: 'Select benefits'
-    }]
-  });
+        fn: rules.checkboxSelected,
+        message: 'Select benefits'
+      }]
+    })
 
     if(validator.validate()) {
       res.redirect('/yay')

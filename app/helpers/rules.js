@@ -1,27 +1,27 @@
-const _ = require('lodash');
+const _ = require('lodash')
 
 const rules = {
   notEmpty: (value) => {
-    let valid = true;
+    let valid = true
     if(!value || value.trim().length == 0) {
-      valid = false;
+      valid = false
     }
-    return valid;
+    return valid
   },
   radioSelected: (value) => {
-    let valid = true;
+    let valid = true
     if(typeof value == 'undefined') {
       valid = false;
     }
-    return valid;
+    return valid
   },
   checkboxSelected: (value) => {
-    let valid = true;
+    let valid = true
     if(value == '_unchecked') {
-      valid = false;
+      valid = false
     }
-    return valid;
+    return valid
   }
 }
 
-module.exports = rules;
+module.exports = rules
