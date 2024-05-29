@@ -11,7 +11,7 @@ module.exports = router => {
     const validator = new Validator(req, res);
 
     validator.add({name: 'createJob.title', rules: [{
-        fn:rules.empty,
+        fn:rules.notEmpty,
         message: 'Enter job title'
       }]
     })
