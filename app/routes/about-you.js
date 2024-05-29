@@ -1,4 +1,5 @@
 const Validator = require('../helpers/validator')
+const rules = require('../helpers/rules')
 
 module.exports = router => {
 
@@ -9,19 +10,27 @@ module.exports = router => {
   router.post('/about-you', function( req, res ){
     const validator = new Validator(req, res);
 
-    validator.add({
-      name: 'createJob.details',
-      rules: [{
-        fn: (value) => {
-          let valid = true;
-          if(!value || value.trim().length == 0) {
-            valid = false;
-          }
-          return valid;
-        },
-        message: 'Enter details'
+    validator.add({name: 'createJob.title', rules: [{
+      fn:rules.empty,  message: 'Enter job title'
       }]
     })
+
+    validator.add({name: 'createJob.details', rules: [{
+      fn:rules.notEmpty,  message: 'Enter job details'
+      }]
+    })
+
+    validator.add({name: 'createJob.pattern', rules: [{
+        fn: rules.radioSelected,
+        message: 'Select working pattern'
+      }]
+    });
+
+    validator.add({name: 'createJob.benefits', rules: [{
+      fn: rules.checkboxSelected,
+      message: 'Select benefits'
+    }]
+  });
 
     if(validator.validate()) {
       res.redirect('/yay')

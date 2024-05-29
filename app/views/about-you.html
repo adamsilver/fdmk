@@ -27,17 +27,81 @@
         About you
       </h1>
 
+        {{data | log}}
+
       <form method="post">
+
+        {{ govukInput({
+          id: "createJob.title",
+          name: "createJob[title]",
+          label: {
+            text: "Job title",
+            classes: "govuk-label--m"
+          },
+          value: data.createJob.title,
+          errorMessage: inlineErrors.createJob.title
+        }) }}
 
         {{ govukTextarea({
           id: "createJob.details",
-          name: "createJob.details",
+          name: "createJob[details]",
           label: {
-            text: "Details",
+            text: "Job details",
             classes: "govuk-label--m"
           },
           value: data.createJob.details,
           errorMessage: inlineErrors.createJob.details
+        }) }}
+
+
+        {{ govukRadios({
+          idPrefix: "createJob.pattern",
+          name: "createJob[pattern]",
+          fieldset: {
+            legend: {
+              text: "Working pattern",
+              classes: "govuk-fieldset__legend--m"
+            }
+          },
+          value: data.createJob.pattern,
+          errorMessage: inlineErrors.createJob.pattern,
+          items: [
+            {
+              value: "Full time",
+              text: "Full time"
+            },
+            {
+              value: "Part time",
+              text: "Part time"
+            }
+          ]
+        }) }}
+
+        {{ govukCheckboxes({
+          idPrefix: "createJob.benefits",
+          name: "createJob[benefits]",
+          fieldset: {
+            legend: {
+              text: "Benefits",
+              classes: "govuk-fieldset__legend--m"
+            }
+          },
+          values: data.createJob.benefits,
+          errorMessage: inlineErrors.createJob.benefits,
+          items: [
+            {
+              value: "Benefit 1",
+              text: "Benefit 1"
+            },
+            {
+              value: "Benefit 2",
+              text: "Benefit 2"
+            },
+            {
+              value: "Benefit 3",
+              text: "Benefit 3"
+            }
+          ]
         }) }}
 
         {{ govukButton({
