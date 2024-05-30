@@ -104,6 +104,43 @@
           ]
         }) }}
 
+        {{ govukDateInput({
+          id: "createJob.startDate",
+          fieldset: {
+            legend: {
+              text: "Start date",
+              classes: "govuk-fieldset__legend--m"
+            }
+          },
+          hint: {
+            text: "For example, 31 3 2025"
+          },
+          errorMessage: inlineErrors.createJob.startDate,
+          items: [
+            {
+              name: "createJob[startDate][day]",
+              id: 'createJob.startDate.day',
+              label: "Day",
+              value: data.createJob.startDate.day,
+              classes: "govuk-input--width-2"
+            },
+            {
+              name: "createJob[startDate][month]",
+              id: 'createJob.startDate.month',
+              label: "Month",
+              value: data.createJob.startDate.month,
+              classes: "govuk-input--width-2"
+            },
+            {
+              name: "createJob[startDate][year]",
+              id: 'createJob.startDate.year',
+              label: "Year",
+              value: data.createJob.startDate.year,
+              classes: "govuk-input--width-4"
+            }
+          ]
+        }) }}
+
         {{ govukButton({
           text: "Continue"
         }) }}

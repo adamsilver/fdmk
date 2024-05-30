@@ -54,11 +54,14 @@ Validator.prototype.validate = function() {
 
     for( let rule of rules ){
 
-      const { fn, params, message} = rule;
-      const isValid = fn( value, params );
+      const { fn, params, message } = rule;
+      const validatorReturnValue = fn( value, params );
 
-      if( !isValid ){
+      if(typeof validatorReturnValue === 'boolean' && !validatorReturnValue ){
         errors.push( { name, message } );
+        break;
+      } else if(typeof validatorReturnValue == 'string') {
+        errors.push( { name: validatorReturnValue, message } );
         break;
       }
     }
