@@ -22,31 +22,24 @@ const rules = {
     }
     return valid
   },
-  notEmptyDate: (date) => {
+  notEmptyDate: (value, params) => {
     let valid = true
-    if(date.day == '' && date.month == '' && date.year == '') {
+    if(params.day == '' && params.month == '' && params.year == '') {
       valid = false
     }
     return valid
   },
-  notEmptyDay: (date) => {
+  notEmptyMonth: (value, params) => {
     let valid = true
-    if(date.day == '') {
-      valid = false
+    if(!params.month || params.month.trim().length == 0) {
+      valid = params.fieldName
     }
     return valid
   },
-  notEmptyMonth: (date) => {
+  notEmptyYear: (value, params) => {
     let valid = true
-    if(date.month == '') {
-      // valid =
-    }
-    return valid
-  },
-  notEmptyYear: (date) => {
-    let valid = true
-    if(date.year == '') {
-      valid = false
+    if(!params.year || params.year.trim().length == 0) {
+      valid = params.fieldName
     }
     return valid
   }
