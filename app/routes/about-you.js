@@ -62,6 +62,18 @@ module.exports = router => {
       }]
     })
 
+    validator.add({name: 'createJob.location', rules: [{
+        fn: rules.notEmpty,
+        message: 'Select location'
+      }]
+    })
+
+    validator.add({name: 'createJob.specification', rules: [{
+      fn: rules.notEmpty,
+      message: 'Select job specification'
+    }]
+  })
+
     if(validator.validate()) {
       res.redirect('/yay')
     } else {

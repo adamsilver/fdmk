@@ -36,7 +36,7 @@
           name: "createJob[title]",
           label: {
             text: "Job title",
-            classes: "govuk-label--m"
+            classes: "govuk-label--s"
           },
           value: data.createJob.title,
           errorMessage: inlineErrors.createJob.title
@@ -47,7 +47,7 @@
           name: "createJob[details]",
           label: {
             text: "Job details",
-            classes: "govuk-label--m"
+            classes: "govuk-label--s"
           },
           value: data.createJob.details,
           errorMessage: inlineErrors.createJob.details
@@ -60,7 +60,7 @@
           fieldset: {
             legend: {
               text: "Working pattern",
-              classes: "govuk-fieldset__legend--m"
+              classes: "govuk-fieldset__legend--s"
             }
           },
           value: data.createJob.pattern,
@@ -83,7 +83,7 @@
           fieldset: {
             legend: {
               text: "Benefits",
-              classes: "govuk-fieldset__legend--m"
+              classes: "govuk-fieldset__legend--s"
             }
           },
           values: data.createJob.benefits,
@@ -109,7 +109,7 @@
           fieldset: {
             legend: {
               text: "Start date",
-              classes: "govuk-fieldset__legend--m"
+              classes: "govuk-fieldset__legend--s"
             }
           },
           hint: {
@@ -139,6 +139,69 @@
               classes: "govuk-input--width-4"
             }
           ]
+        }) }}
+
+        {{ govukSelect({
+          id: "createJob.location",
+          name: "createJob[location]",
+          label: {
+            text: "Location",
+            classes: "govuk-label--s"
+          },
+          value: data.createJob.location,
+          errorMessage: inlineErrors.createJob.location,
+          items: [
+            {
+              value: "",
+              text: "Choose location"
+            },
+            {
+              value: "eastmidlands",
+              text: "East Midlands"
+            },
+            {
+              value: "eastofengland",
+              text: "East of England"
+            },
+            {
+              value: "london",
+              text: "London"
+            },
+            {
+              value: "northeast",
+              text: "North East"
+            },
+            {
+              value: "northwest",
+              text: "North West"
+            },
+            {
+              value: "southeast",
+              text: "South East"
+            },
+            {
+              value: "southwest",
+              text: "South West"
+            },
+            {
+              value: "westmidlands",
+              text: "West Midlands"
+            },
+            {
+              value: "yorkshire",
+              text: "Yorkshire and the Humber"
+            }
+          ]
+        }) }}
+
+        {{ govukFileUpload({
+          id: "createJob.specification",
+          name: "createJob[specification]",
+          label: {
+            text: "Job specification",
+            classes: "govuk-label--s"
+          },
+          errorMessage: inlineErrors.createJob.specification
         }) }}
 
         {{ govukButton({
