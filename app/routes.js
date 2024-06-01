@@ -10,6 +10,7 @@ const flash = require('connect-flash')
 router.use(flash())
 
 router.all('*', (req, res, next) => {
+  res.locals.originalUrl = req.originalUrl
   res.locals.flash = req.flash('success')
   let flashError = req.flash('error')
   if(flashError[0]) {
@@ -18,6 +19,16 @@ router.all('*', (req, res, next) => {
   }
   next()
 })
+
+router.get('/clear-all-data', (req, res) => {
+  req.session.data = {}
+  if(req.query.returnUrl) {
+    res.redirect(req.query.returnUrl)
+  } else {
+    res.redirect('/')
+  }
+})
+
 
 // Add your routes here
 router.post('/email-preferences', (req, res) => {

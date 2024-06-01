@@ -3,7 +3,7 @@
 {% block content %}
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds-from-desktop">
-      <form>
+      <form method="post">
 
         {{ govukSelect({
           id: "hero",
@@ -12,6 +12,7 @@
             text: "Superhero",
             classes: "govuk-label--s"
           },
+          value: data.hero,
           items: [
             { "value": "", "text": "Please select" },
             { "value": "Iron Man", "text": "Iron Man", "attributes": { "data-alt": "Tony Stark" } },
@@ -43,6 +44,7 @@
             text: "Fruit",
             classes: "govuk-label--s"
           },
+          value: data.fruit,
           items: [
             { "value": "", "text": "Please select" },
             { "value": "Apple", "text": "Apple" },
