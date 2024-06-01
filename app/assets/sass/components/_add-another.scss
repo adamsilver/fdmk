@@ -12,7 +12,8 @@
     }
 
     &:last-of-type {
-      margin-bottom: govuk-spacing(6);
+      // margin-bottom: govuk-spacing(6);
+      border-bottom: none;
     }
   }
 
