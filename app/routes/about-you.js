@@ -43,7 +43,11 @@ module.exports = router => {
       },
       message: 'Enter job start date'
     }, {
-        fn: rules.notEmpty,
+        fn: rules.notEmptyDay,
+        params: {
+          day: req.body.createJob.startDate.day,
+          fieldName: 'createJob.startDate.day'
+        },
         message: 'Job start date must include a day'
       }, {
         fn: rules.notEmptyMonth,
