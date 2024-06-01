@@ -9,6 +9,7 @@ App.Autocomplete = function(options) {
 	this.container.append(this.wrapper);
 	this.createTextBox();
 	if(this.options.showMenuOnClick) {
+		this.wrapper.addClass('autocomplete--showAll')
 		this.createArrowIcon();
 	}
 	this.createMenu();
@@ -409,9 +410,9 @@ App.Autocomplete.prototype.getOptionsId = function() {
 };
 
 App.Autocomplete.prototype.createArrowIcon = function() {
-	// var arrow = $('<svg focusable="false" version="1.1" xmlns="http://www.w3.org/2000/svg"><g><polygon points="2,3 20,3 11,17"></polygon></g></svg>');
+	var arrow = $('<svg focusable="false" version="1.1" xmlns="http://www.w3.org/2000/svg"><g><polygon points="2,3 20,3 11,17"></polygon></g></svg>');
 
-	var arrow = $('<a class="autocomplete-showAll" href="#">Show all</a>')
+	// var arrow = $('<a class="autocomplete-showAll" href="#">Show all</a>')
 	this.wrapper.append(arrow);
 	arrow.on('click', $.proxy(this, 'onArrowClick'));
 };
