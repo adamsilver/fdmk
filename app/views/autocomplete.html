@@ -36,6 +36,48 @@
             { "value": "Storm", "text": "Storm", "attributes": { "data-alt": "Ororo Munroe" } }
         ]}) }}
 
+        {{ govukSelect({
+          id: "fruit",
+          name: "fruit",
+          label: {
+            text: "Fruit",
+            classes: "govuk-label--s"
+          },
+          items: [
+            { "value": "", "text": "Please select" },
+            { "value": "Apple", "text": "Apple" },
+            { "value": "Banana", "text": "Banana" },
+            { "value": "Orange", "text": "Orange" },
+            { "value": "Mango", "text": "Mango" },
+            { "value": "Pineapple", "text": "Pineapple" },
+            { "value": "Strawberry", "text": "Strawberry" },
+            { "value": "Blueberry", "text": "Blueberry" },
+            { "value": "Raspberry", "text": "Raspberry" },
+            { "value": "Blackberry", "text": "Blackberry" },
+            { "value": "Watermelon", "text": "Watermelon" },
+            { "value": "Cantaloupe", "text": "Cantaloupe" },
+            { "value": "Honeydew", "text": "Honeydew" },
+            { "value": "Grapefruit", "text": "Grapefruit" },
+            { "value": "Lemon", "text": "Lemon" },
+            { "value": "Lime", "text": "Lime" },
+            { "value": "Kiwi", "text": "Kiwi" },
+            { "value": "Papaya", "text": "Papaya" },
+            { "value": "Guava", "text": "Guava" },
+            { "value": "Passionfruit", "text": "Passionfruit" },
+            { "value": "Pomegranate", "text": "Pomegranate" },
+            { "value": "Peach", "text": "Peach" },
+            { "value": "Plum", "text": "Plum" },
+            { "value": "Apricot", "text": "Apricot" },
+            { "value": "Nectarine", "text": "Nectarine" },
+            { "value": "Cherry", "text": "Cherry" },
+            { "value": "Grape", "text": "Grape" },
+            { "value": "Pear", "text": "Pear" },
+            { "value": "Fig", "text": "Fig" },
+            { "value": "Date", "text": "Date" },
+            { "value": "Dragonfruit", "text": "Dragonfruit" }
+          ]
+          }) }}
+
         {{ govukButton({
           text: "Continue"
         }) }}
@@ -48,7 +90,11 @@
   {{super()}}
   <script>
     new App.Autocomplete({
-      select: $('#hero')[0],
+      select: $('#hero')[0]
+    });
+
+    new App.Autocomplete({
+      select: $('#fruit')[0],
       showMenuOnClick: true
     });
   </script>
