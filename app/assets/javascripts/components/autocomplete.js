@@ -2,12 +2,15 @@
 value.replace(/^\s+|\s+$/g, '').replace(/\s+/g, ' ');
 */
 App.Autocomplete = function(options) {
-	this.select = $(options.select);
+	this.options = options
+	this.select = $(this.options.select);
 	this.container = this.select.parent();
 	this.wrapper = $('<div class="autocomplete"></div>');
 	this.container.append(this.wrapper);
 	this.createTextBox();
-	// this.createArrowIcon();
+	if(this.options.showMenuOnClick) {
+		this.createArrowIcon();
+	}
 	this.createMenu();
 	this.hideSelectBox();
 	this.createStatusBox();
@@ -377,7 +380,10 @@ App.Autocomplete.prototype.createTextBox = function() {
 	}
 
 	this.wrapper.append(this.textBox);
-	// this.textBox.on('click', $.proxy(this, 'onTextBoxClick'));
+	if(this.options.showMenuOnClick) {
+		this.textBox.on('click', $.proxy(this, 'onTextBoxClick'));
+	}
+
 	this.textBox.on('keydown', $.proxy(function(e) {
 		switch (e.keyCode) {
 			// this ensures that when users tabs away
@@ -403,7 +409,9 @@ App.Autocomplete.prototype.getOptionsId = function() {
 };
 
 App.Autocomplete.prototype.createArrowIcon = function() {
-	var arrow = $('<svg focusable="false" version="1.1" xmlns="http://www.w3.org/2000/svg"><g><polygon points="2,3 20,3 11,17"></polygon></g></svg>');
+	// var arrow = $('<svg focusable="false" version="1.1" xmlns="http://www.w3.org/2000/svg"><g><polygon points="2,3 20,3 11,17"></polygon></g></svg>');
+
+	var arrow = $('<a class="autocomplete-showAll" href="#">Show all</a>')
 	this.wrapper.append(arrow);
 	arrow.on('click', $.proxy(this, 'onArrowClick'));
 };
