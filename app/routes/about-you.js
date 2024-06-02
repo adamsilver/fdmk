@@ -16,9 +16,9 @@ module.exports = router => {
       }]
     })
 
-    validator.add({name: 'createJob.details', rules: [{
+    validator.add({name: 'createJob.description', rules: [{
         fn:rules.notEmpty,
-        message: 'Enter job details'
+        message: 'Enter job description'
       }]
     })
 

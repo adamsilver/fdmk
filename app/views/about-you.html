@@ -1,6 +1,6 @@
 {% extends "layouts/main.html" %}
 
-{% set pageName = 'About you' %}
+{% set pageName = 'About the job' %}
 
 {% if errorSummary.items.length %}
   {% set pageName = 'Error - ' + pageName %}
@@ -24,7 +24,7 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds-from-desktop">
       <h1 class="govuk-heading-l">
-        About you
+        About the job
       </h1>
 
       <form method="post">
@@ -41,14 +41,14 @@
         }) }}
 
         {{ govukTextarea({
-          id: "createJob.details",
-          name: "createJob[details]",
+          id: "createJob.description",
+          name: "createJob[description]",
           label: {
-            text: "Job details",
+            text: "Job description",
             classes: "govuk-label--s"
           },
-          value: data.createJob.details,
-          errorMessage: inlineErrors.createJob.details
+          value: data.createJob.description,
+          errorMessage: inlineErrors.createJob.description
         }) }}
 
 

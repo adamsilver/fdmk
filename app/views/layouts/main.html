@@ -5,6 +5,14 @@ https://prototype-kit.service.gov.uk/docs/how-to-use-layouts
 
 {% extends "govuk-prototype-kit/layouts/govuk-branded.html" %}
 
+{% block pageTitle %}
+  Simple Kit
+{% endblock %}
+
+{% block headIcons %}
+{% endblock %}
+
+
 {% from "_components/primary-navigation/macro.njk" import appPrimaryNavigation %}
 {% from "_components/search/macro.njk" import appSearch %}
 {% from "_components/multi-file-upload/macro.njk" import appMultiFileUpload %}
