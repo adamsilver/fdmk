@@ -1,0 +1,27 @@
+{% extends "layouts/main.html" %}
+
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+
+			{{ govukInput({
+				id: "time",
+				name: "time",
+				label: {
+					text: "Time",
+					classes: 'govuk-label--m'
+				},
+				hint: {
+					text: "For example, 9am or 2:30pm - enter 12pm for midday"
+				},
+				value: data.blah122,
+				classes: "govuk-input--width-4"
+			}) }}
+
+			{{ govukButton({
+				text: "Continue"
+			}) }}
+    </div>
+  </div>
+{% endblock %}

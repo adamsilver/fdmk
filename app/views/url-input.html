@@ -1,0 +1,23 @@
+{% extends "layouts/main.html" %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+
+			{{ govukInput({
+				label: {
+					text: "Website address",
+					classes: "govuk-label--l",
+					isPageHeading: true
+				},
+				id: "event-name",
+				name: "eventName",
+				type: 'url'
+			}) }}
+
+			{{ govukButton({
+				text: "Continue"
+			}) }}
+    </div>
+  </div>
+{% endblock %}
