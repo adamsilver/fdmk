@@ -10,7 +10,8 @@
         }) }}
       {% endif %}
 
-      {# <h1 class="govuk-heading-xl">Upload files</h1> #}
+      <h1 class="govuk-heading-l">Upload receipts</h1>
+      <p>You can only upload a PNG, GIF or JPEG file under 2MB.</p>
 
       <form method="post" enctype="multipart/form-data">
         {% set uploadHtml %}
@@ -19,9 +20,8 @@
             name: "documents",
             classes: 'app-multi-file-upload__input',
             label: {
-              text: "Upload a file",
-              classes: 'govuk-label--l',
-              isPageHeading: true
+              text: "Upload files",
+              classes: 'govuk-label--m'
             },
             attributes: { multiple: '' },
             errorMessage: errorMessage

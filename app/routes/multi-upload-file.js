@@ -78,7 +78,7 @@ module.exports = router => {
       uploadedFiles.forEach(function(file) {
         var o = file;
         o.message = {
-          html: `<span class="app-multi-file-upload__success"> <svg class="app-banner__icon" fill="currentColor" role="presentation" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25" height="25" width="25"><path d="M25,6.2L8.7,23.2L0,14.1l4-4.2l4.7,4.9L21,2L25,6.2z"/></svg> <a href="/${file.path}">${file.originalname}</a> has been uploaded</span>`
+          html: `<span class="app-multi-file-upload__success"> <svg class="app-banner__icon" fill="currentColor" role="presentation" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25" height="25" width="25"><path d="M25,6.2L8.7,23.2L0,14.1l4-4.2l4.7,4.9L21,2L25,6.2z"/></svg> <a href="/${file.path}">${file.originalname}</a> uploaded</span>`
         };
 
         o.filePath = file.path;
@@ -189,8 +189,8 @@ module.exports = router => {
         res.json({
           file: req.file,
           success: {
-            messageHtml: `<a href="${req.file.path}" class="govuk-link"> ${req.file.originalname}</a> has been uploaded`,
-            messageText: `${req.file.originalname} has been uploaded`
+            messageHtml: `<a href="${req.file.path}" class="govuk-link"> ${req.file.originalname}</a> uploaded`,
+            messageText: `${req.file.originalname} uploaded`
           }
         });
       }
