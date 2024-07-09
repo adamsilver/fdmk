@@ -3,11 +3,11 @@ const rules = require('../helpers/rules')
 
 module.exports = router => {
 
-  router.get('/about-you', function( req, res ){
-    res.render('about-you')
+  router.get('/form-validation', function( req, res ){
+    res.render('form-validation')
   })
 
-  router.post('/about-you', function( req, res ){
+  router.post('/form-validation', function( req, res ){
     const validator = new Validator(req, res);
 
     validator.add({name: 'createJob.title', rules: [{
@@ -85,7 +85,7 @@ module.exports = router => {
         errorSummary: validator.getErrorSummary(),
         inlineErrors: validator.getInlineErrors()
       })
-      res.redirect('/about-you')
+      res.redirect('/form-validation')
     }
 
   });

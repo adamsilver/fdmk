@@ -11,9 +11,21 @@
       {% endif %}
 
       <h1 class="govuk-heading-l">Upload receipts</h1>
-      <p>You can only upload a PNG, GIF or JPEG file under 2MB.</p>
+      {# <p>You can only upload a PNG, GIF or JPEG file under 2MB.</p> #}
 
       <form method="post" enctype="multipart/form-data">
+
+        {{ govukTextarea({
+          id: "blah",
+          name: "blah",
+          label: {
+            text: "Description",
+            isPageHeading: false,
+            classes: "govuk-label--m"
+          },
+          value: data.blah
+        }) }}
+
         {% set uploadHtml %}
           {{ govukFileUpload({
             id: "documents",
@@ -24,7 +36,10 @@
               classes: 'govuk-label--m'
             },
             attributes: { multiple: '' },
-            errorMessage: errorMessage
+            errorMessage: errorMessage,
+            hint: {
+              text: 'You can only upload a PNG, GIF or JPEG file under 2MB.'
+            }
           }) }}
 
           {{govukButton({
