@@ -54,5 +54,16 @@ router.get('/checkbox-filter', (req, res) => {
   })
 })
 
+router.get('/', (req, res) => {
+  if(!req.session.data.user) {
+    res.redirect('/account/sign-in')
+  } else {
+    res.redirect('/contents')
+  }
+})
+
+
+require('./routes/account')(router)
 require('./routes/multi-upload-file')(router)
+require('./routes/multi-upload-file--multi-field')(router)
 require('./routes/form-validation')(router)

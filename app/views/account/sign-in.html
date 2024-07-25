@@ -1,0 +1,37 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Sign in" %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+      <h1 class="govuk-heading-l">{{ pageName }}</h1>
+
+      <form method="post" novalidate>
+
+        {{ govukInput({
+          id: "signIn[password]",
+          name: "signIn[password]",
+          type: "password",
+          label: {
+            text: "Password",
+            classes: "govuk-label--m"
+          },
+          value: data.signIn.password
+        }) }}
+
+        {{ govukButton({
+          text: "Sign in"
+        }) }}
+
+
+      </form>
+
+    </div>
+  </div>
+
+{% endblock %}
+
+{% block footer %}
+{% endblock %}
