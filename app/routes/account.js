@@ -11,6 +11,7 @@ module.exports = router => {
   })
 
   router.get('/account/sign-out', (req, res) => {
+    delete req.session.data.signIn
     req.session.data.user = null
     res.redirect('/account/sign-in')
   })
