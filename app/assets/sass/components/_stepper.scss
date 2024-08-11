@@ -36,7 +36,7 @@
   // border-left: 0;
 }
 
-.stepper input[type=number]{
+.stepper input[type=text] {
 	display: inline-block;
 	width: 4em;
 	text-align: center;
@@ -45,8 +45,8 @@
 	-moz-appearance: textfield;
 }
 
-.stepper input[type=number]::-webkit-inner-spin-button,
-.stepper input[type=number]::-webkit-outer-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
-}
+// .stepper input[type=number]::-webkit-inner-spin-button,
+// .stepper input[type=number]::-webkit-outer-spin-button {
+//   -webkit-appearance: none;
+//   margin: 0;
+// }
