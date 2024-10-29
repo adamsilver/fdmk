@@ -26,7 +26,7 @@
                 name: 'experience[tricks]['+loop.index0+'][name]',
                 label: {
                   html: 'Name',
-                  classes: 'govuk-!-font-weight-bold'
+                  classes: 'govuk-label--s'
                 },
                 attributes: {
                   'data-name': 'experience[tricks][%index%][name]',
@@ -40,7 +40,7 @@
                 name: 'experience[tricks]['+loop.index0+'][description]',
                 label: {
                   html: 'Description',
-                  classes: 'govuk-!-font-weight-bold'
+                  classes: 'govuk-label--s'
                 },
                 attributes: {
                   'data-name': 'experience[tricks][%index%][description]',
@@ -49,7 +49,10 @@
                 value: application.experience.tricks[loop.index0].description
               }) }}
 
-              <button type="button" class="govuk-button govuk-button--secondary app-add-another__remove-button">Remove</button>
+              <button type="button" class="govuk-button govuk-button--secondary app-add-another__remove-button">
+                Remove
+                <span class="govuk-visually-hidden">Day {{loop.index}}</span>
+              </button>
 
               {% endcall %}
             {% endfor %}
@@ -97,7 +100,7 @@
           <div class="app-button-action">
             {{ govukButton({
               text: 'Add another trick',
-              classes: 'govuk-button--secondary app-add-another__add-button govuk-!-margin-bottom-6'
+              classes: 'govuk-button--secondary app-add-another__add-button'
             }) }}
           </div>
           {{ govukButton({

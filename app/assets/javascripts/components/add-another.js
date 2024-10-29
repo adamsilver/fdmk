@@ -17,11 +17,12 @@ App.AddAnother.prototype.onAddButtonClick = function (e) {
   }
 
   var item = this.getNewItem()
-  this.updateAttributes(this.getItems().length, item)
-  this.resetItem(item)
   if (!this.hasRemoveButton(firstItem)) {
     this.createRemoveButton(firstItem)
   }
+  this.updateAttributes(this.getItems().length, item)
+  this.resetItem(item)
+
   this.getItems().last().after(item)
   item.find('input, textarea, select').first().focus()
 }
@@ -55,12 +56,18 @@ App.AddAnother.prototype.updateAttributes = function (index, item) {
   })
   // Update legend
   if(item.find('legend').length) {
-    item.find('legend').html(item.attr('data-label').replace(/%index%/, index+1))
+    item.find('legend:first').html(item.attr('data-label').replace(/%index%/, index+1))
   }
+
+  // Update remove button visually hidden label
+  if(item.find('.app-add-another__remove-button').length) {
+    item.find('.app-add-another__remove-button .govuk-visually-hidden').html(item.attr('data-label').replace(/%index%/, index+1))
+  }
+
 }
 
 App.AddAnother.prototype.createRemoveButton = function (item) {
-  item.append('<button type="button" class="govuk-button govuk-button--secondary app-add-another__remove-button">Remove</button>')
+  item.find('.app-add-another__title').after('<button type="button" class="govuk-button govuk-button--secondary app-add-another__remove-button">Remove <span class="govuk-visually-hidden">Day {{loop.index}}</span></button>')
 }
 
 App.AddAnother.prototype.resetItem = function (item) {

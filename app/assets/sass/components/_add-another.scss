@@ -1,4 +1,9 @@
 .app-add-another {
+
+  .govuk-form-group {
+    clear: left;
+  }
+
   &__item {
     margin: 0;
     margin-top: govuk-spacing(6);
@@ -19,8 +24,8 @@
 
   &__title {
     float: left;
-    padding: 4px 0;
-    width: 100%;
+    // padding: 4px 0;
+    // width: 100%;
   }
 
   &__remove-button {
