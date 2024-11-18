@@ -72,10 +72,12 @@ App.AddAnother.prototype.createRemoveButton = function (item) {
 
 App.AddAnother.prototype.resetItem = function (item) {
   item.find('[data-name], [data-id]').each(function (index, el) {
-    if (el.type === 'checkbox' || el.type === 'radio') {
-      el.checked = false
-    } else {
-      el.value = ''
+    if($(el).attr('data-reset') != 'false') {
+      if (el.type === 'checkbox' || el.type === 'radio') {
+        el.checked = false
+      } else {
+        el.value = ''
+      }
     }
   })
 }
