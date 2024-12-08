@@ -1,0 +1,76 @@
+{% extends "layouts/main.html" %}
+
+{% set title = 'Multi-factor methods' %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:history.back();"
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+      <span class="govuk-caption-l">Set up multi-factor authentication</span>
+      <h1 class="govuk-heading-l">
+        {{title}}
+      </h1>
+
+      {# <p>Dolore magna Lorem laborum id nulla sunt officia officia officia.</p> #}
+
+      <form method="post">
+
+        {{ govukRadios({
+          classes: "govuk-radios--inline",
+          name: "mfa[sms]",
+          fieldset: {
+            legend: {
+              text: "SMS",
+              classes: "govuk-fieldset__legend--m"
+            }
+          },
+          value: data.mfa.sms,
+          items: [
+            {
+              value: "On",
+              text: "On"
+            },
+            {
+              value: "Off",
+              text: "Off"
+            }
+          ]
+        }) }}
+
+        {{ govukRadios({
+          classes: "govuk-radios--inline",
+          name: "mfa[authenticator]",
+          fieldset: {
+            legend: {
+              text: "Authenticator app",
+              classes: "govuk-fieldset__legend--m"
+            }
+          },
+          value: data.mfa.authenticator,
+          items: [
+            {
+              value: "On",
+              text: "On"
+            },
+            {
+              value: "Off",
+              text: "Off"
+            }
+          ]
+        }) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+{% endblock %}

@@ -1,0 +1,76 @@
+{% extends "layouts/main.html" %}
+
+{% set title = 'Multi-factor authentication' %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+
+      <h1 class="govuk-heading-l">{{title}}</h1>
+
+      {% if data.mfa %}
+        {{ govukSummaryList({
+            rows: [
+              {
+                key: {
+                  text: "SMS"
+                },
+                value: {
+                  text: data.mfa.sms
+                },
+                actions: {
+                  items: [
+                    {
+                      href: "/mfa/new/methods",
+                      text: "Change",
+                      visuallyHiddenText: "if you want to use SMS"
+                    }
+                  ]
+                }
+              },
+              {
+                key: {
+                  text: "Authenticator app"
+                },
+                value: {
+                  text: data.mfa.authenticator
+                },
+                actions: {
+                  items: [
+                    {
+                      href: "/mfa/new/methods",
+                      text: "Change",
+                      visuallyHiddenText: "if you want to use authenticator"
+                    }
+                  ]
+                }
+              },
+              {
+                key: {
+                  text: "Do you want to use backup codes?"
+                },
+                value: {
+                  text: data.mfa.backup
+                },
+                actions: {
+                  items: [
+                    {
+                      href: "/mfa/new/backup",
+                      text: "Change",
+                      visuallyHiddenText: "if you want to use backup codes"
+                    }
+                  ]
+                }
+              }
+            ]
+          }) }}
+        {% else %}
+          {{ govukButton({
+            text: "Set up multi-factor authentication",
+            href: '/mfa/new'
+          }) }}
+        {% endif %}
+
+    </div>
+  </div>
+{% endblock %}

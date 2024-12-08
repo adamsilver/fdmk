@@ -1,0 +1,84 @@
+{% extends "layouts/main.html" %}
+
+{% set title = 'Check details and save multi-factor authentication settings' %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:history.back();"
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+
+      <h1 class="govuk-heading-l">{{title}}</h1>
+
+      <form method="post">
+
+          {{ govukSummaryList({
+            rows: [
+              {
+                key: {
+                  text: "SMS"
+                },
+                value: {
+                  text: data.mfa.sms
+                },
+                actions: {
+                  items: [
+                    {
+                      href: "/mfa/new/methods",
+                      text: "Change",
+                      visuallyHiddenText: "if you want to use SMS"
+                    }
+                  ]
+                }
+              },
+              {
+                key: {
+                  text: "Authenticator app"
+                },
+                value: {
+                  text: data.mfa.authenticator
+                },
+                actions: {
+                  items: [
+                    {
+                      href: "/mfa/new/methods",
+                      text: "Change",
+                      visuallyHiddenText: "if you want to use authenticator"
+                    }
+                  ]
+                }
+              },
+              {
+                key: {
+                  text: "Do you want to use backup codes?"
+                },
+                value: {
+                  text: data.mfa.backup
+                },
+                actions: {
+                  items: [
+                    {
+                      href: "/mfa/new/backup",
+                      text: "Change",
+                      visuallyHiddenText: "if you want to use backup codes"
+                    }
+                  ]
+                }
+              }
+            ]
+          }) }}
+
+        {{ govukButton({
+          text: "Save multi-factor authentication settings"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+{% endblock %}
