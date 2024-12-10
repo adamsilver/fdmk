@@ -1,5 +1,7 @@
 App.Stepper = function(options) {
 	this.input = $(options.input);
+	this.min = parseInt(this.input.attr('min'), 10) || 0
+	this.max = parseInt(this.input.attr('max'), 10) || null
 	this.container = this.input.parent();
 	this.setOptions(options);
 	this.wrapper = $('<div class="stepper"></div>');
@@ -50,19 +52,24 @@ App.Stepper.prototype.getInputValue = function() {
 };
 
 App.Stepper.prototype.onRemoveClick = function(e) {
-	var newVal = this.getInputValue() - 1;
-	if(newVal >= parseInt(this.input.attr('min'), 10)) {
-		this.input.val(newVal);
-		this.updateStatusBox(newVal);
+	var newVal = this.getInputValue() - 1; //2=>1 and min=1
+	if(newVal < this.min) {
+		return
 	}
+
+	this.input.val(newVal);
+	this.updateStatusBox(newVal);
 };
 
 App.Stepper.prototype.onAddClick = function(e) {
 	var newVal = this.getInputValue() + 1;
-	if(newVal <= parseInt(this.input.attr('max'), 10)) {
-		this.input.val(newVal);
-		this.updateStatusBox(newVal);
+
+	if(this.max && newVal > this.max) {
+		return
 	}
+
+	this.input.val(newVal);
+	this.updateStatusBox(newVal);
 };
 
 App.Stepper.prototype.updateStatusBox = function(val) {
