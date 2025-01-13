@@ -1,0 +1,152 @@
+{% extends "layouts/main.html" %}
+
+{% block beforeContent %}
+	{{ govukBackLink({
+		text: "Back",
+		href: "#"
+	}) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+
+
+			<span class="govuk-caption-l">Equality and diversity questions</span>
+			{{ govukRadios({
+				name: "blah",
+				fieldset: {
+					legend: {
+						textx: "Are you disabled?",
+						text: "Do you have a disability or health condition?",
+						isPageHeading: true,
+						classes: "govuk-fieldset__legend--l"
+					}
+				},
+				items: [
+					{
+						value: "Yes",
+						text: "Yes"
+					},
+					{
+						value: "No",
+						text: "No"
+					},
+					{
+						divider: "or"
+					},
+					{
+						value: "Prefer not to say",
+						text: "Prefer not to say"
+					}
+				]
+			}) if 1==1}}
+
+			{{ govukCheckboxes({
+				name: "blahblah",
+				fieldset: {
+					legend: {
+						text: "What disabilities do you have?",
+						isPageHeading: true,
+						classes: "govuk-fieldset__legend--l"
+					}
+				},
+				items: [
+					{
+						value: "Blind",
+						text: "Blind"
+					},
+					{
+						value: "Deaf",
+						text: "Deaf"
+					},
+					{
+						value: "Learning difficulty",
+						text: "Learning difficulty"
+					},
+					{
+						value: "Long standing illness",
+						text: "Long standing illness"
+					},
+					{
+						value: "Mental health condition",
+						text: "Mental health condition"
+					},
+					{
+						value: "Physical disability or mobility issue",
+						text: "Physical disability or mobility issue"
+					},
+					{
+						value: "Social or communication impairment",
+						text: "Social or communication impairment"
+					},
+					{
+						value: "Other",
+						text: "Other"
+					}
+				]
+			}) if 1==2}}
+
+			{{ govukCheckboxes({
+				name: "blahblah",
+				fieldset: {
+					legend: {
+						text: "Do you have any of these disabilities or health conditions?",
+						isPageHeading: true,
+						classes: "govuk-fieldset__legend--l"
+					}
+				},
+				items: [
+					{
+						value: "Blind",
+						text: "Blind"
+					},
+					{
+						value: "Deaf",
+						text: "Deaf"
+					},
+					{
+						value: "Learning difficulty",
+						text: "Learning difficulty"
+					},
+					{
+						value: "Long standing illness",
+						text: "Long standing illness"
+					},
+					{
+						value: "Mental health condition",
+						text: "Mental health condition"
+					},
+					{
+						value: "Physical disability or mobility issue",
+						text: "Physical disability or mobility issue"
+					},
+					{
+						value: "Social or communication impairment",
+						text: "Social or communication impairment"
+					},
+					{
+						value: "Another disability, health condition or impairment affecting daily life",
+						text: "Another disability, health condition or impairment affecting daily life"
+					},
+					{
+						value: "I do not have any of these disabilities or health conditions",
+						text: "I do not have any of these disabilities or health conditions",
+						behaviour: "exclusive"
+					},
+					{
+						value: "Prefer not to say",
+						text: "Prefer not to say",
+						behaviour: "exclusive"
+					}
+				]
+			}) if 1==2}}
+
+
+
+			{{ govukButton({
+				text: "Continue"
+			}) }}
+    </div>
+  </div>
+{% endblock %}
