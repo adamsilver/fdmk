@@ -14,16 +14,18 @@
 {% endblock %}
 
 {% block content %}
-  {% if errorSummary.items.length %}
-    {{ govukErrorSummary({
-      titleText: 'There’s a problem',
-      errorList: errorSummary.items
-    }) }}
-  {% endif %}
-
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds-from-desktop">
 
+      {# {{ govukErrorSummary({
+          titleText: "There is a problem",
+          errorList: [
+            {
+              text: "Email address is already associated with an account",
+              href: "#"
+            }
+          ]
+        }) }} #}
 
       <form method="post">
 
@@ -41,7 +43,10 @@
 					spellcheck: false,
 					attributes: {
 						required: true
-					}
+					},
+          errorMessage: {
+            text: 'Email address is already associated with an account'
+          } if 1==2
 				}) }}
 
         {{ govukButton({
