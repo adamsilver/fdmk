@@ -34,7 +34,7 @@
           name: "createJob[title]",
           label: {
             text: "Job title",
-            classes: "govuk-label--m"
+            classes: "govuk-label--s"
           },
           value: data.createJob.title,
           errorMessage: inlineErrors.createJob.title
@@ -45,7 +45,7 @@
           name: "createJob[description]",
           label: {
             text: "Job description",
-            classes: "govuk-label--m"
+            classes: "govuk-label--s"
           },
           value: data.createJob.description,
           errorMessage: inlineErrors.createJob.description
@@ -102,18 +102,19 @@
           ]
         }) }}
 
-        {% if inlineErrors.createJob.startDate.day %}g
+        {{errorHighlights | log}}
+
+        {% if errorHighlights.createJob.startDate.day %}g
           {% set dayErrorClass = 'govuk-input--error' %}
         {% endif %}
 
-        {% if inlineErrors.createJob.startDate.month %}g
+        {% if errorHighlights.createJob.startDate.month %}
           {% set monthErrorClass = 'govuk-input--error' %}
         {% endif %}
 
-        {% if inlineErrors.createJob.startDate.year %}g
+        {% if errorHighlights.createJob.startDate.year %}
           {% set yearErrorClass = 'govuk-input--error' %}
         {% endif %}
-
 
         {{ govukDateInput({
           id: "createJob.startDate",
@@ -126,7 +127,7 @@
           hint: {
             text: "For example, 31 3 2025"
           },
-          errorMessage: inlineErrors.createJob.startDate,
+          errorMessage: inlineErrors.createJob.startDate.day or inlineErrors.createJob.startDate.month or inlineErrors.createJob.startDate.year,
           items: [
             {
               name: "createJob[startDate][day]",
@@ -157,7 +158,7 @@
           name: "createJob[location]",
           label: {
             text: "Location",
-            classes: "govuk-label--m"
+            classes: "govuk-label--s"
           },
           value: data.createJob.location,
           errorMessage: inlineErrors.createJob.location,
@@ -210,7 +211,7 @@
           name: "createJob[specification]",
           label: {
             text: "Job specification",
-            classes: "govuk-label--m"
+            classes: "govuk-label--s"
           },
           errorMessage: inlineErrors.createJob.specification
         }) }}

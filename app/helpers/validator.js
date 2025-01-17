@@ -32,6 +32,10 @@ Validator.prototype.getErrorSummary = function() {
   return { items: this.getFormattedErrors() }
 };
 
+Validator.prototype.getErrorHighlights = function() {
+  return this.highlights
+};
+
 Validator.prototype.formatError = function(error) {
 	return {
     text: error.message,
@@ -39,37 +43,55 @@ Validator.prototype.formatError = function(error) {
 	};
 };
 
-Validator.prototype.getError = function(name) {
-	return this.getErrors().filter(error => error.name == name).map(this.formatError)[0];
-};
-
 Validator.prototype.validate = function() {
-  const body = this.req.body;
-  const errors = [];
+  this.generateErrors()
+  this.generateHighlights()
+  this.errors.length === 0
+}
+
+// For error messages (show 1 per field)
+Validator.prototype.generateErrors = function() {
+  this.errors = []
 
   for( let validator of this.validators ) {
-
     const { name, rules } = validator;
-    const value = _.get(body, name)
+    const value = _.get(this.req.body, name)
 
     for( let rule of rules ){
-
       const { fn, params, message } = rule;
       const validatorReturnValue = fn( value, params );
 
       if(typeof validatorReturnValue === 'boolean' && !validatorReturnValue ){
-        errors.push( { name, message } );
+        this.errors.push( { name, message } );
         break;
       } else if(typeof validatorReturnValue == 'string') {
-        errors.push( { name: validatorReturnValue, message } );
+        this.errors.push( { name: validatorReturnValue, message } );
         break;
       }
     }
   }
+}
 
-  this.errors = errors;
-  return errors.length == 0;
-};
+// For highlighting inputs with a red border (show all per field - for date inputs basically)
+Validator.prototype.generateHighlights = function() {
+  this.highlights = {}
+
+  for( let validator of this.validators ) {
+    const { name, rules } = validator;
+    const value = _.get(this.req.body, name)
+
+    for( let rule of rules ){
+      const { fn, params } = rule;
+      const validatorReturnValue = fn( value, params );
+
+      if(typeof validatorReturnValue === 'boolean' && !validatorReturnValue ){
+        _.set(this.highlights, name, {})
+      } else if(typeof validatorReturnValue == 'string') {
+        _.set(this.highlights, validatorReturnValue, {})
+      }
+    }
+  }
+}
 
 
 module.exports = Validator;

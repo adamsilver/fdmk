@@ -16,6 +16,7 @@ router.all('*', (req, res, next) => {
   if(flashError[0]) {
     res.locals.errorSummary = flashError[0].errorSummary
     res.locals.inlineErrors = flashError[0].inlineErrors
+    res.locals.errorHighlights = flashError[0].errorHighlights
   }
   next()
 })

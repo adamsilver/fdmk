@@ -34,36 +34,44 @@ module.exports = router => {
       }]
     })
 
-    validator.add({name: 'createJob.startDate.day', rules: [{
-      fn: rules.notEmptyDate,
-      params: {
-        day: req.body.createJob.startDate.day,
-        month: req.body.createJob.startDate.month,
-        year: req.body.createJob.startDate.year,
-      },
-      message: 'Enter job start date'
-    }, {
-        fn: rules.notEmptyDay,
-        params: {
-          day: req.body.createJob.startDate.day,
-          fieldName: 'createJob.startDate.day'
-        },
-        message: 'Job start date must include a day'
-      }, {
-        fn: rules.notEmptyMonth,
-        params: {
-          month: req.body.createJob.startDate.month,
-          fieldName: 'createJob.startDate.month'
-        },
-        message: 'Job start date must include a month'
-      }, {
-        fn: rules.notEmptyYear,
-        params: {
-          year: req.body.createJob.startDate.year,
-          fieldName: 'createJob.startDate.year'
-        },
-        message: 'Job start date must include a year'
-      }]
+    validator.add({
+      name: 'createJob.startDate.day',
+      rules: [
+        {
+          fn: rules.notEmptyDate,
+          params: {
+            boom: 1,
+            day: req.body.createJob.startDate.day,
+            month: req.body.createJob.startDate.month,
+            year: req.body.createJob.startDate.year,
+          },
+          message: 'Enter job start date'
+        }, {
+          fn: rules.notEmptyDay,
+          params: {
+            boom: 2,
+            day: req.body.createJob.startDate.day,
+            fieldName: 'createJob.startDate.day'
+          },
+          message: 'Job start date must include a day'
+        }, {
+          fn: rules.notEmptyMonth,
+          params: {
+            boom: 3,
+            month: req.body.createJob.startDate.month,
+            fieldName: 'createJob.startDate.month'
+          },
+          message: 'Job start date must include a month'
+        }, {
+          fn: rules.notEmptyYear,
+          params: {
+            boom: 4,
+            year: req.body.createJob.startDate.year,
+            fieldName: 'createJob.startDate.year'
+          },
+          message: 'Job start date must include a year'
+        }
+      ]
     })
 
     validator.add({name: 'createJob.location', rules: [{
@@ -73,17 +81,18 @@ module.exports = router => {
     })
 
     validator.add({name: 'createJob.specification', rules: [{
-      fn: rules.notEmpty,
-      message: 'Select job specification'
-    }]
-  })
+        fn: rules.notEmpty,
+        message: 'Select job specification'
+      }]
+    })
 
     if(validator.validate()) {
       res.redirect('/yay')
     } else {
       req.flash('error', {
         errorSummary: validator.getErrorSummary(),
-        inlineErrors: validator.getInlineErrors()
+        inlineErrors: validator.getInlineErrors(),
+        errorHighlights: validator.getErrorHighlights()
       })
       res.redirect('/form-validation')
     }
