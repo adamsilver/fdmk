@@ -1,0 +1,40 @@
+{% extends "layouts/main.html" %}
+
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+      {# <h1 class="govuk-heading-l">
+        Conditional hint text demo
+      </h1> #}
+
+			{{ govukRadios({
+				name: "blah",
+				fieldset: {
+					legend: {
+						text: "Do you want to get delivery updates?",
+						isPageHeading: true,
+						classes: "govuk-fieldset__legend--m"
+					}
+				},
+				items: [
+					{
+						value: "Yes",
+						text: "Yes"
+					},
+					{
+						value: "No",
+						text: "No",
+						conditional: {
+							html: '<p>You might miss your delivery</p>'
+						}
+					}
+				]
+			}) }}
+
+			{{ govukButton({
+				text: "Continue"
+			}) }}
+    </div>
+  </div>
+{% endblock %}

@@ -180,6 +180,69 @@
               }
             ]
           }) }}
+
+					{% set dateFieldHtml %}
+						{{ govukDateInput({
+							id: "blah",
+							fieldset: {
+								legend: {
+									text: "Date of birth",
+									isPageHeading: true,
+									classes: "govuk-fieldset__legend--s"
+								}
+							},
+							hint: {
+								text: "For example, 31 3 1980"
+							},
+							items: [
+								{
+									name: "blah",
+									label: "Day",
+									value: data.day,
+									classes: "govuk-input--width-2"
+								},
+								{
+									name: "blah",
+									label: "Month",
+									value: data.month,
+									classes: "govuk-input--width-2"
+								},
+								{
+									name: "blah",
+									label: "Year",
+									value: data.year,
+									classes: "govuk-input--width-4"
+								}
+							]
+						}) }}
+					{% endset %}
+
+					{{ govukRadios({
+						name: "yesno",
+						fieldset: {
+							legend: {
+								text: "Do you know your date of birth?",
+								isPageHeading: false,
+								classes: "govuk-fieldset__legend--m"
+							}
+						},
+						value: data.yesno,
+						items: [
+							{
+								value: "Yes",
+								text: "Yes",
+								conditional: {
+									html: dateFieldHtml
+								}
+							},
+							{
+								value: "No",
+								text: "No"
+							}
+						]
+					}) }}
+
+
       </form>
     </div>
   </div>
