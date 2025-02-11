@@ -1,0 +1,234 @@
+{% extends "layouts/main.html" %}
+
+{% set back = false %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back to application",
+    href: "#"
+  }) }}
+{% endblock %}
+
+{% block content %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds">
+       <h1 class="govuk-heading-l">Your degrees</h1>
+
+        {# {{ govukButton({
+          text: "Add another degree",
+          classes: 'govuk-button--secondary'
+        }) }} #}
+
+
+<div class="govuk-inset-text app-prompt">
+
+{{ govukSummaryList({
+  card: {
+    title: {
+      text: "BSc (Hons) Web and multimedia design"
+    },
+    actions: {
+      items: [
+        {
+          href: "#",
+          text: "Delete degree",
+          visuallyHiddenText: ""
+        }
+      ]
+    }
+  },
+  rows: [
+    {
+      key: {
+        text: "Degree type"
+      },
+      value: {
+        html: "Bachelor of Science"
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "#"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "Subject"
+      },
+      value: {
+        html: "Web and multimedia design"
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "#"
+          }
+        ]
+      }
+    },
+    {
+      key: {
+        text: "Institution"
+      },
+      value: {
+        html: "University of Hertfordshire"
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "#"
+          }
+        ]
+      }
+    } if 1==2,
+    {
+      key: {
+        text: "Have you completed this degree?"
+      },
+      value: {
+        html: "Yes"
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "#"
+          }
+        ]
+      }
+    } if 1==2,
+    {
+      key: {
+        text: "Grade"
+      },
+      value: {
+        html: "First class honours"
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "#"
+          }
+        ]
+      }
+    } if 1==2,
+    {
+      key: {
+        text: "Start year"
+      },
+      value: {
+        html: "2017"
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "#"
+          }
+        ]
+      }
+    } if 1==2,
+    {
+      key: {
+        text: "Graudation year"
+      },
+      value: {
+        html: "2020"
+      },
+      actions: {
+        items: [
+          {
+            href: "#",
+            text: "Change",
+            visuallyHiddenText: "#"
+          }
+        ]
+      }
+    } if 1==2
+  ]
+}) }}
+
+{{ govukButton({
+            text: "Complete personal details"
+          }) }}
+
+</div>
+
+      {# CHECKBOX #}
+
+      {# {{ govukCheckboxes({
+        items: [
+          {
+            value: "I have completed this section",
+            text: "I have completed this section"
+          }
+        ]
+      }) }} #}
+
+      {# {{ govukButton({
+        text: "Continue"
+      }) }} #}
+
+      {# BUTTON label change #}
+
+      {# {{ govukButton({
+        text: "Save and return to application"
+      }) }} #}
+
+      {# BUTTON ONLY #}
+
+      {# {{ govukButton({
+        text: "Mark as complete and return to application"
+      }) }} #}
+
+
+      {# RADIOS #}
+
+      {# {{ govukRadios({
+        name: "haveYouCompletedThisSection",
+        fieldset: {
+          legend: {
+            text: "Have you completed this section?",
+            isPageHeading: false,
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+          {
+            value: "yes",
+            text: "Yes, I’ve completed this section"
+          },
+          {
+            value: "no",
+            text: "No, I’ll come back to it later"
+          }
+        ]
+      }) }}
+
+      {{ govukButton({
+        text: "Continue"
+      }) }} #}
+
+      {# Auto #}
+
+      {# {{ govukButton({
+        text: "Return to application"
+      }) }} #}
+
+    </div>
+  </div>
+
+{% endblock %}
