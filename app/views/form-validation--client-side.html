@@ -1,0 +1,189 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = 'Sign in' %}
+
+{% if errorSummary.items.length %}
+  {% set pageName = 'Error - ' + pageName %}
+{% endif %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:history.back();"
+  }) }}
+{% endblock %}
+
+{% block content %}
+  {% if errorSummary.items.length %}
+    {{ govukErrorSummary({
+      titleText: 'There’s a problem',
+      errorList: errorSummary.items
+    }) }}
+  {% else %}
+    <div tabindex="-1" role="group" id="errorSummary" class="govuk-error-summary app-hidden" aria-labelledby="error-summary-title" data-module="error-summary">
+    </div>
+  {% endif %}
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+      <h1 class="govuk-heading-l">
+        {{pageName}}
+      </h1>
+
+      <form method="post">
+        {{ govukInput({
+            label: {
+              text: "Email",
+              classes: 'govuk-label--m'
+            },
+            id: "email",
+            name: "email"
+          }) }}
+
+          {{ govukInput({
+            label: {
+              text: "Password",
+              classes: 'govuk-label--m'
+            },
+            id: "password",
+            name: "password"
+          }) }}
+
+          {# {{ govukRadios({
+            idPrefix: "location",
+            name: "location",
+
+            fieldset: {
+              legend: {
+                text: "Location",
+                classes: 'govuk-fieldset__legend--m'
+              }
+            },
+            items: [
+              {
+                id: 'location',
+                value: "england",
+                text: "England"
+              },
+              {
+                value: "scotland",
+                text: "Scotland"
+              },
+              {
+                value: "wales",
+                text: "Wales"
+              },
+              {
+                value: "northern-ireland",
+                text: "Northern Ireland"
+              }
+            ]
+          }) }} #}
+
+        {# {{ govukDateInput({
+          id: "dob",
+          namePrefix: "dob",
+          fieldset: {
+            legend: {
+              text: "Date of birth",
+              classes: "govuk-fieldset__legend--s"
+            }
+          },
+          hint: {
+            text: "For example, 31 3 1980"
+          },
+          items: [
+            {
+              name: "dob[day]",
+              id: 'dob-day',
+              label: "Day",
+              value: data.dob.day,
+              classes: "govuk-input--width-2 " + dayErrorClass
+            },
+            {
+              name: "dob[month]",
+              id: 'dob.month',
+              label: "Month",
+              value: data.dob.month,
+              classes: "govuk-input--width-2 " + monthErrorClass
+            },
+            {
+              name: "dob[year]",
+              id: 'dob.year',
+              label: "Year",
+              value: data.dob.year,
+              classes: "govuk-input--width-4 " + yearErrorClass
+            }
+          ]
+        }) }} #}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+      </form>
+    </div>
+  </div>
+{% endblock %}
+
+{% block pageScripts %}
+  {{super()}}
+  <script>
+  var validator = new App.FormValidator(document.forms[0]);
+  validator.addValidator('email', [{
+    method: function(field) {
+        return field.value.trim().length > 0;
+    },
+    message: 'Enter your email address'
+  },{
+    method: function(field) {
+        return (field.value.indexOf('@') > -1);
+      },
+    message: 'You need to enter the ‘at’ symbol in your email address'
+  }]);
+  validator.addValidator('password', [{
+    method: function(field) {
+        return field.value.trim().length > 0;
+    },
+    message: 'Enter your password'
+  }, {
+    method: function(field) {
+        return field.value.length > 8;
+    },
+    message: 'Your password must contain at least 8 characters'
+  }, {
+    method: function(field) {
+      return /\d/.test(field.value);
+    },
+    message: 'Your password must contain at least one number'
+  }]);
+  {# validator.addValidator('location', [{
+    method: function(field) {
+      return field.value.trim().length > 0;
+    },
+    message: 'Select your location'
+  }]);
+  validator.addValidator('dob-day', [{
+    method: function(field, params) {
+      return (params.day.value.length !== 0 && params.month.value.length !== 0 && params.year.value !== 0);
+    },
+    message: 'Enter your date of birth',
+    params: {
+      day: document.getElementById('dob-day'),
+      month: document.getElementById('dob-month'),
+      year: document.getElementById('dob-year')
+    }
+  }, {
+    method: function(field, params) {
+      var d = new Date(parseInt(params.year.value, 10), parseInt(params.month.value, 10)-1, parseInt(params.day.value, 10)-1);
+      return d instanceof Date && !isNaN(d);
+    },
+    message: 'Enter a valid date of birth',
+    params: {
+      day: document.getElementById('dob-day'),
+      month: document.getElementById('dob-month'),
+      year: document.getElementById('dob-year')
+    }
+  }]); #}
+</script>
+{% endblock %}
+
