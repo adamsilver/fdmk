@@ -21,7 +21,7 @@ if(App.dragAndDropSupported() && App.formDataSupported() && App.fileApiSupported
       uploadFileErrorHook: $.noop,
       fileDeleteHook: $.noop,
       uploadStatusText: 'Uploading files, please wait',
-      dropzoneHintText: 'Drag and drop files here or',
+      dropzoneHintText: 'or drop files',
       dropzoneButtonText: 'Choose files'
     };
 
@@ -48,8 +48,8 @@ if(App.dragAndDropSupported() && App.formDataSupported() && App.fileApiSupported
 
   App.MultiFileUpload.prototype.setupLabel = function() {
     this.label = $('<label for="'+this.fileInput[0].id+'" class="govuk-button govuk-button--secondary">'+ this.params.dropzoneButtonText +'</label>');
-    this.dropzone.append('<p class="govuk-body">' + this.params.dropzoneHintText + '</p>');
     this.dropzone.append(this.label);
+    this.dropzone.append('<p class="govuk-body">' + this.params.dropzoneHintText + '</p>');
   };
 
   App.MultiFileUpload.prototype.setupFileInput = function() {

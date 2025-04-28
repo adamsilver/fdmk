@@ -7,12 +7,10 @@
 }
 
 .app-multi-file-upload__dropzone {
-  outline: 2px dashed govuk-colour('black');
+  outline: 2px dashed $govuk-border-colour;
 	display: flex;
-	text-align: center;
 	padding: govuk-spacing(9) govuk-spacing(3);
 	transition: outline-offset .1s ease-in-out, background-color .1s linear;
-	justify-content: center;
 }
 
 .app-multi-file-upload__dropzone label {
@@ -23,7 +21,7 @@
 
 .app-multi-file-upload__dropzone p {
   margin-bottom: 0;
-  margin-right: 10px;
+  margin-left: 10px;
   padding-top: 7px;
 }
 
