@@ -99,7 +99,7 @@
     </div>
   {%- endif -%}
 
-  <div class="app-list-filter__container {% if params.maxHeight %}app-list-filter__container--max{% endif %}">
+  <div class="app-list-filter__container {% if params.maxHeight %}app-list-filter__container--max{% endif %}" tabindex="0">
     <div class="govuk-radios app-list-filter__container-inner {%- if params.classes %} {{ params.classes }}{% endif %}"
       {{- govukAttributes(params.attributes) }} data-module="govuk-radios">
       {% if params.formGroup.beforeInputs %}
