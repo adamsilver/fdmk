@@ -19,7 +19,7 @@ App.ListFilter.prototype.setupHeading = function() {
 }
 
 App.ListFilter.prototype.setupTextBox = function() {
-  this.legend.after(this.getTextBoxHtml())
+  this.itemsContainer.before(this.getTextBoxHtml())
   this.textBox = this.container.find('.app-list-filter__filter-input')
   this.textBox.on('keyup', $.proxy(this, 'onTextBoxKeyUp'))
 }
@@ -27,7 +27,7 @@ App.ListFilter.prototype.setupTextBox = function() {
 App.ListFilter.prototype.getTextBoxHtml = function() {
   var id = this.container[0].id
   var html = ''
-  html += '<label for="' + id + '-list-filter__filter-input" class="govuk-label govuk-visually-hidden">' + this.params.textBox.label + '</label>'
+  html += '<label for="' + id + '-list-filter__filter-input" class="govuk-label govuk-visually-hidde">' + this.params.textBox.label + '</label>'
   html += '<input id="' + id + '-list-filter__filter-input" class="app-list-filter__filter-input govuk-input" type="text" aria-describedby="' + id + '-list-filter-status" aria-controls="' + id + '-items" autocomplete="off" spellcheck="false">'
   return html
 }

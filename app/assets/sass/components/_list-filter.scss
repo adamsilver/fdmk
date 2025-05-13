@@ -31,9 +31,6 @@
 
 .app-list-filter__container {
   position: relative;
-  // margin-left: - govuk-spacing(2);
-  // background-color: govuk-colour("white");
-
   &:focus {
     outline: 3px solid $govuk-focus-colour;
     box-shadow: inset 0 0 0 2px;
@@ -41,6 +38,8 @@
 }
 
 .app-list-filter__container--max {
+  margin-left: -10px;
+  padding-left: 10px;
   max-height: 300px;
   overflow-x: hidden;
   overflow-y: auto;

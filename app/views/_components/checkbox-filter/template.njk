@@ -125,9 +125,8 @@
   </div>
 {% endset -%}
 
-<div class="app-list-filter {{- ' ' + params.classes if params.classes }}">
-  <div class="govuk-form-group {%- if params.errorMessage %} govuk-form-group--error{% endif %} {%- if params.formGroup.classes %} {{ params.formGroup.classes }}{% endif %}"
-    {{- govukAttributes(params.formGroup.attributes) }}>
+<div class="app-list-filter {{- ' ' + params.classes if params.classes }}" {{- govukAttributes(params.attributes) }}>
+  <div class="govuk-form-group {%- if params.errorMessage %} govuk-form-group--error{% endif %} {%- if params.formGroup.classes %} {{ params.formGroup.classes }}{% endif %}">
   {% if hasFieldset %}
     {{ govukFieldset({
       describedBy: describedBy,
