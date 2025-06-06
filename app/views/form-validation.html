@@ -3,7 +3,14 @@
 {% set pageName = 'About the job' %}
 
 {% if errorSummary.items.length %}
-  {% set pageName = 'Error - ' + pageName %}
+  {% set pageName %}
+    {% if errorSummary.items.length == 1 %}
+      1 error
+    {% else %}
+      {{errorSummary.items.length}} errors
+    {% endif %}
+    - {{pageName}}
+  {% endset %}
 {% endif %}
 
 {% block beforeContent %}
