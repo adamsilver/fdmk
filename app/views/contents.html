@@ -5,29 +5,27 @@
     <div class="govuk-grid-column-two-thirds-from-desktop">
 
       <h1 class="govuk-heading-l">
-        Form Design Mastery Kit
+        Form Design Mastery UI Kit
       </h1>
 
-      {# <p>A collection of component demos and test cases by <a href="https://adamsilver.io">Adam Silver</a>.</p> #}
-
-      {# <h2 class="govuk-heading-m">Component demos</h2> #}
+      {# <p>A collection of form components by <a href="https://adamsilver.io">Adam Silver</a>.</p> #}
 
       <ul class="govuk-list">
-        <li><a href="/add-another">Add another</a></li>
-        <li><a href="/autocomplete">Autocomplete</a></li>
-        <li><a href="/date-from-document">Date from document</a></li>
-        <li><a href="/date-input">Date picker</a></li>
-        <li><a href="/button-disabler">Button disabler</a></li>
-        <li><a href="/time-input">Time input</a></li>
-        <li><a href="/stepper">Stepper</a></li>
-        <li><a href="/multi-file-upload">Multi file upload</a></li>
-        <li><a href="/multi-file-upload--multi-fields">Multi file upload (multiple fields)</a></li>
-        <li><a href="/radio-filter">Radio filter</a></li>
-        <li><a href="/checkbox-filter">Checkbox filter</a></li>
-        <li><a href="/form-validation">Form validation (server side)</a></li>
-        <li><a href="/form-validation--client-side">Form validation (client side)</a></li>
-        <li><a href="/select-box">Select box</a></li>
-        <li><a href="/url-input">URL input</a></li>
+        <li><a class="govuk-link--no-visited-state" href="/add-another">Add another</a></li>
+        <li><a class="govuk-link--no-visited-state" href="/autocomplete">Autocomplete</a></li>
+        <li><a class="govuk-link--no-visited-state" href="/date-from-document">Date (from document)</a></li>
+        <li><a class="govuk-link--no-visited-state" href="/date-input">Date (date picker)</a></li>
+        <li><a class="govuk-link--no-visited-state" href="/button-disabler">Button disabler</a></li>
+        <li><a class="govuk-link--no-visited-state" href="/time-input">Time input</a></li>
+        <li><a class="govuk-link--no-visited-state" href="/stepper">Stepper</a></li>
+        {# <li><a class="govuk-link--no-visited-state" href="/multi-file-upload">Multi file upload (single-question page)</a></li> #}
+        <li><a class="govuk-link--no-visited-state" href="/multi-file-upload--multi-fields">Multi file upload (multi-question page)</a></li>
+        <li><a class="govuk-link--no-visited-state" href="/radio-filter">Radio filter</a></li>
+        <li><a class="govuk-link--no-visited-state" href="/checkbox-filter">Checkbox filter</a></li>
+        <li><a class="govuk-link--no-visited-state" href="/form-validation">Form validation (server side)</a></li>
+        <li><a class="govuk-link--no-visited-state" href="/form-validation--client-side">Form validation (client side)</a></li>
+        {# <li><a class="govuk-link--no-visited-state" href="/select-box">Select box</a></li> #}
+        <li><a class="govuk-link--no-visited-state" href="/url-input">URL input</a></li>
       </ul>
 
       {# <h2 class="govuk-heading-m">Test cases</h2>
@@ -42,48 +40,8 @@
         <li><a href="/maxlength">Maxlength</a></li>
       </ul> #}
 
-      {% set toggleSearchHtml %}
-        <div class="hmcts-search-toggle">
-          <div class="hmcts-search-toggle__toggle"></div>
-          <div class="hmcts-search-toggle__search">
-            {{ appSearch({
-              classes: 'hmcts-search--ondark hmcts-search--toggle app-hidden',
-              input: {
-                id: 'search2',
-                name: 'search2'
-              },
-              label: {
-                classes: 'govuk-visually-hidden',
-                text: 'Search'
-              },
-              hint: {
-                text: 'Enter case number, for example 123456'
-              },
-              button: {
-                text: 'Search'
-              }
-            }) }}
-          </div>
-        </div>
-      {% endset %}
     </div>
   </div>
-
-  {{ appPrimaryNavigation({
-        label: 'Primary navigation',
-        items: [{
-          text: 'Nav item 1',
-          href: '#1',
-          active: true
-        }, {
-          text: 'Nav item 2',
-          href: '#2'
-        }, {
-          text: 'Nav item 3',
-          href: '#3'
-        }],
-        searchHtml: toggleSearchHtml
-      }) if 1 == 2}}
 {% endblock %}
 
 {% block pageScripts %}
