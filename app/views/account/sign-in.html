@@ -4,6 +4,13 @@
 
 {% block content %}
 
+  {% if errorSummary.items.length %}
+    {{ govukErrorSummary({
+      titleText: 'There’s a problem',
+      errorList: errorSummary.items
+    }) }}
+  {% endif %}
+
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds">
       <h1 class="govuk-heading-l">{{ pageName }}</h1>
@@ -11,14 +18,15 @@
       <form method="post" novalidate>
 
         {{ govukInput({
-          id: "signIn[password]",
+          id: "signIn.password",
           name: "signIn[password]",
           type: "password",
           label: {
             text: "Password",
             classes: "govuk-label--m"
           },
-          value: data.signIn.password
+          value: data.signIn.password,
+          errorMessage: inlineErrors.signIn.password
         }) }}
 
         {{ govukButton({
