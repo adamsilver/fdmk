@@ -1,0 +1,173 @@
+{% extends "layouts/main.html" %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+
+      <form method="post" action="/juggling-license/check-answers">
+
+        <h1 class="govuk-heading-l">
+          Equipment and props
+        </h1>
+
+        {{ govukCheckboxes({
+          name: "ownedEquipment",
+          fieldset: {
+            legend: {
+              text: "What juggling equipment do you own?",
+              classes: "govuk-fieldset__legend--s"
+            }
+          },
+          hint: {
+            text: "Select all that apply"
+          },
+          items: [
+            {
+              value: "balls",
+              text: "Juggling balls"
+            },
+            {
+              value: "clubs",
+              text: "Juggling clubs"
+            },
+            {
+              value: "rings",
+              text: "Juggling rings"
+            },
+            {
+              value: "beanbags",
+              text: "Beanbags"
+            },
+            {
+              value: "torches",
+              text: "Fire torches"
+            },
+            {
+              value: "poi",
+              text: "Poi"
+            },
+            {
+              value: "diabolo",
+              text: "Diabolo"
+            },
+            {
+              value: "devil-sticks",
+              text: "Devil sticks"
+            },
+            {
+              value: "cigar-boxes",
+              text: "Cigar boxes"
+            },
+            {
+              value: "contact-balls",
+              text: "Contact juggling balls"
+            }
+          ]
+        }) }}
+
+        {{ govukRadios({
+          name: "equipmentQuality",
+          fieldset: {
+            legend: {
+              text: "Quality of your main equipment set",
+              classes: "govuk-fieldset__legend--s"
+            }
+          },
+          items: [
+            {
+              value: "beginner",
+              text: "Beginner/practice grade"
+            },
+            {
+              value: "intermediate",
+              text: "Intermediate grade"
+            },
+            {
+              value: "professional",
+              text: "Professional grade"
+            },
+            {
+              value: "performance",
+              text: "Performance/stage grade"
+            }
+          ]
+        }) }}
+
+        {{ govukRadios({
+          name: "safetyEquipment",
+          fieldset: {
+            legend: {
+              text: "Do you own appropriate safety equipment?",
+              classes: "govuk-fieldset__legend--s"
+            }
+          },
+          hint: {
+            text: "For fire juggling, this includes fire blanket, extinguisher, and protective clothing"
+          },
+          items: [
+            {
+              value: "yes",
+              text: "Yes"
+            },
+            {
+              value: "no",
+              text: "No"
+            },
+            {
+              value: "not-applicable",
+              text: "Not applicable"
+            }
+          ]
+        }) }}
+
+        {{ govukRadios({
+          name: "equipmentInsurance",
+          fieldset: {
+            legend: {
+              text: "Is your equipment insured?",
+              classes: "govuk-fieldset__legend--s"
+            }
+          },
+          items: [
+            {
+              value: "yes",
+              text: "Yes"
+            },
+            {
+              value: "no",
+              text: "No"
+            }
+          ]
+        }) }}
+
+        {{ govukRadios({
+          name: "liabilityInsurance",
+          fieldset: {
+            legend: {
+              text: "Do you have public liability insurance?",
+              classes: "govuk-fieldset__legend--s"
+            }
+          },
+          hint: {
+            text: "Required for public performances"
+          },
+          items: [
+            {
+              value: "yes",
+              text: "Yes"
+            },
+            {
+              value: "no",
+              text: "No"
+            }
+          ]
+        }) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+    </div>
+  </div>
+{% endblock %}

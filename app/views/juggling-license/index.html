@@ -1,0 +1,78 @@
+{% extends "layouts/main.html" %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+      <h1 class="govuk-heading-xl">Apply for a juggling license</h1>
+
+      <p class="govuk-body">Complete all sections to submit your application.</p>
+
+      {{ govukTaskList({
+        idPrefix: "juggling-license",
+        items: [
+          {
+            title: {
+              text: "Applicant details"
+            },
+            href: "/juggling-license/personal-details",
+            status: {
+              tag: {
+                text: "Not started",
+                classes: "govuk-tag--blue"
+              }
+            }
+          },
+          {
+            title: {
+              text: "Juggling skills"
+            },
+            href: "/juggling-license/juggling-skills",
+            status: {
+              tag: {
+                text: "Not started",
+                classes: "govuk-tag--blue"
+              }
+            }
+          },
+          {
+            title: {
+              text: "Training history"
+            },
+            hint: {
+              text: "Include details of where and how you learned to juggle"
+            },
+            href: "/juggling-license/training-history",
+            status: {
+              tag: {
+                text: "Not started",
+                classes: "govuk-tag--blue"
+              }
+            }
+          },
+          {
+            title: {
+              text: "Equipment and props"
+            },
+            href: "/juggling-license/equipment",
+            status: {
+              tag: {
+                text: "Not started",
+                classes: "govuk-tag--blue"
+              }
+            }
+          },
+          {
+            title: {
+              text: "Check your answers and submit"
+            },
+            href: "/juggling-license/check-answers",
+            status: {
+              text: "Cannot start yet"
+            }
+          }
+        ]
+      }) }}
+
+    </div>
+  </div>
+{% endblock %}

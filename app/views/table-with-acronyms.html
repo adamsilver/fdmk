@@ -1,0 +1,95 @@
+{% extends "layouts/main.html" %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-full">
+
+      <h1 class="govuk-heading-l">
+        Client project dashboard
+      </h1>
+
+      <p class="govuk-body">This table shows the current status of client projects. Notice how the acronyms in the Status column are hard to understand—avoiding acronyms entirely would make this clearer for everyone.</p>
+
+      <table class="govuk-table">
+        <caption class="govuk-table__caption govuk-table__caption--m">Active client projects</caption>
+        <thead class="govuk-table__head">
+          <tr class="govuk-table__row">
+            <th scope="col" class="govuk-table__header">Project</th>
+            <th scope="col" class="govuk-table__header">Status</th>
+            <th scope="col" class="govuk-table__header">Project manager</th>
+            <th scope="col" class="govuk-table__header">Deadline</th>
+            <th scope="col" class="govuk-table__header">Client</th>
+          </tr>
+        </thead>
+        <tbody class="govuk-table__body">
+          <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">Patient portal redesign</th>
+            <td class="govuk-table__cell">RFP</td>
+            <td class="govuk-table__cell">Sarah Chen</td>
+            <td class="govuk-table__cell">28 March 2025</td>
+            <td class="govuk-table__cell">NHS Digital</td>
+          </tr>
+          <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">Banking app accessibility audit</th>
+            <td class="govuk-table__cell">SOW</td>
+            <td class="govuk-table__cell">James Wilson</td>
+            <td class="govuk-table__cell">15 April 2025</td>
+            <td class="govuk-table__cell">Metro Bank</td>
+          </tr>
+          <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">E-commerce checkout flow</th>
+            <td class="govuk-table__cell">WIP</td>
+            <td class="govuk-table__cell">Alex Thompson</td>
+            <td class="govuk-table__cell">22 May 2025</td>
+            <td class="govuk-table__cell">John Lewis</td>
+          </tr>
+          <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">Student loan application</th>
+            <td class="govuk-table__cell">UAT</td>
+            <td class="govuk-table__cell">Jordan Lee</td>
+            <td class="govuk-table__cell">5 April 2025</td>
+            <td class="govuk-table__cell">Student Loans Company</td>
+          </tr>
+          <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">Pension transfer portal</th>
+            <td class="govuk-table__cell">IMPL</td>
+            <td class="govuk-table__cell">Sam Rodriguez</td>
+            <td class="govuk-table__cell">18 April 2025</td>
+            <td class="govuk-table__cell">Aviva</td>
+          </tr>
+          <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">Property search redesign</th>
+            <td class="govuk-table__cell">BAU</td>
+            <td class="govuk-table__cell">Riley Kim</td>
+            <td class="govuk-table__cell">Ongoing</td>
+            <td class="govuk-table__cell">Rightmove</td>
+          </tr>
+          <tr class="govuk-table__row">
+            <th scope="row" class="govuk-table__header">Charity donation platform</th>
+            <td class="govuk-table__cell">HOLD</td>
+            <td class="govuk-table__cell">Chris Anderson</td>
+            <td class="govuk-table__cell">TBD</td>
+            <td class="govuk-table__cell">Cancer Research UK</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div class="govuk-inset-text">
+        <h2 class="govuk-heading-s">What do these acronyms mean?</h2>
+        <ul class="govuk-list govuk-list--bullet">
+          <li><strong>RFP</strong> = Request for Proposal (responding to client brief)</li>
+          <li><strong>SOW</strong> = Statement of Work (drafting project scope)</li>
+          <li><strong>KO</strong> = Kickoff (initial project meeting)</li>
+          <li><strong>WIP</strong> = Work in Progress (active development)</li>
+          <li><strong>UAT</strong> = User Acceptance Testing (client testing phase)</li>
+          <li><strong>IMPL</strong> = Implementation (deploying to production)</li>
+          <li><strong>BAU</strong> = Business as Usual (ongoing support)</li>
+          <li><strong>HOLD</strong> = On Hold (paused, awaiting client decision)</li>
+          <li><strong>TBD</strong> = To Be Determined (not yet scheduled)</li>
+        </ul>
+        <p class="govuk-body">If everyone needs this explanation, why use acronyms at all? Writing out the full terms benefits everyone—not just screen reader users.</p>
+      </div>
+
+    </div>
+  </div>
+{% endblock %}

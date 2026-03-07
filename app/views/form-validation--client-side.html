@@ -1,10 +1,6 @@
 {% extends "layouts/main.html" %}
 
-{% set pageName = 'Sign in' %}
-
-{% if errorSummary.items.length %}
-  {% set pageName = 'Error - ' + pageName %}
-{% endif %}
+{% set pageName = 'About the job' %}
 
 {% block beforeContent %}
   {{ govukBackLink({
@@ -14,108 +10,172 @@
 {% endblock %}
 
 {% block content %}
-  {% if errorSummary.items.length %}
-    {{ govukErrorSummary({
-      titleText: 'There’s a problem',
-      errorList: errorSummary.items
-    }) }}
-  {% else %}
-    <div tabindex="-1" role="group" id="errorSummary" class="govuk-error-summary app-hidden" aria-labelledby="error-summary-title" data-module="error-summary">
-    </div>
-  {% endif %}
+  <div tabindex="-1" role="group" id="errorSummary" class="govuk-error-summary app-hidden" aria-labelledby="error-summary-title" data-module="error-summary">
+  </div>
 
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds-from-desktop">
       <h1 class="govuk-heading-l">
-        {{pageName}}
+        About the job
       </h1>
 
       <form method="post">
         {{ govukInput({
-            label: {
-              text: "Email",
-              classes: 'govuk-label--m'
-            },
-            id: "email",
-            name: "email"
-          }) }}
+          id: "job-title",
+          name: "job-title",
+          label: {
+            text: "Job title",
+            classes: "govuk-label--s"
+          }
+        }) }}
 
-          {{ govukInput({
-            label: {
-              text: "Password",
-              classes: 'govuk-label--m'
-            },
-            id: "password",
-            name: "password"
-          }) }}
+        {{ govukTextarea({
+          id: "job-description",
+          name: "job-description",
+          label: {
+            text: "Job description",
+            classes: "govuk-label--s"
+          }
+        }) }}
 
-          {# {{ govukRadios({
-            idPrefix: "location",
-            name: "location",
-
-            fieldset: {
-              legend: {
-                text: "Location",
-                classes: 'govuk-fieldset__legend--m'
-              }
-            },
-            items: [
-              {
-                id: 'location',
-                value: "england",
-                text: "England"
-              },
-              {
-                value: "scotland",
-                text: "Scotland"
-              },
-              {
-                value: "wales",
-                text: "Wales"
-              },
-              {
-                value: "northern-ireland",
-                text: "Northern Ireland"
-              }
-            ]
-          }) }} #}
-
-        {# {{ govukDateInput({
-          id: "dob",
-          namePrefix: "dob",
+        {{ govukRadios({
+          idPrefix: "working-pattern",
+          name: "working-pattern",
           fieldset: {
             legend: {
-              text: "Date of birth",
+              text: "Working pattern",
+              classes: "govuk-fieldset__legend--s"
+            }
+          },
+          items: [
+            {
+              value: "Full time",
+              text: "Full time"
+            },
+            {
+              value: "Part time",
+              text: "Part time"
+            }
+          ]
+        }) }}
+
+        {{ govukCheckboxes({
+          idPrefix: "benefits",
+          name: "benefits",
+          fieldset: {
+            legend: {
+              text: "Benefits",
+              classes: "govuk-fieldset__legend--s"
+            }
+          },
+          items: [
+            {
+              value: "Benefit 1",
+              text: "Benefit 1"
+            },
+            {
+              value: "Benefit 2",
+              text: "Benefit 2"
+            },
+            {
+              value: "Benefit 3",
+              text: "Benefit 3"
+            }
+          ]
+        }) }}
+
+        {{ govukDateInput({
+          id: "start-date",
+          fieldset: {
+            legend: {
+              text: "Start date",
               classes: "govuk-fieldset__legend--s"
             }
           },
           hint: {
-            text: "For example, 31 3 1980"
+            text: "For example, 31 3 2025"
           },
           items: [
             {
-              name: "dob[day]",
-              id: 'dob-day',
+              name: "start-date-day",
+              id: "start-date-day",
               label: "Day",
-              value: data.dob.day,
-              classes: "govuk-input--width-2 " + dayErrorClass
+              classes: "govuk-input--width-2"
             },
             {
-              name: "dob[month]",
-              id: 'dob.month',
+              name: "start-date-month",
+              id: "start-date-month",
               label: "Month",
-              value: data.dob.month,
-              classes: "govuk-input--width-2 " + monthErrorClass
+              classes: "govuk-input--width-2"
             },
             {
-              name: "dob[year]",
-              id: 'dob.year',
+              name: "start-date-year",
+              id: "start-date-year",
               label: "Year",
-              value: data.dob.year,
-              classes: "govuk-input--width-4 " + yearErrorClass
+              classes: "govuk-input--width-4"
             }
           ]
-        }) }} #}
+        }) }}
+
+        {{ govukSelect({
+          id: "location",
+          name: "location",
+          label: {
+            text: "Location",
+            classes: "govuk-label--s"
+          },
+          items: [
+            {
+              value: "",
+              text: "Choose location"
+            },
+            {
+              value: "eastmidlands",
+              text: "East Midlands"
+            },
+            {
+              value: "eastofengland",
+              text: "East of England"
+            },
+            {
+              value: "london",
+              text: "London"
+            },
+            {
+              value: "northeast",
+              text: "North East"
+            },
+            {
+              value: "northwest",
+              text: "North West"
+            },
+            {
+              value: "southeast",
+              text: "South East"
+            },
+            {
+              value: "southwest",
+              text: "South West"
+            },
+            {
+              value: "westmidlands",
+              text: "West Midlands"
+            },
+            {
+              value: "yorkshire",
+              text: "Yorkshire and the Humber"
+            }
+          ]
+        }) }}
+
+        {{ govukFileUpload({
+          id: "specification",
+          name: "specification",
+          label: {
+            text: "Job specification",
+            classes: "govuk-label--s"
+          }
+        }) }}
 
         {{ govukButton({
           text: "Continue"
@@ -129,61 +189,82 @@
   {{super()}}
   <script>
   var validator = new App.FormValidator(document.forms[0]);
-  validator.addValidator('email', [{
-    method: function(field) {
-        return field.value.trim().length > 0;
-    },
-    message: 'Enter your email address'
-  },{
-    method: function(field) {
-        return (field.value.indexOf('@') > -1);
-      },
-    message: 'You need to enter the ‘at’ symbol in your email address'
-  }]);
-  validator.addValidator('password', [{
-    method: function(field) {
-        return field.value.trim().length > 0;
-    },
-    message: 'Enter your password'
-  }, {
-    method: function(field) {
-        return field.value.length > 8;
-    },
-    message: 'Your password must contain at least 8 characters'
-  }, {
-    method: function(field) {
-      return /\d/.test(field.value);
-    },
-    message: 'Your password must contain at least one number'
-  }]);
-  {# validator.addValidator('location', [{
+  validator.addValidator('job-title', [{
     method: function(field) {
       return field.value.trim().length > 0;
     },
-    message: 'Select your location'
+    message: 'Enter job title'
   }]);
-  validator.addValidator('dob-day', [{
-    method: function(field, params) {
-      return (params.day.value.length !== 0 && params.month.value.length !== 0 && params.year.value !== 0);
+  validator.addValidator('job-description', [{
+    method: function(field) {
+      return field.value.trim().length > 0;
     },
-    message: 'Enter your date of birth',
+    message: 'Enter job description'
+  }]);
+  validator.addValidator('working-pattern', [{
+    method: function(field) {
+      return field.value.trim().length > 0;
+    },
+    message: 'Select working pattern'
+  }]);
+  validator.addValidator('benefits', [{
+    method: function(field) {
+      return Array.from(field).some(function(checkbox) {
+        return checkbox.checked;
+      });
+    },
+    message: 'Select benefits'
+  }]);
+  validator.addValidator('start-date-day', [{
+    method: function(field, params) {
+      return !(params.day.value === '' && params.month.value === '' && params.year.value === '');
+    },
+    message: 'Enter job start date',
     params: {
-      day: document.getElementById('dob-day'),
-      month: document.getElementById('dob-month'),
-      year: document.getElementById('dob-year')
+      day: document.getElementById('start-date-day'),
+      month: document.getElementById('start-date-month'),
+      year: document.getElementById('start-date-year')
     }
   }, {
     method: function(field, params) {
-      var d = new Date(parseInt(params.year.value, 10), parseInt(params.month.value, 10)-1, parseInt(params.day.value, 10)-1);
-      return d instanceof Date && !isNaN(d);
+      if (params.day.value.trim().length === 0) return 'start-date-day';
+      return true;
     },
-    message: 'Enter a valid date of birth',
+    message: 'Job start date must include a day',
     params: {
-      day: document.getElementById('dob-day'),
-      month: document.getElementById('dob-month'),
-      year: document.getElementById('dob-year')
+      day: document.getElementById('start-date-day')
     }
-  }]); #}
-</script>
+  }, {
+    method: function(field, params) {
+      if (params.month.value.trim().length === 0) return 'start-date-month';
+      return true;
+    },
+    message: 'Job start date must include a month',
+    params: {
+      month: document.getElementById('start-date-month')
+    }
+  }, {
+    method: function(field, params) {
+      if (params.year.value.trim().length === 0) return 'start-date-year';
+      return true;
+    },
+    message: 'Job start date must include a year',
+    params: {
+      year: document.getElementById('start-date-year')
+    }
+  }]);
+  validator.addValidator('location', [{
+    method: function(field) {
+      return field.value.trim().length > 0;
+    },
+    message: 'Select location'
+  }]);
+  validator.addValidator('specification', [{
+    method: function(field) {
+      return field.value.trim().length > 0;
+    },
+    message: 'Select job specification'
+  }]);
+  </script>
 {% endblock %}
 

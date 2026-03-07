@@ -55,11 +55,15 @@ router.get('/checkbox-filter', (req, res) => {
   })
 })
 
+router.get('/contents', (req, res) => {
+  res.redirect('/demos')
+})
+
 router.get('/', (req, res) => {
   if(!req.session.data.user) {
     res.redirect('/account/sign-in')
   } else {
-    res.redirect('/contents')
+    res.redirect('/demos')
   }
 })
 

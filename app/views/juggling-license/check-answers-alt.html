@@ -1,0 +1,477 @@
+{% extends "layouts/main.html" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "/juggling-license/equipment"
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+
+      <h1 class="govuk-heading-xl">
+        Check your answers before you submit
+      </h1>
+
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h2 class="govuk-heading-m" style="margin-bottom: 0;">Applicant details</h2>
+        <p><a class="govuk-link" href="/juggling-license/personal-details">Change<span class="govuk-visually-hidden"> applicant details</span></a></p>
+      </div>
+
+      {{ govukSummaryList({
+        classes: "govuk-!-margin-top-3",
+        rows: [
+          {
+            key: {
+              text: "Title"
+            },
+            value: {
+              text: "Mr"
+            }
+          },
+          {
+            key: {
+              text: "First name"
+            },
+            value: {
+              text: "John"
+            }
+          },
+          {
+            key: {
+              text: "Middle name"
+            },
+            value: {
+              text: "Alexander"
+            }
+          },
+          {
+            key: {
+              text: "Last name"
+            },
+            value: {
+              text: "Juggler"
+            }
+          },
+          {
+            key: {
+              text: "Date of birth"
+            },
+            value: {
+              text: "15 March 1988"
+            }
+          },
+          {
+            key: {
+              text: "National Insurance number"
+            },
+            value: {
+              text: "QQ 12 34 56 C"
+            }
+          },
+          {
+            key: {
+              text: "Phone number"
+            },
+            value: {
+              text: "07700 900123"
+            }
+          },
+          {
+            key: {
+              text: "Email address"
+            },
+            value: {
+              text: "john.juggler@example.com"
+            }
+          },
+          {
+            key: {
+              text: "Home address"
+            },
+            value: {
+              html: "72 Guild Street<br>London<br>SE23 6FH"
+            }
+          },
+          {
+            key: {
+              text: "Emergency contact name"
+            },
+            value: {
+              text: "Jane Juggler"
+            }
+          },
+          {
+            key: {
+              text: "Emergency contact phone"
+            },
+            value: {
+              text: "07700 900456"
+            }
+          }
+        ]
+      }) }}
+
+      <h2 class="govuk-heading-m">Juggling skills</h2>
+
+      {{ govukSummaryList({
+        rows: [
+          {
+            key: {
+              text: "Experience level"
+            },
+            value: {
+              text: "Advanced (3-5 years)"
+            },
+            actions: {
+              items: [
+                {
+                  href: "/juggling-license/juggling-skills",
+                  text: "Change",
+                  visuallyHiddenText: "experience level"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Maximum objects"
+            },
+            value: {
+              text: "5"
+            },
+            actions: {
+              items: [
+                {
+                  href: "/juggling-license/juggling-skills",
+                  text: "Change",
+                  visuallyHiddenText: "maximum objects"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Patterns you can perform"
+            },
+            value: {
+              html: "Cascade<br>Fountain<br>Mills Mess<br>Siteswap variations"
+            },
+            actions: {
+              items: [
+                {
+                  href: "/juggling-license/juggling-skills",
+                  text: "Change",
+                  visuallyHiddenText: "patterns"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Special skills"
+            },
+            value: {
+              html: "Fire juggling<br>Bounce juggling<br>Contact juggling"
+            },
+            actions: {
+              items: [
+                {
+                  href: "/juggling-license/juggling-skills",
+                  text: "Change",
+                  visuallyHiddenText: "special skills"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Public performance experience"
+            },
+            value: {
+              text: "Yes"
+            },
+            actions: {
+              items: [
+                {
+                  href: "/juggling-license/juggling-skills",
+                  text: "Change",
+                  visuallyHiddenText: "public performance experience"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Notable achievements"
+            },
+            value: {
+              text: "Winner of the 2022 Regional Juggling Championship. Performed at Edinburgh Fringe Festival 2023."
+            },
+            actions: {
+              items: [
+                {
+                  href: "/juggling-license/juggling-skills",
+                  text: "Change",
+                  visuallyHiddenText: "achievements"
+                }
+              ]
+            }
+          }
+        ]
+      }) }}
+
+      <h2 class="govuk-heading-m">Training history</h2>
+
+      {{ govukSummaryList({
+        rows: [
+          {
+            key: {
+              text: "Formal training"
+            },
+            value: {
+              text: "Yes"
+            },
+            actions: {
+              items: [
+                {
+                  href: "/juggling-license/training-history",
+                  text: "Change",
+                  visuallyHiddenText: "formal training"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Training school"
+            },
+            value: {
+              text: "London School of Juggling"
+            },
+            actions: {
+              items: [
+                {
+                  href: "/juggling-license/training-history",
+                  text: "Change",
+                  visuallyHiddenText: "training school"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Primary instructor"
+            },
+            value: {
+              text: "Professor Michael Spinner"
+            },
+            actions: {
+              items: [
+                {
+                  href: "/juggling-license/training-history",
+                  text: "Change",
+                  visuallyHiddenText: "primary instructor"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Started learning"
+            },
+            value: {
+              text: "September 2019"
+            },
+            actions: {
+              items: [
+                {
+                  href: "/juggling-license/training-history",
+                  text: "Change",
+                  visuallyHiddenText: "training start date"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Qualifications"
+            },
+            value: {
+              html: "Intermediate Juggling Certificate<br>Advanced Juggling Diploma<br>Fire Juggling Safety Certification"
+            },
+            actions: {
+              items: [
+                {
+                  href: "/juggling-license/training-history",
+                  text: "Change",
+                  visuallyHiddenText: "qualifications"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Practice hours per week"
+            },
+            value: {
+              text: "12"
+            },
+            actions: {
+              items: [
+                {
+                  href: "/juggling-license/training-history",
+                  text: "Change",
+                  visuallyHiddenText: "practice hours"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Club membership"
+            },
+            value: {
+              text: "Yes"
+            },
+            actions: {
+              items: [
+                {
+                  href: "/juggling-license/training-history",
+                  text: "Change",
+                  visuallyHiddenText: "club membership"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Club name"
+            },
+            value: {
+              text: "London Jugglers Society"
+            },
+            actions: {
+              items: [
+                {
+                  href: "/juggling-license/training-history",
+                  text: "Change",
+                  visuallyHiddenText: "club name"
+                }
+              ]
+            }
+          }
+        ]
+      }) }}
+
+      <h2 class="govuk-heading-m">Equipment and props</h2>
+
+      {{ govukSummaryList({
+        rows: [
+          {
+            key: {
+              text: "Owned equipment"
+            },
+            value: {
+              html: "Juggling balls<br>Juggling clubs<br>Fire torches<br>Contact juggling balls"
+            },
+            actions: {
+              items: [
+                {
+                  href: "/juggling-license/equipment",
+                  text: "Change",
+                  visuallyHiddenText: "owned equipment"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Equipment quality"
+            },
+            value: {
+              text: "Professional grade"
+            },
+            actions: {
+              items: [
+                {
+                  href: "/juggling-license/equipment",
+                  text: "Change",
+                  visuallyHiddenText: "equipment quality"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Safety equipment"
+            },
+            value: {
+              text: "Yes"
+            },
+            actions: {
+              items: [
+                {
+                  href: "/juggling-license/equipment",
+                  text: "Change",
+                  visuallyHiddenText: "safety equipment"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Equipment insurance"
+            },
+            value: {
+              text: "Yes"
+            },
+            actions: {
+              items: [
+                {
+                  href: "/juggling-license/equipment",
+                  text: "Change",
+                  visuallyHiddenText: "equipment insurance"
+                }
+              ]
+            }
+          },
+          {
+            key: {
+              text: "Public liability insurance"
+            },
+            value: {
+              text: "Yes"
+            },
+            actions: {
+              items: [
+                {
+                  href: "/juggling-license/equipment",
+                  text: "Change",
+                  visuallyHiddenText: "liability insurance"
+                }
+              ]
+            }
+          }
+        ]
+      }) }}
+
+      <h2 class="govuk-heading-m">Now submit your application</h2>
+
+      <p class="govuk-body">
+        By submitting this application you are confirming that, to the best of your knowledge, the details you are providing are correct.
+      </p>
+
+      <form action="/juggling-license/confirmation" method="post" novalidate>
+
+        {{ govukButton({
+          text: "Accept and submit"
+        }) }}
+
+      </form>
+
+    </div>
+  </div>
+{% endblock %}

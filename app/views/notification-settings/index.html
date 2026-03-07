@@ -1,0 +1,143 @@
+{% extends "layouts/main.html" %}
+
+{% block content %}
+    {{ govukNotificationBanner({
+      html: "<h2 class=\"govuk-heading-m\">"+flash+"</h2>",
+      type: "success",
+      icon: false
+    }) if flash and flash.length }}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+
+
+      <h1 class="govuk-heading-l">
+        Your subscription settings
+      </h1>
+
+      {# <p>Dolore magna Lorem laborum id nulla sunt officia officia officia.</p> #}
+
+      <form method="post">
+
+      {{ govukInput({
+        classes: "govuk-input--width-20",
+        id: "email",
+        name: "email",
+        label: {
+          text: "Your email address",
+          classes: 'govuk-label--s'
+        },
+        type: "email",
+        autocomplete: "email",
+        spellcheck: false,
+        value: "adam@example.com"
+      }) }}
+
+      {{ govukInput({
+        classes: "govuk-input--width-20",
+        id: "first_name",
+        name: "first_name",
+        label: {
+          text: "Your first name",
+          classes: 'govuk-label--s'
+        },
+        type: "text",
+        value: data.first_name
+      }) }}
+
+
+
+
+      {{ govukRadios({
+        classes: "govuk-radios--small",
+        idPrefix: "number1",
+        name: "number1",
+        fieldset: {
+          legend: {
+            text: "Super Simple Newsletter",
+            classes: "govuk-fieldset__legend--s"
+          }
+        },
+        hint: {
+          text: "Get an email on Sunday with a design tip that shuns ‘best practice’ and actually works"
+        },
+        items: [
+          {
+            value: "Yes, I want this",
+            text: "Yes, I want this",
+            checked: true
+          },
+          {
+            value: "No, I don’t want this",
+            text: "No, I don’t want this"
+          }
+        ]
+      }) }}
+
+      {{ govukRadios({
+        classes: "govuk-radios--small",
+        idPrefix: "number2",
+        name: "number2",
+        fieldset: {
+          legend: {
+            text: "Form Design Mastery updates",
+            classes: "govuk-fieldset__legend--s"
+          }
+        },
+        hint: {
+          text: "Includes the Form Design Mastery Crash Course lessons and promotional offers."
+        },
+        items: [
+          {
+            value: "Yes, I want this",
+            text: "Yes, I want this"
+          },
+          {
+            value: "No, I don’t want this",
+            text: "No, I don’t want this",
+            checked: true
+          }
+        ]
+      }) }}
+
+      {{ govukRadios({
+        classes: "govuk-radios--small",
+        idPrefix: "number3",
+        name: "number3",
+        fieldset: {
+          legend: {
+            text: "GOV.UK Prototype Kit Bootcamp updates",
+            classes: "govuk-fieldset__legend--s"
+          }
+        },
+        hint: {
+          text: "Get course updates when it launches
+"
+        },
+        items: [
+          {
+            value: "Yes, I want this",
+            text: "Yes, I want this",
+            checked: true
+          },
+          {
+            value: "No, I don’t want this",
+            text: "No, I don’t want this"
+          }
+        ]
+      }) }}
+
+      {{ govukButton({
+        text: "Save settings"
+      }) }}
+
+      </form>
+
+
+      <p class="govuk-body-s">
+        Powered by EmailPref.com
+      </p>
+
+
+    </div>
+  </div>
+{% endblock %}

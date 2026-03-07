@@ -1,0 +1,179 @@
+{% extends "layouts/main.html" %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+
+      <form method="post" action="/juggling-license/equipment">
+
+        <h1 class="govuk-heading-l">
+          Training history
+        </h1>
+
+        {{ govukRadios({
+          name: "formalTraining",
+          fieldset: {
+            legend: {
+              text: "Have you received formal juggling training?",
+              classes: "govuk-fieldset__legend--s"
+            }
+          },
+          items: [
+            {
+              value: "yes",
+              text: "Yes"
+            },
+            {
+              value: "no",
+              text: "No"
+            }
+          ]
+        }) }}
+
+        {{ govukInput({
+          id: "trainingSchool",
+          name: "trainingSchool",
+          label: {
+            text: "Name of training school or institution",
+            classes: "govuk-label--s"
+          },
+          hint: {
+            text: "Leave blank if self-taught"
+          },
+          classes: "govuk-!-width-two-thirds"
+        }) }}
+
+        {{ govukInput({
+          id: "instructor",
+          name: "instructor",
+          label: {
+            text: "Primary instructor name",
+            classes: "govuk-label--s"
+          },
+          hint: {
+            text: "Leave blank if self-taught"
+          },
+          classes: "govuk-!-width-two-thirds"
+        }) }}
+
+        {{ govukDateInput({
+          id: "trainingStart",
+          namePrefix: "trainingStart",
+          fieldset: {
+            legend: {
+              text: "When did you start learning to juggle?",
+              classes: "govuk-fieldset__legend--s"
+            }
+          },
+          hint: {
+            text: "For example, 03 2018"
+          },
+          items: [
+            {
+              name: "month",
+              label: "Month",
+              classes: "govuk-input--width-2"
+            },
+            {
+              name: "year",
+              label: "Year",
+              classes: "govuk-input--width-4"
+            }
+          ]
+        }) }}
+
+        {{ govukCheckboxes({
+          name: "qualifications",
+          fieldset: {
+            legend: {
+              text: "Qualifications or certifications",
+              classes: "govuk-fieldset__legend--s"
+            }
+          },
+          hint: {
+            text: "Select all that apply"
+          },
+          items: [
+            {
+              value: "basic-certificate",
+              text: "Basic Juggling Certificate"
+            },
+            {
+              value: "intermediate-certificate",
+              text: "Intermediate Juggling Certificate"
+            },
+            {
+              value: "advanced-diploma",
+              text: "Advanced Juggling Diploma"
+            },
+            {
+              value: "fire-safety",
+              text: "Fire Juggling Safety Certification"
+            },
+            {
+              value: "instructor-certification",
+              text: "Juggling Instructor Certification"
+            },
+            {
+              value: "performance-arts",
+              text: "Performance Arts Qualification"
+            },
+            {
+              value: "none",
+              text: "None"
+            }
+          ]
+        }) }}
+
+        {{ govukInput({
+          id: "hoursPerWeek",
+          name: "hoursPerWeek",
+          type: "number",
+          label: {
+            text: "Average hours of practice per week",
+            classes: "govuk-label--s"
+          },
+          classes: "govuk-input--width-3"
+        }) }}
+
+        {{ govukRadios({
+          name: "clubMembership",
+          fieldset: {
+            legend: {
+              text: "Are you a member of a juggling club?",
+              classes: "govuk-fieldset__legend--s"
+            }
+          },
+          items: [
+            {
+              value: "yes",
+              text: "Yes"
+            },
+            {
+              value: "no",
+              text: "No"
+            }
+          ]
+        }) }}
+
+        {{ govukInput({
+          id: "clubName",
+          name: "clubName",
+          label: {
+            text: "Juggling club name",
+            classes: "govuk-label--s"
+          },
+          hint: {
+            text: "Leave blank if not applicable"
+          },
+          classes: "govuk-!-width-two-thirds"
+        }) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+    </div>
+  </div>
+{% endblock %}

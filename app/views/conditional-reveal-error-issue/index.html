@@ -1,0 +1,73 @@
+{% extends "layouts/main.html" %}
+
+{% block beforeContent %}
+	{{ govukBackLink({
+		text: "Back",
+		href: "#"
+	}) }}
+{% endblock %}
+
+{% block content %}
+
+  {{ govukErrorSummary({
+    titleText: "There’s a problem",
+    errorList: [
+      {
+        text: "Enter the name of your pet",
+        href: "#name"
+      }
+    ]
+  }) if 1==1}}
+
+
+  {% set nameInput %}
+    {{ govukInput({
+      id: "name",
+      name: "name",
+      label: {
+        text: "Name of your pet",
+        classes: "govuk-label--s"
+      },
+      value: data.name,
+      errorMessage: {
+        text: 'Enter the name of your pet'
+      }
+    }) }}
+  {% endset %}  
+
+
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+		  <form>
+        {{ govukRadios({
+          name: "blah",
+          fieldset: {
+            legend: {
+            text: "Does your pet have a name?",
+            isPageHeading: true,
+            classes: "govuk-fieldset__legend--l"
+            }
+          },
+          value: 'Yes',
+          items: [
+            {
+              value: "Yes",
+              text: "Yes",
+              conditional: {
+                html: nameInput
+              }
+            },
+            {
+              value: "No",
+              text: "No"
+            }
+          ]
+        })}}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+      </form>
+    </div>
+  </div>
+{% endblock %}

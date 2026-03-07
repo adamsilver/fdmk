@@ -1,0 +1,185 @@
+{% extends "layouts/main.html" %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+
+      <form method="post" action="/juggling-license/training-history">
+
+        <h1 class="govuk-heading-l">
+          Juggling skills
+        </h1>
+
+        {{ govukRadios({
+          name: "experienceLevel",
+          fieldset: {
+            legend: {
+              text: "Experience level",
+              classes: "govuk-fieldset__legend--s"
+            }
+          },
+          items: [
+            {
+              value: "beginner",
+              text: "Beginner (less than 1 year)"
+            },
+            {
+              value: "intermediate",
+              text: "Intermediate (1-3 years)"
+            },
+            {
+              value: "advanced",
+              text: "Advanced (3-5 years)"
+            },
+            {
+              value: "expert",
+              text: "Expert (5+ years)"
+            },
+            {
+              value: "professional",
+              text: "Professional performer"
+            }
+          ]
+        }) }}
+
+        {{ govukInput({
+          id: "maxObjects",
+          name: "maxObjects",
+          type: "number",
+          label: {
+            text: "Maximum number of objects you can juggle",
+            classes: "govuk-label--s"
+          },
+          classes: "govuk-input--width-3"
+        }) }}
+
+        {{ govukCheckboxes({
+          name: "patterns",
+          fieldset: {
+            legend: {
+              text: "Patterns you can perform",
+              classes: "govuk-fieldset__legend--s"
+            }
+          },
+          hint: {
+            text: "Select all that apply"
+          },
+          items: [
+            {
+              value: "cascade",
+              text: "Cascade"
+            },
+            {
+              value: "fountain",
+              text: "Fountain"
+            },
+            {
+              value: "shower",
+              text: "Shower"
+            },
+            {
+              value: "mills-mess",
+              text: "Mills Mess"
+            },
+            {
+              value: "box",
+              text: "Box"
+            },
+            {
+              value: "siteswap",
+              text: "Siteswap variations"
+            },
+            {
+              value: "passing",
+              text: "Partner passing"
+            }
+          ]
+        }) }}
+
+        {{ govukCheckboxes({
+          name: "specialSkills",
+          fieldset: {
+            legend: {
+              text: "Special skills",
+              classes: "govuk-fieldset__legend--s"
+            }
+          },
+          hint: {
+            text: "Select all that apply"
+          },
+          items: [
+            {
+              value: "fire",
+              text: "Fire juggling"
+            },
+            {
+              value: "blindfolded",
+              text: "Blindfolded juggling"
+            },
+            {
+              value: "unicycle",
+              text: "Juggling on unicycle"
+            },
+            {
+              value: "bounce",
+              text: "Bounce juggling"
+            },
+            {
+              value: "balance",
+              text: "Balance tricks"
+            },
+            {
+              value: "diabolo",
+              text: "Diabolo"
+            },
+            {
+              value: "devil-sticks",
+              text: "Devil sticks"
+            },
+            {
+              value: "contact",
+              text: "Contact juggling"
+            }
+          ]
+        }) }}
+
+        {{ govukRadios({
+          name: "publicPerformance",
+          fieldset: {
+            legend: {
+              text: "Have you performed in public?",
+              classes: "govuk-fieldset__legend--s"
+            }
+          },
+          items: [
+            {
+              value: "yes",
+              text: "Yes"
+            },
+            {
+              value: "no",
+              text: "No"
+            }
+          ]
+        }) }}
+
+        {{ govukTextarea({
+          id: "achievements",
+          name: "achievements",
+          label: {
+            text: "Notable achievements or competitions",
+            classes: "govuk-label--s"
+          },
+          hint: {
+            text: "Include any awards, competitions entered, or special performances"
+          }
+        }) }}
+
+        {{ govukButton({
+          text: "Continue"
+        }) }}
+
+      </form>
+    </div>
+  </div>
+{% endblock %}

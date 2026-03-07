@@ -8,8 +8,6 @@
         Form Design Mastery Kit
       </h1>
 
-      {# <p>A collection of form components by <a href="https://adamsilver.io">Adam Silver</a>.</p> #}
-
       <ul class="govuk-list">
         <li><a class="govuk-link--no-visited-state" href="/add-another">Add another</a></li>
         <li><a class="govuk-link--no-visited-state" href="/autocomplete">Autocomplete</a></li>
@@ -18,46 +16,14 @@
         <li><a class="govuk-link--no-visited-state" href="/button-disabler">Button disabler</a></li>
         <li><a class="govuk-link--no-visited-state" href="/time-input">Time input</a></li>
         <li><a class="govuk-link--no-visited-state" href="/stepper">Stepper</a></li>
-        {# <li><a class="govuk-link--no-visited-state" href="/multi-file-upload">Multi file upload (single-question page)</a></li> #}
         <li><a class="govuk-link--no-visited-state" href="/multi-file-upload--multi-fields">Multi file upload (dropzone)</a></li>
         <li><a class="govuk-link--no-visited-state" href="/radio-filter">Radio filter</a></li>
         <li><a class="govuk-link--no-visited-state" href="/checkbox-filter">Checkbox filter</a></li>
         <li><a class="govuk-link--no-visited-state" href="/form-validation">Form validation (server side)</a></li>
         <li><a class="govuk-link--no-visited-state" href="/form-validation--client-side">Form validation (client side)</a></li>
-        {# <li><a class="govuk-link--no-visited-state" href="/select-box">Select box</a></li> #}
         <li><a class="govuk-link--no-visited-state" href="/url-input">URL input</a></li>
-        <li><a class="govuk-link--no-visited-state" href="/table-with-acronyms">Table with acronyms</a></li>
-        <li><a class="govuk-link--no-visited-state" href="/juggling-license">Juggling license application</a></li>
       </ul>
-
-      {# <h2 class="govuk-heading-m">Test cases</h2>
-
-      <ul class="govuk-list">
-        <li><a href="/autofocus">Autofocus</a></li>
-        <li><a href="/paste-disabler">Paste disabler</a></li>
-        <li><a href="/nested-fieldsets">Nested fieldsets</a></li>
-        <li><a href="/sticky">Sticky menu</a></li>
-        <li><a href="/email-preferences">Email preferences</a></li>
-        <li><a href="/card-details">Card details</a></li>
-        <li><a href="/maxlength">Maxlength</a></li>
-      </ul> #}
 
     </div>
   </div>
-{% endblock %}
-
-{% block pageScripts %}
-  {{super()}}
-  <script>
-    new App.SearchToggleButton({
-      toggleButton: {
-        container: $('.hmcts-search-toggle__toggle'),
-        text: 'Search for case'
-      },
-      search: {
-        container: $('.hmcts-search').last()
-      }
-
-    })
-  </script>
 {% endblock %}
