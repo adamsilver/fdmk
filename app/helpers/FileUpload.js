@@ -1,3 +1,4 @@
+const fs = require('fs');
 const { formidable } = require('formidable');
 const { get, set, remove } = require('lodash');
 
@@ -8,6 +9,7 @@ class FileUpload {
     this.maxFileSize = maxFileSize;
     this.uploadDir = uploadDir;
     this.errors = errors;
+    fs.mkdirSync(uploadDir, { recursive: true });
   }
 
   getErrorMessage(code, filename) {
