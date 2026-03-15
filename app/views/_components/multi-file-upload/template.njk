@@ -11,11 +11,13 @@
         {% for item in params.uploadedFiles.items %}
           <div class="govuk-summary-list__row app-multi-file-upload__row">
             <div class="govuk-summary-list__value app-multi-file-upload__message">
-              {{ item.message.html | safe if item.message.html else item.message.text }}
+              <span class="app-multi-file-upload__success">
+                <a href="/{{ item.path }}">{{ item.originalname }}</a> added
+              </span>
             </div>
             <div class="govuk-summary-list__actions app-multi-file-upload__actions">
-              <button type="submit" name="delete" class="app-multi-file-upload__delete govuk-button govuk-button--secondary govuk-!-margin-bottom-0" value="{{ item.fileName }}">
-                {{ item.deleteButton.text }} <span class="govuk-visually-hidden">{{ item.originalFileName }}</span>
+              <button type="submit" name="delete" class="app-multi-file-upload__delete" value="{{ item.filename }}">
+                Delete <span class="govuk-visually-hidden">{{ item.originalname }}</span>
               </button>
             </div>
           </div>

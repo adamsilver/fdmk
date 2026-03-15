@@ -82,9 +82,15 @@ if(App.dragAndDropSupported() && App.formDataSupported() && App.fileApiSupported
   };
 
   App.MultiFileUpload.prototype.uploadFiles = function(files) {
-    for(var i = 0; i < files.length; i++) {
-      this.uploadFile(files[i]);
-    }
+    this.feedbackContainer.find('.app-multi-file-upload__row--error').remove();
+    this.uploadFilesSequentially(Array.from(files), 0);
+  };
+
+  App.MultiFileUpload.prototype.uploadFilesSequentially = function(files, index) {
+    if (index >= files.length) { return; }
+    this.uploadFile(files[index], $.proxy(function() {
+      this.uploadFilesSequentially(files, index + 1);
+    }, this));
   };
 
   App.MultiFileUpload.prototype.onFileChange = function(e) {
@@ -105,11 +111,11 @@ if(App.dragAndDropSupported() && App.formDataSupported() && App.fileApiSupported
   };
 
   App.MultiFileUpload.prototype.getSuccessHtml = function(success) {
-    return '<span class="app-multi-file-upload__success"> <svg class="app-banner__icon" fill="currentColor" role="presentation" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25" height="25" width="25"><path d="M25,6.2L8.7,23.2L0,14.1l4-4.2l4.7,4.9L21,2L25,6.2z"/></svg> ' + success.messageHtml + '</span>';
+    return '<span class="app-multi-file-upload__success">' + success.messageHtml + ' added</span>';
   };
 
   App.MultiFileUpload.prototype.getErrorHtml = function(error) {
-    return '<span class="app-multi-file-upload__error"> <svg class="app-banner__icon" fill="currentColor" role="presentation" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25" height="25" width="25"><path d="M13.6,15.4h-2.3v-4.5h2.3V15.4z M13.6,19.8h-2.3v-2.2h2.3V19.8z M0,23.2h25L12.5,2L0,23.2z"/></svg> '+ error.message +'</span>';
+    return '<span class="app-multi-file-upload__error">' + error.message + '</span>';
   };
 
   App.MultiFileUpload.prototype.getFileRowHtml = function(file) {
@@ -125,16 +131,16 @@ if(App.dragAndDropSupported() && App.formDataSupported() && App.fileApiSupported
   };
 
   App.MultiFileUpload.prototype.getDeleteButtonHtml = function(file) {
-    var html = '<button class="app-multi-file-upload__delete govuk-button govuk-button--secondary govuk-!-margin-bottom-0" type="button" name="delete" value="' + file.filename + '">';
+    var html = '<button class="app-multi-file-upload__delete" type="button" name="delete" value="' + file.filename + '">';
     html += 'Delete <span class="govuk-visually-hidden">' + file.originalname + '</span>';
     html += '</button>';
     return html;
   };
 
-  App.MultiFileUpload.prototype.uploadFile = function(file) {
+App.MultiFileUpload.prototype.uploadFile = function(file, done) {
     this.params.uploadFileEntryHook(this, file);
     var formData = new FormData();
-    formData.append('documents', file);
+    formData.append(this.params.fieldName, file);
     var item = $(this.getFileRowHtml(file));
     this.feedbackContainer.find('.app-multi-file-upload__list').append(item);
 
@@ -146,17 +152,20 @@ if(App.dragAndDropSupported() && App.formDataSupported() && App.fileApiSupported
       contentType: false,
       success: $.proxy(function(response){
         if(response.error) {
+          item.addClass('app-multi-file-upload__row--error');
           item.find('.app-multi-file-upload__message').html(this.getErrorHtml(response.error));
           this.status.html(response.error.message);
         } else {
           item.find('.app-multi-file-upload__message').html(this.getSuccessHtml(response.success));
+          item.find('.app-multi-file-upload__actions').append(this.getDeleteButtonHtml(response.file));
           this.status.html(response.success.messageText);
         }
-        item.find('.app-multi-file-upload__actions').append(this.getDeleteButtonHtml(response.file));
         this.params.uploadFileExitHook(this, file, response);
+        if(done) { done(); }
       }, this),
       error: $.proxy(function(jqXHR, textStatus, errorThrown) {
         this.params.uploadFileErrorHook(this, file, jqXHR, textStatus, errorThrown);
+        if(done) { done(); }
       }, this),
       xhr: function() {
         var xhr = new XMLHttpRequest();
@@ -173,7 +182,7 @@ if(App.dragAndDropSupported() && App.formDataSupported() && App.fileApiSupported
   };
 
   App.MultiFileUpload.prototype.onFileDeleteClick = function(e) {
-    e.preventDefault(); // if user refreshes page and then deletes
+    e.preventDefault();
     var button = $(e.currentTarget);
     var data = {};
     data[button[0].name] = button[0].value;

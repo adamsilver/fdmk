@@ -48,28 +48,23 @@
 }
 
 .app-multi-file-upload__success {
-	color: govuk-colour('green');
-	font-weight: bold;
+	display: block;
 }
 
-.app-multi-file-upload__error svg {
-   fill: currentColor;
-   float: left;
-   margin-right: govuk-spacing(2);
-}
+.app-multi-file-upload__delete {
+  @include govuk-font($size: 19);
+  background: none;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  color: $govuk-link-colour;
+  text-decoration: underline;
 
-.app-multi-file-upload__success svg {
-	fill: currentColor;
-	float: left;
-	margin-right: govuk-spacing(2);
+  &:hover {
+    color: $govuk-link-hover-colour;
+  }
 }
 
 .app-multi-file-upload__message {
-	// padding-bottom: 0;
 	vertical-align: middle;
-
-}
-
-.app-multi-file-upload__success {
-	display: block;
 }

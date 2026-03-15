@@ -11,14 +11,14 @@
       {% endif %}
 
       <h1 class="govuk-heading-l">Upload receipts</h1>
-      <p>You can only upload a PNG, GIF or JPEG file under 2MB.</p>
+      <p>You can only upload a PNG, GIF or JPEG file under 1MB.</p>
 
       <form method="post" enctype="multipart/form-data">
 
         {% set uploadHtml %}
           {{ govukFileUpload({
             id: "documents",
-            name: "documents",
+            name: "addReceipts[documents]",
             classes: 'app-multi-file-upload__input',
             label: {
               text: "Upload files",
@@ -27,7 +27,7 @@
             attributes: { multiple: '' },
             errorMessage: errorMessage,
             hint: {
-              text: 'You can only upload a PNG, GIF or JPEG file under 2MB.'
+              text: 'You can only upload a PNG, GIF or JPEG file under 1MB.'
             } if false
           }) }}
 
@@ -39,7 +39,7 @@
 
         {{ appMultiFileUpload({
           uploadedFiles: {
-            heading: { text: 'Files added' },
+            heading: { text: 'Upload status' },
             items: uploadedFiles
           } if uploadedFiles,
           uploadHtml: uploadHtml
@@ -60,7 +60,8 @@
      new App.MultiFileUpload({
         container: $('.app-multi-file-upload'),
         uploadUrl: '/ajax-upload',
-        deleteUrl: '/ajax-delete'
+        deleteUrl: '/ajax-delete',
+        fieldName: 'addReceipts[documents]'
       });
     }
   </script>

@@ -31,10 +31,14 @@ router.get('/clear-all-data', (req, res) => {
 })
 
 
-// Add your routes here
-router.post('/email-preferences', (req, res) => {
+router.post('/email-preferences-radios', (req, res) => {
   req.flash('success', 'Email settings saved')
-  res.redirect(`/email-preferences`)
+  res.redirect(`/email-preferences-radios`)
+})
+
+router.post('/email-preferences-checkboxes', (req, res) => {
+  req.flash('success', 'Email settings saved')
+  res.redirect(`/email-preferences-checkboxes`)
 })
 
 // Add your routes here

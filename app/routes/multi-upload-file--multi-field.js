@@ -1,206 +1,70 @@
-const multer = require('multer');
-const cache = require('../helpers/cache');
+const { FileUpload, getUploadedFiles, removeFileFromFileList } = require('../helpers/FileUpload');
+
+const upload = new FileUpload({
+  fieldName: 'addReceiptsMultiField[documents]',
+  allowedTypes: ['image/png', 'image/gif', 'image/jpeg', 'image/jpg'],
+  maxFileSize: 1024 * 1024,
+  errors: {
+    FILE_TYPE:       (filename) => `${filename} must be a PNG, GIF or JPEG`,
+    LIMIT_FILE_SIZE: (filename) => `${filename} must be smaller than 1mb`,
+    NO_FILE:         () => 'Select a file'
+  }
+});
 
 module.exports = router => {
 
-  function getErrorMessage(item) {
-    var message = '';
-    if(item.error.code == 'FILE_TYPE') {
-      message += item.file.originalname + ' must be a png or gif';
-    } else if(item.error.code == 'LIMIT_FILE_SIZE') {
-      message += item.file.originalname + ' must be smaller than 2mb';
-    }
-    return message;
-  }
-
-  function getUploadedFiles( req, res, next ){
-
-    if( !req.session.uploadId ){
-      req.session.uploadId = req.sessionID;
-    }
-
-    let files = cache.get( req.session.uploadId );
-
-    if( !files ){
-      files = [];
-      cache.set( req.session.uploadId, files );
-    }
-
-    req.uploadedFiles = files;
-    next();
-  }
-
-  ////////////////////////////////////////////////////////////////////////////////////////
-  // NO JAVASCRIPT
-  ////////////////////////////////////////////////////////////////////////////////////////
-
-  const upload = multer({
-    dest: '.tmp/uploads/',
-    limits: { fileSize: 2000000 },
-    fileFilter: function( req, file, cb ){
-      let ok = false;
-
-      if(!req.rejectedFiles) {
-        req.rejectedFiles = [];
-      }
-
-      if( file.mimetype !== 'image/png' && file.mimetype !== 'image/gif' && file.mimetype !== 'image/jpg' && file.mimetype !== 'image/jpeg') {
-        cb(null, false);
-        req.rejectedFiles.push({
-          file: file,
-          error: {
-            code: 'FILE_TYPE'
-          }
-        });
-      } else {
-        cb(null, true);
-      }
-    }
-  } ).array('documents', 10);
-
-
-
-  router.get('/multi-file-upload--multi-fields', getUploadedFiles, function( req, res ){
-
-    const { uploadedFiles } = req;
-
-    var pageObject = {
-      uploadedFiles: [],
+  router.get('/multi-file-upload--multi-fields', getUploadedFiles(upload.fieldName), function(req, res) {
+    const pageObject = {
+      uploadedFiles: req.uploadedFiles,
       errorMessage: null,
-      errorSummary: {
-        items: []
-      }
+      errorSummary: { items: [] }
     };
 
-    // 1. UPLOADED FILES
-
-    if(uploadedFiles.length) {
-      uploadedFiles.forEach(function(file) {
-        var o = file;
-        o.message = {
-          html: `<span class="app-multi-file-upload__success"> <svg class="app-banner__icon" fill="currentColor" role="presentation" focusable="false" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 25 25" height="25" width="25"><path d="M25,6.2L8.7,23.2L0,14.1l4-4.2l4.7,4.9L21,2L25,6.2z"/></svg> <a href="/${file.path}">${file.originalname}</a> uploaded</span>`
-        };
-
-        o.filePath = file.path;
-        o.originalFileName = file.originalname;
-        o.fileName = file.filename;
-        o.deleteButton = {
-          text: 'Delete'
-        };
-        pageObject.uploadedFiles.push(o);
-      });
+    const rejectedFiles = JSON.parse(req.flash('uploadErrors')[0] || '[]');
+    if (rejectedFiles.length) {
+      const messages = rejectedFiles.map(item => item.error.message);
+      pageObject.errorMessage = { html: messages.join('<br>') };
+      pageObject.errorSummary.items = messages.map(message => ({ text: message, href: '#documents' }));
     }
-
-    // 2. REJECTED FILES
-
-    if(req.session.rejectedFiles && req.session.rejectedFiles.length) {
-      var errorMessage = '';
-      req.session.rejectedFiles.forEach(function(item) {
-        errorMessage += getErrorMessage(item);
-        errorMessage += '<br>';
-      });
-
-      req.session.rejectedFiles.forEach(function(item) {
-        pageObject.errorSummary.items.push({
-          text: getErrorMessage(item),
-          href: '#documents'
-        });
-      });
-
-      pageObject.errorMessage = {
-        html: errorMessage
-      };
-    }
-
-    req.session.rejectedFiles = null;
 
     res.render('multi-file-upload--multi-fields.html', pageObject);
   });
 
-  function removeFileFromFileList(fileList, filename) {
+  router.post('/multi-file-upload--multi-fields', getUploadedFiles(upload.fieldName), async (req, res) => {
+    const { uploaded, rejected, deleteFilename } = await upload.parse(req);
 
-    const index = fileList.findIndex( (item ) => item.filename === filename );
-    if( index >= 0 ){
-      fileList.splice( index, 1 );
+    req.uploadedFiles.push(...uploaded);
+    req.flash('uploadErrors', JSON.stringify(rejected));
+
+    if (deleteFilename) {
+      removeFileFromFileList(req.uploadedFiles, deleteFilename);
     }
-  }
 
-  router.post('/multi-file-upload--multi-fields', getUploadedFiles, function( req, res ){
-    upload(req, res, function(err) {
-      if(err) {
-        console.log(err);
+    res.redirect('/multi-file-upload--multi-fields');
+  });
+
+  router.post('/demo2-ajax-upload', getUploadedFiles(upload.fieldName), async (req, res) => {
+    const { uploaded, rejected } = await upload.parse(req);
+
+    if (rejected.length) {
+      return res.json({ error: rejected[0].error, file: rejected[0].file });
+    }
+
+    const file = uploaded[0];
+    req.uploadedFiles.push(file);
+
+    res.json({
+      file,
+      success: {
+        messageHtml: `<a href="${file.path}">${file.originalname}</a>`,
+        messageText: `${file.originalname} added`
       }
-
-
-      req.uploadedFiles.push(...req.files);
-
-      req.session.rejectedFiles = req.rejectedFiles;
-
-      if(req.body.delete) {
-        removeFileFromFileList(req.uploadedFiles, req.body.delete);
-      }
-
-      res.redirect('/multi-file-upload--multi-fields');
     });
-  } );
+  });
 
-  ////////////////////////////////////////////////////////////////////////////////////////
-  // AJAX
-  ////////////////////////////////////////////////////////////////////////////////////////
-
-  const uploadAjax = multer( {
-    dest: '.tmp/uploads/',
-    limits: { fileSize: 2000000 },
-    fileFilter: function( req, file, cb ){
-      let ok = false;
-      if( file.mimetype !== 'image/png' && file.mimetype !== 'image/gif' && file.mimetype !== 'image/jpg' && file.mimetype !== 'image/jpeg'){
-        return cb({
-          code: 'FILE_TYPE',
-          field: 'documents',
-          file: file
-        }, false);
-      } else {
-        return cb(null, true);
-      }
-    }
-  } ).single('documents');
-
-  router.post('/demo2-ajax-upload', getUploadedFiles, function( req, res ){
-
-    uploadAjax(req, res, function(error, val1, val2) {
-      if(error) {
-        if(error.code == 'FILE_TYPE') {
-          error.message = error.file.originalname + ' must be a png or gif';
-        } else if(error.code == 'LIMIT_FILE_SIZE') {
-          // error.message = error.file.originalname + ' must be smaller than 2mb';
-          error.message = 'The file must be smaller than 2mb';
-        }
-
-        var response = {
-          error: error,
-          file: error.file || { filename: 'filename', originalname: 'originalname' }
-        };
-
-        res.json(response);
-      } else {
-
-        req.uploadedFiles.push(req.file);
-
-        res.json({
-          file: req.file,
-          success: {
-            messageHtml: `<a href="${req.file.path}" class="govuk-link"> ${req.file.originalname}</a> uploaded`,
-            messageText: `${req.file.originalname} uploaded`
-          }
-        });
-      }
-    } );
-  } );
-
-  router.post('/demo2-ajax-delete', getUploadedFiles, function( req, res ){
+  router.post('/demo2-ajax-delete', getUploadedFiles(upload.fieldName), function(req, res) {
     removeFileFromFileList(req.uploadedFiles, req.body.delete);
     res.json({});
   });
 
-
-}
+};
