@@ -9,7 +9,8 @@
 .app-multi-file-upload__dropzone {
   outline: 2px dashed $govuk-border-colour;
 	display: flex;
-	padding: govuk-spacing(9) govuk-spacing(3);
+  align-items: center;
+	padding: govuk-spacing(6) govuk-spacing(3);
 	transition: outline-offset .1s ease-in-out, background-color .1s linear;
 }
 
@@ -22,7 +23,6 @@
 .app-multi-file-upload__dropzone p {
   margin-bottom: 0;
   margin-left: 10px;
-  padding-top: 7px;
 }
 
 .app-multi-file-upload__dropzone [type=file] {
@@ -62,6 +62,14 @@
 
   &:hover {
     color: $govuk-link-hover-colour;
+  }
+
+  &:focus {
+    background-color: $govuk-focus-colour;
+    color: $govuk-focus-text-colour;
+    box-shadow: 0 -2px $govuk-focus-colour, 0 4px $govuk-focus-text-colour;
+    outline: none;
+    text-decoration: none;
   }
 }
 

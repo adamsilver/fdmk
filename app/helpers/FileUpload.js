@@ -27,7 +27,7 @@ class FileUpload {
 
   parse(req) {
     const rejected = [];
-    let fileTypeError = null;
+    const fileTypeErrors = [];
 
     const form = formidable({
       uploadDir: this.uploadDir,
@@ -36,7 +36,7 @@ class FileUpload {
           return false;
         }
         if (!this.allowedTypes.includes(mimetype)) {
-          fileTypeError = originalFilename;
+          fileTypeErrors.push(originalFilename);
           return false;
         }
         return true;
@@ -49,10 +49,10 @@ class FileUpload {
           return reject(err);
         }
 
-        if (fileTypeError) {
+        for (const filename of fileTypeErrors) {
           rejected.push({
-            file: { originalname: fileTypeError },
-            error: { code: 'FILE_TYPE', message: this.getErrorMessage('FILE_TYPE', fileTypeError) }
+            file: { originalname: filename },
+            error: { code: 'FILE_TYPE', message: this.getErrorMessage('FILE_TYPE', filename) }
           });
         }
 

@@ -164,6 +164,11 @@ App.MultiFileUpload.prototype.uploadFile = function(file, done) {
         if(done) { done(); }
       }, this),
       error: $.proxy(function(jqXHR, textStatus, errorThrown) {
+        item.addClass('app-multi-file-upload__row--error');
+        item.find('.app-multi-file-upload__message').html(
+          this.getErrorHtml({ message: file.name + ' could not be uploaded' })
+        );
+        this.status.html(file.name + ' could not be uploaded');
         this.params.uploadFileErrorHook(this, file, jqXHR, textStatus, errorThrown);
         if(done) { done(); }
       }, this),
