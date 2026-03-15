@@ -4,8 +4,11 @@
 {% endif %}
 
 <div class="app-multi-file-upload {{- ' ' + params.classes if params.classes}}" {%- for attribute, value in params.attributes %} {{ attribute }}="{{ value }}"{% endfor %}>
-  <div class="app-multi-file__uploaded-files {% if params.uploadedFiles.items.length == 0 %}app-hidden{% endif%}">
-    <h2 class="{{headingSizeClass}} govuk-!-margin-bottom-0">{{ params.uploadedFiles.heading.html | safe if params.uploadedFiles.heading.html else params.uploadedFiles.heading.text }}</h2>
+  <div class="app-multi-file__uploaded-files">
+    <h2 class="{{headingSizeClass}}">{{ params.uploadedFiles.heading.html | safe if params.uploadedFiles.heading.html else params.uploadedFiles.heading.text }}</h2>
+    {% if not params.uploadedFiles.items or params.uploadedFiles.items.length == 0 %}
+      <p class="govuk-body app-multi-file-upload__no-files">No files uploaded.</p>
+    {% endif %}
     <div class="govuk-summary-list app-multi-file-upload__list">
       {% if params.uploadedFiles.items and params.uploadedFiles.items.length > 0 %}
         {% for item in params.uploadedFiles.items %}

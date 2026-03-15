@@ -76,7 +76,6 @@ if(App.dragAndDropSupported() && App.formDataSupported() && App.fileApiSupported
   App.MultiFileUpload.prototype.onDrop = function(e) {
   	e.preventDefault();
   	this.dropzone.removeClass('app-multi-file-upload--dragover');
-    this.feedbackContainer.removeClass('app-hidden');
     this.status.html(this.params.uploadStatusText);
   	this.uploadFiles(e.originalEvent.dataTransfer.files);
   };
@@ -94,7 +93,6 @@ if(App.dragAndDropSupported() && App.formDataSupported() && App.fileApiSupported
   };
 
   App.MultiFileUpload.prototype.onFileChange = function(e) {
-    this.feedbackContainer.removeClass('app-hidden');
     this.status.html(this.params.uploadStatusText);
     this.uploadFiles(e.currentTarget.files);
     this.fileInput.replaceWith($(e.currentTarget).val('').clone(true));
@@ -141,6 +139,7 @@ App.MultiFileUpload.prototype.uploadFile = function(file, done) {
     this.params.uploadFileEntryHook(this, file);
     var formData = new FormData();
     formData.append(this.params.fieldName, file);
+    this.feedbackContainer.find('.app-multi-file-upload__no-files').addClass('app-hidden');
     var item = $(this.getFileRowHtml(file));
     this.feedbackContainer.find('.app-multi-file-upload__list').append(item);
 
@@ -200,9 +199,13 @@ App.MultiFileUpload.prototype.uploadFile = function(file, done) {
         if(response.error) {
           // handle error
         } else {
+          var filename = button.find('.govuk-visually-hidden').text();
           button.parents('.app-multi-file-upload__row').remove();
           if(this.feedbackContainer.find('.app-multi-file-upload__row').length === 0) {
-            this.feedbackContainer.addClass('app-hidden');
+            this.feedbackContainer.find('.app-multi-file-upload__no-files').removeClass('app-hidden');
+            this.status.html(filename + ' deleted. No files uploaded.');
+          } else {
+            this.status.html(filename + ' deleted.');
           }
         }
         this.params.fileDeleteHook(this, response);
