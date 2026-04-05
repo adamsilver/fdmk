@@ -11,6 +11,7 @@ router.use(flash())
 
 router.all('*', (req, res, next) => {
   res.locals.originalUrl = req.originalUrl
+  res.locals.isLocal = process.env.NODE_ENV !== 'production'
   res.locals.flash = req.flash('success')
   let flashError = req.flash('error')
   if(flashError[0]) {
@@ -64,10 +65,10 @@ router.get('/contents', (req, res) => {
 })
 
 router.get('/', (req, res) => {
-  if(!req.session.data.user) {
-    res.redirect('/account/sign-in')
-  } else {
+  if(process.env.NODE_ENV !== 'production' || req.session.data.user) {
     res.redirect('/demos')
+  } else {
+    res.redirect('/account/sign-in')
   }
 })
 

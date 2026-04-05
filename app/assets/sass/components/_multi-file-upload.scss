@@ -10,8 +10,8 @@
   outline: 2px dashed $govuk-border-colour;
 	display: flex;
   align-items: center;
-	padding: govuk-spacing(6) govuk-spacing(3);
-	transition: outline-offset .1s ease-in-out, background-color .1s linear;
+	padding: govuk-spacing(6) govuk-spacing(4);
+	// transition: outline-offset .1s ease-in-out, background-color .1s linear;
 }
 
 .app-multi-file-upload__dropzone label {
@@ -31,8 +31,8 @@
 }
 
 .app-multi-file-upload--dragover {
-	background: #b1b4b6;
-	outline-color: #6f777b;
+	background: govuk-colour('light-grey');
+  outline: 2px solid govuk-colour('black');
 }
 
 .app-multi-file-upload--focused {

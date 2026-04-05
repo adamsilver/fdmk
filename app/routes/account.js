@@ -50,6 +50,10 @@ module.exports = router => {
   })
 
   router.use((req, res, next) => {
+    if (process.env.NODE_ENV !== 'production') {
+      return next()
+    }
+
     const allowedPaths = ['/account/sign-in', '/account/sign-out']
     const isAllowed = allowedPaths.includes(req.path) && ['GET', 'POST'].includes(req.method)
 

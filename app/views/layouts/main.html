@@ -52,6 +52,11 @@ https://prototype-kit.service.gov.uk/docs/how-to-use-layouts
           <li class="govuk-footer__inline-list-item">
             <a class="govuk-footer__link" href="/demos">Demos</a>
           </li>
+          {% if isLocal %}
+          <li class="govuk-footer__inline-list-item">
+            <a class="govuk-footer__link" href="/other">Other demos</a>
+          </li>
+          {% endif %}
           <li class="govuk-footer__inline-list-item">
             <a class="govuk-footer__link" href="/clear-all-data?returnUrl={{originalUrl}}">Reset</a>
           </li>
