@@ -11,25 +11,14 @@
       {% endif %}
 
       <h1 class="govuk-heading-l">Upload receipts</h1>
-      {# <p>You can only upload a PNG, GIF or JPEG file under 1MB.</p> #}
+      <p>You can only upload a PNG, GIF or JPEG file under 1MB.</p>
 
       <form method="post" enctype="multipart/form-data">
-
-        {{ govukTextarea({
-          id: "blah",
-          name: "blah",
-          label: {
-            text: "Description",
-            isPageHeading: false,
-            classes: "govuk-label--m"
-          },
-          value: data.blah
-        }) }}
 
         {% set uploadHtml %}
           {{ govukFileUpload({
             id: "documents",
-            name: "addReceiptsMultiField[documents]",
+            name: "addReceipts[documents]",
             classes: 'app-multi-file-upload__input',
             label: {
               text: "Upload files",
@@ -39,7 +28,7 @@
             errorMessage: errorMessage,
             hint: {
               text: 'You can only upload a PNG, GIF or JPEG file under 1MB.'
-            }
+            } if false
           }) }}
 
           {{govukButton({
@@ -50,7 +39,7 @@
 
         {{ appMultiFileUpload({
           uploadedFiles: {
-            heading: { text: 'Upload status' },
+            heading: { text: 'Uploaded files' },
             items: uploadedFiles
           } if uploadedFiles,
           uploadHtml: uploadHtml
@@ -69,10 +58,10 @@
   <script>
     if(typeof App.MultiFileUpload !== 'undefined') {
      new App.MultiFileUpload({
-       container: $('.app-multi-file-upload'),
-       uploadUrl: '/demo2-ajax-upload',
-       deleteUrl: '/demo2-ajax-delete',
-       fieldName: 'addReceiptsMultiField[documents]'
+        container: $('.app-multi-file-upload'),
+        uploadUrl: '/demos/ajax-upload',
+        deleteUrl: '/demos/ajax-delete',
+        fieldName: 'addReceipts[documents]'
       });
     }
   </script>

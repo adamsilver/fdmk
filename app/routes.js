@@ -32,18 +32,18 @@ router.get('/clear-all-data', (req, res) => {
 })
 
 
-router.post('/email-preferences-radios', (req, res) => {
+router.post('/test-cases/email-preferences-radios', (req, res) => {
   req.flash('success', 'Email settings saved')
-  res.redirect(`/email-preferences-radios`)
+  res.redirect(`/test-cases/email-preferences-radios`)
 })
 
-router.post('/email-preferences-checkboxes', (req, res) => {
+router.post('/test-cases/email-preferences-checkboxes', (req, res) => {
   req.flash('success', 'Email settings saved')
-  res.redirect(`/email-preferences-checkboxes`)
+  res.redirect(`/test-cases/email-preferences-checkboxes`)
 })
 
 // Add your routes here
-router.get('/checkbox-filter', (req, res) => {
+router.get('/demos/checkbox-filter', (req, res) => {
   let selectedItems = []
 
   if(req.session.data.subject && req.session.data.subject.length > 0) {
@@ -55,13 +55,17 @@ router.get('/checkbox-filter', (req, res) => {
     })
   }
 
-  res.render('checkbox-filter', {
+  res.render('demos/checkbox-filter', {
     selectedItems
   })
 })
 
 router.get('/contents', (req, res) => {
   res.redirect('/demos')
+})
+
+router.get('/other', (req, res) => {
+  res.redirect('/test-cases')
 })
 
 router.get('/', (req, res) => {

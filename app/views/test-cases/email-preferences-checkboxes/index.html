@@ -1,0 +1,58 @@
+{% extends "layouts/main.html" %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+
+      <h1 class="govuk-heading-l">Email notification settings</h1>
+
+      <form method="post">
+      {{ govukCheckboxes({
+        idPrefix: "notifications",
+        name: "notifications",
+        fieldset: {
+          legend: {
+            text: "Which notifications do you want to receive?",
+            classes: "govuk-fieldset__legend--m"
+          }
+        },
+        items: [
+          {
+            value: "new-message-received",
+            text: "New message received",
+            checked: true
+          },
+          {
+            value: "new-connection-requested",
+            text: "New connection requested",
+            checked: true
+          },
+          {
+            value: "post-liked",
+            text: "Post liked",
+            checked: true
+          },
+          {
+            value: "profile-viewed",
+            text: "Profile viewed",
+            checked: true
+          },
+          {
+            value: "new-follower-added",
+            text: "New follower added",
+            checked: true
+          }
+        ]
+      }) }}
+
+      {{ govukButton({
+        text: "Save settings"
+      }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+  <div style="height: 800px;"></div>
+{% endblock %}

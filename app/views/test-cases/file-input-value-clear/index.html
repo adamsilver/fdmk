@@ -1,0 +1,28 @@
+{% extends "layouts/main.html" %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+      <h1 class="govuk-heading-l">File input value clear test</h1>
+
+      <p>Select a file, then select the same file again. The <code>onchange</code> event should fire both times.</p>
+
+      <input type="file" id="file-input">
+      <p id="output">No file selected.</p>
+    </div>
+  </div>
+{% endblock %}
+
+{% block pageScripts %}
+  {{super()}}
+  <script>
+    var input = document.getElementById('file-input');
+    var output = document.getElementById('output');
+
+    input.addEventListener('change', function() {
+      console.log('value changed');
+      output.textContent = 'Selected: ' + this.files[0].name;
+      this.value = '';
+    });
+  </script>
+{% endblock %}

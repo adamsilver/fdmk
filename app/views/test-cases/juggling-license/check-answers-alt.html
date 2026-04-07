@@ -3,7 +3,7 @@
 {% block beforeContent %}
   {{ govukBackLink({
     text: "Back",
-    href: "/juggling-license/equipment"
+    href: "/test-cases/juggling-license/equipment"
   }) }}
 {% endblock %}
 
@@ -15,9 +15,13 @@
         Check your answers before you submit
       </h1>
 
-      <h2 class="govuk-heading-m">Applicant details</h2>
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <h2 class="govuk-heading-m" style="margin-bottom: 0;">Applicant details</h2>
+        <p><a class="govuk-link" href="/test-cases/juggling-license/personal-details">Change<span class="govuk-visually-hidden"> applicant details</span></a></p>
+      </div>
 
       {{ govukSummaryList({
+        classes: "govuk-!-margin-top-3",
         rows: [
           {
             key: {
@@ -25,15 +29,6 @@
             },
             value: {
               text: "Mr"
-            },
-            actions: {
-              items: [
-                {
-                  href: "/juggling-license/personal-details",
-                  text: "Change",
-                  visuallyHiddenText: "title"
-                }
-              ]
             }
           },
           {
@@ -42,15 +37,6 @@
             },
             value: {
               text: "John"
-            },
-            actions: {
-              items: [
-                {
-                  href: "/juggling-license/personal-details",
-                  text: "Change",
-                  visuallyHiddenText: "first name"
-                }
-              ]
             }
           },
           {
@@ -59,15 +45,6 @@
             },
             value: {
               text: "Alexander"
-            },
-            actions: {
-              items: [
-                {
-                  href: "/juggling-license/personal-details",
-                  text: "Change",
-                  visuallyHiddenText: "middle name"
-                }
-              ]
             }
           },
           {
@@ -76,15 +53,6 @@
             },
             value: {
               text: "Juggler"
-            },
-            actions: {
-              items: [
-                {
-                  href: "/juggling-license/personal-details",
-                  text: "Change",
-                  visuallyHiddenText: "last name"
-                }
-              ]
             }
           },
           {
@@ -93,15 +61,6 @@
             },
             value: {
               text: "15 March 1988"
-            },
-            actions: {
-              items: [
-                {
-                  href: "/juggling-license/personal-details",
-                  text: "Change",
-                  visuallyHiddenText: "date of birth"
-                }
-              ]
             }
           },
           {
@@ -110,15 +69,6 @@
             },
             value: {
               text: "QQ 12 34 56 C"
-            },
-            actions: {
-              items: [
-                {
-                  href: "/juggling-license/personal-details",
-                  text: "Change",
-                  visuallyHiddenText: "National Insurance number"
-                }
-              ]
             }
           },
           {
@@ -127,15 +77,6 @@
             },
             value: {
               text: "07700 900123"
-            },
-            actions: {
-              items: [
-                {
-                  href: "/juggling-license/personal-details",
-                  text: "Change",
-                  visuallyHiddenText: "phone number"
-                }
-              ]
             }
           },
           {
@@ -144,15 +85,6 @@
             },
             value: {
               text: "john.juggler@example.com"
-            },
-            actions: {
-              items: [
-                {
-                  href: "/juggling-license/personal-details",
-                  text: "Change",
-                  visuallyHiddenText: "email address"
-                }
-              ]
             }
           },
           {
@@ -161,15 +93,6 @@
             },
             value: {
               html: "72 Guild Street<br>London<br>SE23 6FH"
-            },
-            actions: {
-              items: [
-                {
-                  href: "/juggling-license/personal-details",
-                  text: "Change",
-                  visuallyHiddenText: "home address"
-                }
-              ]
             }
           },
           {
@@ -178,15 +101,6 @@
             },
             value: {
               text: "Jane Juggler"
-            },
-            actions: {
-              items: [
-                {
-                  href: "/juggling-license/personal-details",
-                  text: "Change",
-                  visuallyHiddenText: "emergency contact name"
-                }
-              ]
             }
           },
           {
@@ -195,15 +109,6 @@
             },
             value: {
               text: "07700 900456"
-            },
-            actions: {
-              items: [
-                {
-                  href: "/juggling-license/personal-details",
-                  text: "Change",
-                  visuallyHiddenText: "emergency contact phone"
-                }
-              ]
             }
           }
         ]
@@ -223,7 +128,7 @@
             actions: {
               items: [
                 {
-                  href: "/juggling-license/juggling-skills",
+                  href: "/test-cases/juggling-license/juggling-skills",
                   text: "Change",
                   visuallyHiddenText: "experience level"
                 }
@@ -240,7 +145,7 @@
             actions: {
               items: [
                 {
-                  href: "/juggling-license/juggling-skills",
+                  href: "/test-cases/juggling-license/juggling-skills",
                   text: "Change",
                   visuallyHiddenText: "maximum objects"
                 }
@@ -257,7 +162,7 @@
             actions: {
               items: [
                 {
-                  href: "/juggling-license/juggling-skills",
+                  href: "/test-cases/juggling-license/juggling-skills",
                   text: "Change",
                   visuallyHiddenText: "patterns"
                 }
@@ -274,7 +179,7 @@
             actions: {
               items: [
                 {
-                  href: "/juggling-license/juggling-skills",
+                  href: "/test-cases/juggling-license/juggling-skills",
                   text: "Change",
                   visuallyHiddenText: "special skills"
                 }
@@ -291,7 +196,7 @@
             actions: {
               items: [
                 {
-                  href: "/juggling-license/juggling-skills",
+                  href: "/test-cases/juggling-license/juggling-skills",
                   text: "Change",
                   visuallyHiddenText: "public performance experience"
                 }
@@ -308,7 +213,7 @@
             actions: {
               items: [
                 {
-                  href: "/juggling-license/juggling-skills",
+                  href: "/test-cases/juggling-license/juggling-skills",
                   text: "Change",
                   visuallyHiddenText: "achievements"
                 }
@@ -332,7 +237,7 @@
             actions: {
               items: [
                 {
-                  href: "/juggling-license/training-history",
+                  href: "/test-cases/juggling-license/training-history",
                   text: "Change",
                   visuallyHiddenText: "formal training"
                 }
@@ -349,7 +254,7 @@
             actions: {
               items: [
                 {
-                  href: "/juggling-license/training-history",
+                  href: "/test-cases/juggling-license/training-history",
                   text: "Change",
                   visuallyHiddenText: "training school"
                 }
@@ -366,7 +271,7 @@
             actions: {
               items: [
                 {
-                  href: "/juggling-license/training-history",
+                  href: "/test-cases/juggling-license/training-history",
                   text: "Change",
                   visuallyHiddenText: "primary instructor"
                 }
@@ -383,7 +288,7 @@
             actions: {
               items: [
                 {
-                  href: "/juggling-license/training-history",
+                  href: "/test-cases/juggling-license/training-history",
                   text: "Change",
                   visuallyHiddenText: "training start date"
                 }
@@ -400,7 +305,7 @@
             actions: {
               items: [
                 {
-                  href: "/juggling-license/training-history",
+                  href: "/test-cases/juggling-license/training-history",
                   text: "Change",
                   visuallyHiddenText: "qualifications"
                 }
@@ -417,7 +322,7 @@
             actions: {
               items: [
                 {
-                  href: "/juggling-license/training-history",
+                  href: "/test-cases/juggling-license/training-history",
                   text: "Change",
                   visuallyHiddenText: "practice hours"
                 }
@@ -434,7 +339,7 @@
             actions: {
               items: [
                 {
-                  href: "/juggling-license/training-history",
+                  href: "/test-cases/juggling-license/training-history",
                   text: "Change",
                   visuallyHiddenText: "club membership"
                 }
@@ -451,7 +356,7 @@
             actions: {
               items: [
                 {
-                  href: "/juggling-license/training-history",
+                  href: "/test-cases/juggling-license/training-history",
                   text: "Change",
                   visuallyHiddenText: "club name"
                 }
@@ -475,7 +380,7 @@
             actions: {
               items: [
                 {
-                  href: "/juggling-license/equipment",
+                  href: "/test-cases/juggling-license/equipment",
                   text: "Change",
                   visuallyHiddenText: "owned equipment"
                 }
@@ -492,7 +397,7 @@
             actions: {
               items: [
                 {
-                  href: "/juggling-license/equipment",
+                  href: "/test-cases/juggling-license/equipment",
                   text: "Change",
                   visuallyHiddenText: "equipment quality"
                 }
@@ -509,7 +414,7 @@
             actions: {
               items: [
                 {
-                  href: "/juggling-license/equipment",
+                  href: "/test-cases/juggling-license/equipment",
                   text: "Change",
                   visuallyHiddenText: "safety equipment"
                 }
@@ -526,7 +431,7 @@
             actions: {
               items: [
                 {
-                  href: "/juggling-license/equipment",
+                  href: "/test-cases/juggling-license/equipment",
                   text: "Change",
                   visuallyHiddenText: "equipment insurance"
                 }
@@ -543,7 +448,7 @@
             actions: {
               items: [
                 {
-                  href: "/juggling-license/equipment",
+                  href: "/test-cases/juggling-license/equipment",
                   text: "Change",
                   visuallyHiddenText: "liability insurance"
                 }
@@ -559,7 +464,7 @@
         By submitting this application you are confirming that, to the best of your knowledge, the details you are providing are correct.
       </p>
 
-      <form action="/juggling-license/confirmation" method="post" novalidate>
+      <form action="/test-cases/juggling-license/confirmation" method="post" novalidate>
 
         {{ govukButton({
           text: "Accept and submit"

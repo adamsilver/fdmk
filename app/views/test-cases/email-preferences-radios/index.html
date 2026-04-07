@@ -1,0 +1,137 @@
+{% extends "layouts/main.html" %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+
+      <h1 class="govuk-heading-l">
+        Email notification settings
+      </h1>
+
+      <form method="post">
+      {{ govukRadios({
+        classes: "govuk-radios--inline",
+        idPrefix: "new-message-received",
+        name: "new-message-received",
+        fieldset: {
+          legend: {
+            text: "New message received",
+            classes: "govuk-fieldset__legend--s"
+          }
+        },
+        items: [
+          {
+            value: "On",
+            text: "On",
+            checked: true
+          },
+          {
+            value: "Off",
+            text: "Off"
+          }
+        ]
+      }) }}
+
+      {{ govukRadios({
+        classes: "govuk-radios--inline",
+        idPrefix: "new-connection-requested",
+        name: "new-connection-requested",
+        fieldset: {
+          legend: {
+            text: "New connection requested",
+            classes: "govuk-fieldset__legend--s"
+          }
+        },
+        items: [
+          {
+            value: "On",
+            text: "On",
+            checked: true
+          },
+          {
+            value: "Off",
+            text: "Off"
+          }
+        ]
+      }) }}
+
+      {{ govukRadios({
+        classes: "govuk-radios--inline",
+        idPrefix: "post-liked",
+        name: "post-liked",
+        fieldset: {
+          legend: {
+            text: "Post liked",
+            classes: "govuk-fieldset__legend--s"
+          }
+        },
+        items: [
+          {
+            value: "On",
+            text: "On",
+            checked: true
+          },
+          {
+            value: "Off",
+            text: "Off"
+          }
+        ]
+      }) }}
+
+      {{ govukRadios({
+        classes: "govuk-radios--inline",
+        idPrefix: "profile-viewed",
+        name: "profile-viewed",
+        fieldset: {
+          legend: {
+            text: "Profile viewed",
+            classes: "govuk-fieldset__legend--s"
+          }
+        },
+        items: [
+          {
+            value: "On",
+            text: "On",
+            checked: true
+          },
+          {
+            value: "Off",
+            text: "Off"
+          }
+        ]
+      }) }}
+
+      {{ govukRadios({
+        classes: "govuk-radios--inline",
+        idPrefix: "new-follower-added",
+        name: "new-follower-added",
+        fieldset: {
+          legend: {
+            text: "New follower added",
+            classes: "govuk-fieldset__legend--s"
+          }
+        },
+        items: [
+          {
+            value: "On",
+            text: "On",
+            checked: true
+          },
+          {
+            value: "Off",
+            text: "Off"
+          }
+        ]
+      }) }}
+
+      {{ govukButton({
+        text: "Save settings"
+      }) }}
+
+      </form>
+
+    </div>
+  </div>
+
+  <div style="height: 800px;"></div>
+{% endblock %}
