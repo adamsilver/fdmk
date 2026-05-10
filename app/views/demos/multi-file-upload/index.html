@@ -39,7 +39,7 @@
 
         {{ appMultiFileUpload({
           uploadedFiles: {
-            heading: { text: 'Uploaded files' },
+            heading: { text: 'Files' },
             items: uploadedFiles
           } if uploadedFiles,
           uploadHtml: uploadHtml
@@ -51,19 +51,5 @@
       </form>
     </div>
   </div>
-{% endblock %}
-
-{% block pageScripts %}
-  {{super()}}
-  <script>
-    if(typeof App.MultiFileUpload !== 'undefined') {
-     new App.MultiFileUpload({
-        container: $('.app-multi-file-upload'),
-        uploadUrl: '/demos/ajax-upload',
-        deleteUrl: '/demos/ajax-delete',
-        fieldName: 'addReceipts[documents]'
-      });
-    }
-  </script>
 {% endblock %}
 

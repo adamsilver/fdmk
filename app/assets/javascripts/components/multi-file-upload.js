@@ -139,9 +139,9 @@ App.MultiFileUpload.prototype.uploadFile = function(file, done) {
     this.params.uploadFileEntryHook(this, file);
     var formData = new FormData();
     formData.append(this.params.fieldName, file);
-    this.feedbackContainer.find('.app-multi-file-upload__no-files').addClass('app-hidden');
     var item = $(this.getFileRowHtml(file));
     this.feedbackContainer.find('.app-multi-file-upload__list').append(item);
+    this.feedbackContainer.show();
 
     $.ajax({
       url: this.params.uploadUrl,
@@ -201,11 +201,9 @@ App.MultiFileUpload.prototype.uploadFile = function(file, done) {
         } else {
           var filename = button.find('.govuk-visually-hidden').text();
           button.parents('.app-multi-file-upload__row').remove();
-          if(this.feedbackContainer.find('.app-multi-file-upload__row').length === 0) {
-            this.feedbackContainer.find('.app-multi-file-upload__no-files').removeClass('app-hidden');
-            this.status.html(filename + ' deleted. No files uploaded.');
-          } else {
-            this.status.html(filename + ' deleted.');
+          this.status.html(filename + ' deleted.');
+          if (this.feedbackContainer.find('.app-multi-file-upload__row').length === 0) {
+            this.feedbackContainer.hide();
           }
         }
         this.params.fileDeleteHook(this, response);

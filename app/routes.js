@@ -79,6 +79,7 @@ router.get('/', (req, res) => {
 
 require('./routes/account')(router)
 require('./routes/multi-upload-file')(router)
+require('./routes/multi-upload-file--enhanced')(router)
 require('./routes/multi-upload-file--multi-field')(router)
 require('./routes/form-validation')(router)
 require('./routes/mfa')(router)

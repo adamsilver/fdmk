@@ -13,7 +13,7 @@ const upload = new FileUpload({
 
 module.exports = router => {
 
-  router.get('/demos/multi-file-upload', getUploadedFiles(upload.fieldName), function(req, res) {
+  router.get('/demos/multi-file-upload--enhanced', getUploadedFiles(upload.fieldName), function(req, res) {
     const pageObject = {
       uploadedFiles: req.uploadedFiles,
       errorMessage: null,
@@ -27,10 +27,10 @@ module.exports = router => {
       pageObject.errorSummary.items = messages.map(message => ({ text: message, href: '#documents' }));
     }
 
-    res.render('demos/multi-file-upload/index.html', pageObject);
+    res.render('demos/multi-file-upload--enhanced/index.html', pageObject);
   });
 
-  router.post('/demos/multi-file-upload', getUploadedFiles(upload.fieldName), async (req, res) => {
+  router.post('/demos/multi-file-upload--enhanced', getUploadedFiles(upload.fieldName), async (req, res) => {
     const { uploaded, rejected, deleteFilename } = await upload.parse(req);
 
     req.uploadedFiles.push(...uploaded);
@@ -40,7 +40,31 @@ module.exports = router => {
       removeFileFromFileList(req.uploadedFiles, deleteFilename);
     }
 
-    res.redirect('/demos/multi-file-upload');
+    res.redirect('/demos/multi-file-upload--enhanced');
+  });
+
+  router.post('/demos/enhanced-ajax-upload', getUploadedFiles(upload.fieldName), async (req, res) => {
+    const { uploaded, rejected } = await upload.parse(req);
+
+    if (rejected.length) {
+      return res.json({ error: rejected[0].error, file: rejected[0].file });
+    }
+
+    const file = uploaded[0];
+    req.uploadedFiles.push(file);
+
+    res.json({
+      file,
+      success: {
+        messageHtml: `<a href="${file.path}">${file.originalname}</a>`,
+        messageText: `${file.originalname} added`
+      }
+    });
+  });
+
+  router.post('/demos/enhanced-ajax-delete', getUploadedFiles(upload.fieldName), function(req, res) {
+    removeFileFromFileList(req.uploadedFiles, req.body.delete);
+    res.json({});
   });
 
 };
