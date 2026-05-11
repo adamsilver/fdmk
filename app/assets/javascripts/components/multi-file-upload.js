@@ -109,7 +109,7 @@ if(App.dragAndDropSupported() && App.formDataSupported() && App.fileApiSupported
   };
 
   App.MultiFileUpload.prototype.getSuccessHtml = function(success) {
-    return '<span class="app-multi-file-upload__success">' + success.messageHtml + ' added</span>';
+    return '<span class="app-multi-file-upload__success">' + success.messageHtml + '</span>';
   };
 
   App.MultiFileUpload.prototype.getErrorHtml = function(error) {
@@ -157,7 +157,7 @@ App.MultiFileUpload.prototype.uploadFile = function(file, done) {
         } else {
           item.find('.app-multi-file-upload__message').html(this.getSuccessHtml(response.success));
           item.find('.app-multi-file-upload__actions').append(this.getDeleteButtonHtml(response.file));
-          this.status.html(response.success.messageText);
+          this.status.html(response.success.messageHtml);
         }
         this.params.uploadFileExitHook(this, file, response);
         if(done) { done(); }

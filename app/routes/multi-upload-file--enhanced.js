@@ -60,8 +60,7 @@ module.exports = router => {
     res.json({
       file,
       success: {
-        messageHtml: `<a href="${file.path}">${file.originalname}</a>`,
-        messageText: `${file.originalname} added`
+        messageHtml: `<a href="${file.path}">${file.originalname}</a><span class="govuk-visually-hidden"> uploaded</span>`
       }
     });
   });
