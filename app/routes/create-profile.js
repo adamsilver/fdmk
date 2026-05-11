@@ -3,11 +3,11 @@ const { FileUpload, getUploadedFiles, removeFileFromFileList } = require('../hel
 
 const upload = new FileUpload({
   fieldName: 'createProfile[photo]',
-  allowedTypes: ['image/png', 'image/gif', 'image/jpeg', 'image/jpg'],
-  maxFileSize: 10 * 1024 * 1024,
+  allowedTypes: ['image/png', 'image/jpeg'],
+  maxFileSize: 1024 * 1024,
   errors: {
-    FILE_TYPE:       (filename) => `${filename} must be a PNG, GIF or JPEG`,
-    LIMIT_FILE_SIZE: (filename) => `${filename} must be smaller than 10MB`,
+    FILE_TYPE:       (filename) => `${filename} must be a PNG or JPG`,
+    LIMIT_FILE_SIZE: (filename) => `${filename} must be smaller than 1MB`,
     NO_FILE:         () => 'Select a photo'
   }
 })
@@ -27,19 +27,10 @@ module.exports = router => {
     res.render('demos/create-profile/index.html')
   })
   router.post('/demos/create-profile', (req, res) => {
-    res.redirect('/demos/create-profile/where')
+    res.redirect('/demos/create-profile/upload')
   })
 
-  // Step 2 — Where is your photo?
-  router.get('/demos/create-profile/where', (req, res) => {
-    res.render('demos/create-profile/where.html')
-  })
-  router.post('/demos/create-profile/where', (req, res) => {
-    const photoWhere = (req.session.data.createProfile || {}).photoWhere
-    res.redirect(photoWhere === 'device' ? '/demos/create-profile/upload' : '/demos/create-profile/how')
-  })
-
-  // Step 3a — How do you want to get the link?
+  // Step 2 — How do you want to get the link?
   router.get('/demos/create-profile/how', (req, res) => {
     res.render('demos/create-profile/how.html')
   })
@@ -48,12 +39,12 @@ module.exports = router => {
     res.redirect(photoHow === 'qr' ? '/demos/create-profile/qr-code' : '/demos/create-profile/email')
   })
 
-  // Step 3b — QR code
+  // Step 3a — QR code
   router.get('/demos/create-profile/qr-code', (req, res) => {
     res.render('demos/create-profile/qr-code.html')
   })
 
-  // Step 3c — Email address
+  // Step 3b — Email address
   router.get('/demos/create-profile/email', (req, res) => {
     res.render('demos/create-profile/email.html')
   })
@@ -61,7 +52,7 @@ module.exports = router => {
     res.redirect('/demos/create-profile/email-sent')
   })
 
-  // Step 3d — Email sent
+  // Step 3c — Email sent
   router.get('/demos/create-profile/email-sent', (req, res) => {
     const email = (req.session.data.createProfile || {}).emailAddress || ''
     let obfuscatedEmail = email
@@ -93,32 +84,26 @@ module.exports = router => {
 
     req.uploadedFiles.length = 0
     req.uploadedFiles.push(uploaded[0])
-    return res.redirect('/demos/create-profile/good')
+    return res.redirect('/demos/create-profile/check-photo')
   })
 
   router.get('/demos/create-profile/file/:filename', (req, res) => {
     res.sendFile(path.join(process.cwd(), '.tmp/uploads', req.params.filename))
   })
 
-  // Step 5 — Photo looks good
-  router.get('/demos/create-profile/good', getUploadedFiles(upload.fieldName), (req, res) => {
-    res.render('demos/create-profile/good.html', { uploadedFiles: req.uploadedFiles })
+  // Step 5 — Check photo
+  router.get('/demos/create-profile/check-photo', getUploadedFiles(upload.fieldName), (req, res) => {
+    res.render('demos/create-profile/check-photo.html', { uploadedFiles: req.uploadedFiles })
   })
-  router.post('/demos/create-profile/good', (req, res) => {
-    const photoWhere = (req.session.data.createProfile || {}).photoWhere
-    const continueWhere = (req.session.data.createProfile || {}).continueWhere
-    if (photoWhere === 'phone-tablet' && continueWhere === 'computer') {
-      return res.redirect('/demos/create-profile/return-to-computer')
+  router.post('/demos/create-profile/check-photo', (req, res) => {
+    const photoCorrect = (req.session.data.createProfile || {}).photoCorrect
+    if (photoCorrect === 'no') {
+      return res.redirect('/demos/create-profile/upload')
     }
     res.redirect('/demos/create-profile/check')
   })
 
-  // Step 6 — Return to computer
-  router.get('/demos/create-profile/return-to-computer', (req, res) => {
-    res.render('demos/create-profile/return-to-computer.html')
-  })
-
-  // Step 7 — Check answers
+  // Step 6 — Check answers
   router.get('/demos/create-profile/check', getUploadedFiles(upload.fieldName), (req, res) => {
     res.render('demos/create-profile/check.html', { uploadedFiles: req.uploadedFiles })
   })

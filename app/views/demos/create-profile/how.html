@@ -1,6 +1,6 @@
 {% extends "layouts/main.html" %}
 
-{% set pageName = "How do you want to get the link?" %}
+{% set pageName = "How do you want to continue on a different device?" %}
 
 {% block beforeContent %}
   {{ govukBackLink({
@@ -21,7 +21,7 @@
           idPrefix: "createProfile-photoHow",
           fieldset: {
             legend: {
-              text: "How do you want to get the link?",
+              text: "How do you want to continue on a different device?",
               isPageHeading: true,
               classes: "govuk-fieldset__legend--l"
             }
@@ -30,7 +30,7 @@
           items: [
             {
               value: "qr",
-              text: "Scan a QR code"
+              text: "Take a photo of a QR code using my other device"
             },
             {
               value: "email",

@@ -27,19 +27,20 @@
         {{ govukFileUpload({
           id: "createProfile-photo",
           name: "createProfile[photo]",
-          javascript: true,
           label: {
             text: "Upload your photo",
             isPageHeading: true,
             classes: "govuk-label--l"
           },
           hint: {
-            text: "You can upload a PNG, GIF or JPEG file."
+            text: "You can upload a PNG or JPG file under 1MB."
           },
           errorMessage: inlineErrors.photo if inlineErrors
         }) }}
 
         {{ govukButton({ text: "Continue" }) }}
+
+        <p class="govuk-body"><a class="govuk-link" href="/demos/create-profile/how">Use a different device</a> to upload your photo.</p>
 
       </form>
 
