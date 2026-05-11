@@ -1,0 +1,55 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Your photo looks good" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:history.back();"
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+
+      <span class="govuk-caption-l">Create profile</span>
+      <h1 class="govuk-heading-l">Your photo looks good</h1>
+
+      {% if uploadedFiles.length %}
+        <img src="/demos/create-profile/file/{{ uploadedFiles[0].filename }}" alt="Your photo" style="max-width: 200px; display: block; margin-bottom: 20px;">
+      {% endif %}
+
+      <form method="post">
+
+        {% if data.createProfile.photoWhere == 'phone-tablet' %}
+          {{ govukRadios({
+            name: "createProfile[continueWhere]",
+            idPrefix: "createProfile-continueWhere",
+            fieldset: {
+              legend: {
+                text: "Do you want to continue on your computer or stay on your phone?",
+                classes: "govuk-fieldset__legend--m"
+              }
+            },
+            value: data.createProfile.continueWhere,
+            items: [
+              {
+                value: "computer",
+                text: "Continue on my computer"
+              },
+              {
+                value: "phone",
+                text: "Stay on my phone"
+              }
+            ]
+          }) }}
+        {% endif %}
+
+        {{ govukButton({ text: "Continue" }) }}
+
+      </form>
+
+    </div>
+  </div>
+{% endblock %}

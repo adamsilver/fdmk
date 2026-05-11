@@ -16,19 +16,31 @@
       <form method="post" enctype="multipart/form-data">
 
         {% set uploadHtml %}
+          {% if errorMessages %}
+            {% set describedByIds %}{% for message in errorMessages %}documents-error-{{ loop.index }}{% if not loop.last %} {% endif %}{% endfor %}{% endset %}
+            {% set errorParagraphsHtml %}
+              {% for message in errorMessages %}
+                <p class="govuk-error-message{% if not loop.last %} govuk-!-margin-bottom-0{% endif %}" id="documents-error-{{ loop.index }}">
+                  <span class="govuk-visually-hidden">Error:</span> {{ message }}
+                </p>
+              {% endfor %}
+            {% endset %}
+          {% endif %}
           {{ govukFileUpload({
             id: "documents",
             name: "addReceipts[documents]",
-            classes: 'app-multi-file-upload__input',
+            classes: 'app-multi-file-upload__input' + (' govuk-file-upload--error' if errorMessages else ''),
             label: {
               text: "Upload files",
               classes: 'govuk-label--m'
             },
             attributes: { multiple: '' },
-            errorMessage: errorMessage,
-            hint: {
-              text: 'You can only upload a PNG, GIF or JPEG file under 1MB.'
-            } if false
+            errorMessage: errorMessage if errorMessage,
+            describedBy: describedByIds | trim if errorMessages,
+            formGroup: {
+              classes: 'govuk-form-group--error',
+              beforeInput: { html: errorParagraphsHtml }
+            } if errorMessages
           }) }}
 
           {{govukButton({

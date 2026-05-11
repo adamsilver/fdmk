@@ -1,0 +1,35 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Check your email" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:history.back();"
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+
+      <span class="govuk-caption-l">Create profile</span>
+      <h1 class="govuk-heading-l">{{ pageName }}</h1>
+
+      <p>A link has been sent to adam@example.com.</p>
+
+      <p>Open the email on your other device and follow the instructions.</p>
+
+      <p>Check your spam and trash folder if you cannot find the email.</p>
+
+      <p>
+        You can also <a class="govuk-link" href="/demos/create-profile/email">request another link</a>.
+      </p>
+
+      <p class="govuk-body govuk-!-margin-top-4">
+        <a class="govuk-link" href="/demos/create-profile/upload">Simulate continuing on mobile</a>
+      </p>
+
+    </div>
+  </div>
+{% endblock %}

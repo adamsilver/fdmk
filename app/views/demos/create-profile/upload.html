@@ -1,0 +1,48 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Upload your photo" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:history.back();"
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+
+      {% if errorSummary.items.length %}
+        {{ govukErrorSummary({
+          titleText: "There is a problem",
+          errorList: errorSummary.items
+        }) }}
+      {% endif %}
+
+      <form method="post" enctype="multipart/form-data">
+
+        <span class="govuk-caption-l">Create profile</span>
+
+        {{ govukFileUpload({
+          id: "createProfile-photo",
+          name: "createProfile[photo]",
+          javascript: true,
+          label: {
+            text: "Upload your photo",
+            isPageHeading: true,
+            classes: "govuk-label--l"
+          },
+          hint: {
+            text: "You can upload a PNG, GIF or JPEG file."
+          },
+          errorMessage: inlineErrors.photo if inlineErrors
+        }) }}
+
+        {{ govukButton({ text: "Continue" }) }}
+
+      </form>
+
+    </div>
+  </div>
+{% endblock %}

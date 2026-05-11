@@ -1,0 +1,38 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Email address to send the link to" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:history.back();"
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+      <form method="post" novalidate>
+
+        <span class="govuk-caption-l">Create profile</span>
+
+        {{ govukInput({
+          id: "createProfile-emailAddress",
+          name: "createProfile[emailAddress]",
+          type: "email",
+          autocomplete: "email",
+          label: {
+            text: pageName,
+            isPageHeading: true,
+            classes: "govuk-label--l"
+          },
+          value: data.createProfile.emailAddress,
+          classes: "govuk-!-width-two-thirds"
+        }) }}
+
+        {{ govukButton({ text: "Send link" }) }}
+
+      </form>
+    </div>
+  </div>
+{% endblock %}

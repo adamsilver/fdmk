@@ -1,0 +1,47 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Your name" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:history.back();"
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+      <form method="post">
+
+        <span class="govuk-caption-l">Create profile</span>
+        <h1 class="govuk-heading-l">Your name</h1>
+
+        {{ govukInput({
+          id: "createProfile-firstName",
+          name: "createProfile[firstName]",
+          label: {
+            text: "First name",
+            classes: "govuk-label--m"
+          },
+          value: data.createProfile.firstName,
+          classes: "govuk-!-width-two-thirds"
+        }) }}
+
+        {{ govukInput({
+          id: "createProfile-lastName",
+          name: "createProfile[lastName]",
+          label: {
+            text: "Last name",
+            classes: "govuk-label--m"
+          },
+          value: data.createProfile.lastName,
+          classes: "govuk-!-width-two-thirds"
+        }) }}
+
+        {{ govukButton({ text: "Continue" }) }}
+
+      </form>
+    </div>
+  </div>
+{% endblock %}

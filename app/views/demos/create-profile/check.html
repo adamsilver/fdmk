@@ -1,0 +1,70 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Check details and create profile" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "/demos/create-profile/where"
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+
+      <h1 class="govuk-heading-l">Check details and create profile</h1>
+
+      {% set photoHtml %}
+        {% if uploadedFiles.length %}
+          <img src="/demos/create-profile/file/{{ uploadedFiles[0].filename }}" alt="Your photo" style="max-width: 150px;">
+        {% else %}
+          No photo uploaded
+        {% endif %}
+      {% endset %}
+
+      {{ govukSummaryList({
+        rows: [
+          {
+            key: { text: "First name" },
+            value: { text: data.createProfile.firstName },
+            actions: {
+              items: [{
+                href: "/demos/create-profile",
+                text: "Change",
+                visuallyHiddenText: "first name"
+              }]
+            }
+          },
+          {
+            key: { text: "Last name" },
+            value: { text: data.createProfile.lastName },
+            actions: {
+              items: [{
+                href: "/demos/create-profile",
+                text: "Change",
+                visuallyHiddenText: "last name"
+              }]
+            }
+          },
+          {
+            key: { text: "Photo" },
+            value: { html: photoHtml },
+            actions: {
+              items: [{
+                href: "/demos/create-profile/where",
+                text: "Change",
+                visuallyHiddenText: "photo"
+              }]
+            }
+          }
+        ]
+      }) }}
+
+      <form method="post">
+        {{ govukButton({ text: "Create profile" }) }}
+      </form>
+
+    </div>
+  </div>
+{% endblock %}

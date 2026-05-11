@@ -4,7 +4,7 @@ const rules = require('../helpers/rules')
 module.exports = router => {
 
   router.get('/demos/form-validation', function( req, res ){
-    res.render('demos/form-validation')
+    res.render('demos/form-validation/index')
   })
 
   router.post('/demos/form-validation', function( req, res ){
@@ -94,7 +94,7 @@ module.exports = router => {
         inlineErrors: validator.getInlineErrors(),
         errorHighlights: validator.getErrorHighlights()
       })
-      res.redirect('/demos/form-validation')
+      res.redirect('/demos/form-validation/index')
     }
 
   });

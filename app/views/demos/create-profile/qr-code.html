@@ -1,0 +1,31 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Scan this code with your phone or tablet" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:history.back();"
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+
+      <span class="govuk-caption-l">Create profile</span>
+      <h1 class="govuk-heading-l">Scan this code with your phone or tablet</h1>
+
+      <div style="width: 200px; height: 200px; border: 2px solid #0b0c0c; display: flex; align-items: center; justify-content: center;" class="govuk-!-margin-bottom-4">
+        <span class="govuk-body-s" style="text-align: center; padding: 10px;">[QR code]</span>
+      </div>
+
+      <p>If you cannot scan the QR code, you can <a class="govuk-link" href="/demos/create-profile/how">choose a different method</a>.</p>
+
+      <p class="govuk-body govuk-!-margin-top-4">
+        <a class="govuk-link" href="/demos/create-profile/upload">Simulate continuing on mobile</a>
+      </p>
+
+    </div>
+  </div>
+{% endblock %}

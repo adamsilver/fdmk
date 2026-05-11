@@ -23,7 +23,11 @@ module.exports = router => {
     const rejectedFiles = JSON.parse(req.flash('uploadErrors')[0] || '[]');
     if (rejectedFiles.length) {
       const messages = rejectedFiles.map(item => item.error.message);
-      pageObject.errorMessage = { html: messages.join('<br>') };
+      if (messages.length === 1) {
+        pageObject.errorMessage = { text: messages[0] };
+      } else {
+        pageObject.errorMessages = messages;
+      }
       pageObject.errorSummary.items = messages.map(message => ({ text: message, href: '#documents' }));
     }
 
