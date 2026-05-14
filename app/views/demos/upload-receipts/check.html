@@ -1,0 +1,44 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Check answers" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "javascript:history.back();"
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+
+      <h1 class="govuk-heading-l">Check details and submit receipts</h1>
+
+      {% set rows = [] %}
+      {% for file in uploadedFiles %}
+        {% set fileValueHtml %}
+          <a href="/demos/upload-receipts/file/{{ file.filename }}" class="govuk-link">{{ file.originalname }}</a>
+        {% endset %}
+        {% set _ = rows.push({
+          key: { text: "Receipt " + loop.index },
+          value: { html: fileValueHtml },
+          actions: {
+            items: [{
+              href: "/demos/upload-receipts/list",
+              text: "Change",
+              visuallyHiddenText: "receipt " + loop.index
+            }]
+          }
+        }) %}
+      {% endfor %}
+
+      {{ govukSummaryList({ rows: rows }) }}
+
+      <form method="post">
+        {{ govukButton({ text: "Submit receipts" }) }}
+      </form>
+
+    </div>
+  </div>
+{% endblock %}

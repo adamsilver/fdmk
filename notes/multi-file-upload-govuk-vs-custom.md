@@ -1,20 +1,53 @@
-# Multi-file upload: GOV.UK component vs. custom AJAX component
+# Why the GOV.UK component works
 
-## How the GOV.UK enhancement works
+## Before 2021, input.files was read-only
 
-- Hides the real `<input type="file">` and replaces it visually with a `<button>`.
-- Clicking the button calls `this.$input.click()` to open the file picker.
-- Dropping files onto the button assigns them to the input: `this.$input.files = event.dataTransfer.files`.
-- On change, status text updates to show the filename(s). Files submit with the form normally — no AJAX, no convention broken.
+Before 2021, the file input (input.files) was read-only.
 
-This was made possible by `HTMLInputElement.files` becoming **writable** in modern browsers. In IE it was read-only, so drag-and-drop files couldn't be assigned to an input for normal form submission — AJAX was the only option. `onchange` also now fires immediately on selection without requiring blur.
+JavaScript could detect what the user selected via dropping files (ondrop) or detecting a change (onchange) but couldn’t set the value of the input to those file references.
 
-## How my enhancement works
+This is because browser vendors were worried that a malicious script could theoritically set the input value to something sensitive like “/path/to/sensitive/file” and trigger a form submission, stealing files without consent.
 
-- Wraps the input in a dropzone and appends a `<label>` styled as a button.
-- On `change` or `drop`, files are immediately uploaded via sequential AJAX calls.
-- Each uploaded file accumulates server-side with a delete button.
-- Files are already on the server by the time the user continues — not held for form submission.
+So you had to use AJAX (XHR) to upload without a page refresh.
+
+As a result, the only way to give users an enhanced interaction with a larger drop zone (with conventional dashed border) was to use AJAX (XHR) to upload the files as soon as they were dropped or selected - rather than waiting for the user to submit the form as a separate action (as per normal).
+
+## From 2021, input.files became writable
+
+From 2021 onwards, browsers updated the API to make the file input writable using:
+
+input.files = event.dataTransfer.files
+
+This is the API that the GOV.UK Design System team used to enhance their file input to have a larger drop zone with conventional dashed border. And sticking to convention that submitting a form is a separate action.
+
+In 2026, browser support is around 98% to 99%.
+
+## “Could you have upload when the user submits the form instead of instantly on drop or select?”
+
+Yes.
+
+But that means mean giving users a completely different experience for any form that contains a file upload. 
+
+Generally, the best form validation UX works onsubmit usually with a page refresh:
+
+- the page title updates
+- the summary appears and gets focused
+- the errors appear inline
+
+Even if you use JavaScript to do it on the client instantly, you get the same experience.
+
+Submitting with AJAX means:
+
+- using a loading spinner which is a terrible way to give feedback when uploads can take a long time.
+- dealing with partial success and partial failure
+- dealing with problems with the server, like a failed request
+
+All of this needs a special considered treatement anyway. Given that’s the case, we can give users a better experience if we upload with AJAX as soon as the user drops or selects a file because:
+
+1. You can give users real time granular feedback for each file as it uploads
+2. If one file fails, the rest don’t have to because each file is uploaded in a separate XHR request
+3. It may be faster because multiple requests are made in parallel
+4. The user can keep uploading more files by selecting or dropping more while others are uploading so the UI is not blocking
 
 ## Triggering the file picker: labels vs. script clicks
 

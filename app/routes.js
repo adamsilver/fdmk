@@ -42,6 +42,15 @@ router.post('/test-cases/email-preferences-checkboxes', (req, res) => {
   res.redirect(`/test-cases/email-preferences-checkboxes`)
 })
 
+router.post('/test-cases/driving-licence-photo', (req, res) => {
+  const usePassportPhoto = (req.session.data.drivingLicencePhoto || {}).usePassportPhoto
+  if (usePassportPhoto === 'yes') {
+    res.redirect('/test-cases/driving-licence-photo/confirmed')
+  } else {
+    res.redirect('/test-cases/driving-licence-photo/upload')
+  }
+})
+
 // Add your routes here
 router.get('/demos/checkbox-filter', (req, res) => {
   let selectedItems = []
@@ -84,3 +93,4 @@ require('./routes/multi-upload-file--multi-field')(router)
 require('./routes/form-validation')(router)
 require('./routes/mfa')(router)
 require('./routes/create-profile')(router)
+require('./routes/upload-receipts')(router)
