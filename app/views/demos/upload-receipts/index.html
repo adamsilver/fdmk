@@ -31,9 +31,9 @@
             classes: "govuk-label--l"
           },
           hint: {
-            text: "The receipt must be a PNG, GIF or JPG"
+            text: "The receipt must be a JPG, DOC or DOCX"
           },
-          attributes: { multiple: '', accept: "image/png, image/gif, image/jpeg" }, 
+          attributes: { multiple: '', accept: "image/jpeg, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document" },
           errorMessage: inlineErrors.receipt if inlineErrors
         }) }}
 
