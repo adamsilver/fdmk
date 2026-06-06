@@ -1,6 +1,6 @@
 {% extends "layouts/main.html" %}
 
-{% set pageName = "Upload a receipt" %}
+{% set pageName = "Upload your photo" %}
 
 {% block beforeContent %}
   {{ govukBackLink({
@@ -22,22 +22,25 @@
 
       <form method="post" enctype="multipart/form-data">
 
+        <span class="govuk-caption-l">Create profile</span>
+
         {{ govukFileUpload({
-          id: "uploadReceipts-receipt",
-          name: "uploadReceipts[receipt]",
+          id: "createProfile-photo",
+          name: "createProfile[photo]",
           label: {
-            text: "Upload a receipt",
+            text: "Upload your photo",
             isPageHeading: true,
             classes: "govuk-label--l"
           },
           hint: {
-            text: "The receipt must be a JPG, DOC or DOCX"
+            text: "You can upload a PNG or JPG file under 1MB."
           },
-          attributes: { multiple: '', accept: "image/jpeg, application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document" },
-          errorMessage: inlineErrors.receipt if inlineErrors
+          errorMessage: inlineErrors.photo if inlineErrors
         }) }}
 
         {{ govukButton({ text: "Continue" }) }}
+
+        <p class="govuk-body"><a class="govuk-link" href="/test-cases/create-profile/how">Use a different device</a> to upload your photo.</p>
 
       </form>
 

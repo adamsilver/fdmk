@@ -18,14 +18,14 @@
       {% set rows = [] %}
       {% for file in uploadedFiles %}
         {% set fileValueHtml %}
-          <a href="/demos/upload-receipts/file/{{ file.filename }}" class="govuk-link">{{ file.originalname }}</a>
+          <a href="/test-cases/upload-receipts/file/{{ file.filename }}" class="govuk-link">{{ file.originalname }}</a>
         {% endset %}
         {% set _ = rows.push({
           key: { text: "Receipt " + loop.index },
           value: { html: fileValueHtml },
           actions: {
             items: [{
-              href: "/demos/upload-receipts/delete/" + file.filename,
+              href: "/test-cases/upload-receipts/delete/" + file.filename,
               text: "Delete",
               visuallyHiddenText: "receipt " + loop.index
             }]

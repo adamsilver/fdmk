@@ -5,7 +5,7 @@
 {% block beforeContent %}
   {{ govukBackLink({
     text: "Back",
-    href: "/demos/create-profile/where"
+    href: "/test-cases/create-profile/where"
   }) }}
 {% endblock %}
 
@@ -17,7 +17,7 @@
 
       {% set photoHtml %}
         {% if uploadedFiles.length %}
-          <img src="/demos/create-profile/file/{{ uploadedFiles[0].filename }}" alt="Your photo" style="max-width: 150px;">
+          <img src="/test-cases/create-profile/file/{{ uploadedFiles[0].filename }}" alt="Your photo" style="max-width: 150px;">
         {% else %}
           No photo uploaded
         {% endif %}
@@ -34,7 +34,7 @@
             value: { text: data.createProfile.firstName },
             actions: {
               items: [{
-                href: "/demos/create-profile",
+                href: "/test-cases/create-profile",
                 text: "Change",
                 visuallyHiddenText: "first name"
               }]
@@ -45,7 +45,7 @@
             value: { text: data.createProfile.lastName },
             actions: {
               items: [{
-                href: "/demos/create-profile",
+                href: "/test-cases/create-profile",
                 text: "Change",
                 visuallyHiddenText: "last name"
               }]
@@ -56,7 +56,7 @@
             value: { html: photoHtml },
             actions: {
               items: [{
-                href: "/demos/create-profile/upload",
+                href: "/test-cases/create-profile/upload",
                 text: "Change",
                 visuallyHiddenText: "photo"
               }]
