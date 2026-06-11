@@ -82,13 +82,8 @@ if(App.dragAndDropSupported() && App.formDataSupported() && App.fileApiSupported
 
   App.MultiFileUpload.prototype.uploadFiles = function(files) {
     this.feedbackContainer.find('.app-multi-file-upload__row--error').remove();
-    this.uploadFilesSequentially(Array.from(files), 0);
-  };
-
-  App.MultiFileUpload.prototype.uploadFilesSequentially = function(files, index) {
-    if (index >= files.length) { return; }
-    this.uploadFile(files[index], $.proxy(function() {
-      this.uploadFilesSequentially(files, index + 1);
+    Array.from(files).forEach($.proxy(function(file) {
+      this.uploadFile(file);
     }, this));
   };
 
@@ -135,7 +130,7 @@ if(App.dragAndDropSupported() && App.formDataSupported() && App.fileApiSupported
     return html;
   };
 
-App.MultiFileUpload.prototype.uploadFile = function(file, done) {
+App.MultiFileUpload.prototype.uploadFile = function(file) {
     this.params.uploadFileEntryHook(this, file);
     var formData = new FormData();
     formData.append(this.params.fieldName, file);
@@ -160,7 +155,6 @@ App.MultiFileUpload.prototype.uploadFile = function(file, done) {
           this.status.html(response.success.messageHtml);
         }
         this.params.uploadFileExitHook(this, file, response);
-        if(done) { done(); }
       }, this),
       error: $.proxy(function(jqXHR, textStatus, errorThrown) {
         item.addClass('app-multi-file-upload__row--error');
@@ -169,7 +163,6 @@ App.MultiFileUpload.prototype.uploadFile = function(file, done) {
         );
         this.status.html(file.name + ' could not be uploaded');
         this.params.uploadFileErrorHook(this, file, jqXHR, textStatus, errorThrown);
-        if(done) { done(); }
       }, this),
       xhr: function() {
         var xhr = new XMLHttpRequest();

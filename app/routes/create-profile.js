@@ -63,6 +63,14 @@ module.exports = router => {
     res.render('test-cases/create-profile/email-sent.html', { obfuscatedEmail })
   })
 
+  // Step 3d — Enter security code (mobile simulation)
+  router.get('/test-cases/create-profile/enter-code', (req, res) => {
+    res.render('test-cases/create-profile/enter-code.html')
+  })
+  router.post('/test-cases/create-profile/enter-code', (req, res) => {
+    res.redirect('/test-cases/create-profile/upload')
+  })
+
   // Step 4 — Upload photo
   router.get('/test-cases/create-profile/upload', (req, res) => {
     res.render('test-cases/create-profile/upload.html')
