@@ -6,7 +6,7 @@ const upload = new FileUpload({
   maxFileSize: 1024 * 1024,
   errors: {
     FILE_TYPE:       (filename) => `${filename} must be a PNG, GIF or JPEG`,
-    LIMIT_FILE_SIZE: (filename) => `${filename} must be smaller than 1mb`,
+    LIMIT_FILE_SIZE: (filename) => `${filename} must be smaller than 1MB`,
     NO_FILE:         () => 'Select a file'
   }
 });
