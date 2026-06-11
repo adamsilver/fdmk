@@ -107,6 +107,7 @@ if(App.dragAndDropSupported() && App.formDataSupported() && App.fileApiSupported
     var files = e.currentTarget.files;
     this.status.html(this.params.uploadStatusText);
     this.uploadFiles(files);
+    this.fileInput.val('');
   };
 
   App.MultiFileUpload.prototype.onFileFocus = function(e) {

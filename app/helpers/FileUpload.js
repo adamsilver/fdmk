@@ -98,4 +98,37 @@ function removeFileFromFileList(fileList, filename) {
   remove(fileList, item => item.filename === filename);
 }
 
-module.exports = { FileUpload, getUploadedFiles, removeFileFromFileList };
+// Concurrent AJAX requests each load their own snapshot of the session at
+// request start, so updates made by parallel requests can clobber each
+// other when the session is saved. Serialise the read-modify-write per
+// session so parallel uploads/deletes don't lose each other's changes.
+const sessionLocks = new Map();
+
+function lockSession(sessionID, fn) {
+  const tail = sessionLocks.get(sessionID) || Promise.resolve();
+  const result = tail.then(fn, fn);
+  const guarded = result.catch(() => {});
+  sessionLocks.set(sessionID, guarded);
+  guarded.finally(() => {
+    if (sessionLocks.get(sessionID) === guarded) {
+      sessionLocks.delete(sessionID);
+    }
+  });
+  return result;
+}
+
+function updateUploadedFiles(req, fieldName, updateFn) {
+  return lockSession(req.sessionID, () => new Promise((resolve, reject) => {
+    req.session.reload((err) => {
+      if (err) {
+        return reject(err);
+      }
+      const files = get(req.session, fieldName) || [];
+      updateFn(files);
+      set(req.session, fieldName, files);
+      req.session.save((err) => err ? reject(err) : resolve(files));
+    });
+  }));
+}
+
+module.exports = { FileUpload, getUploadedFiles, removeFileFromFileList, updateUploadedFiles };

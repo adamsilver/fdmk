@@ -1,4 +1,4 @@
-const { FileUpload, getUploadedFiles, removeFileFromFileList } = require('../helpers/FileUpload');
+const { FileUpload, getUploadedFiles, removeFileFromFileList, updateUploadedFiles } = require('../helpers/FileUpload');
 
 const upload = new FileUpload({
   fieldName: 'addReceiptsMultiField[documents]',
@@ -47,7 +47,7 @@ module.exports = router => {
     res.redirect('/demos/multi-file-upload--multi-fields');
   });
 
-  router.post('/demos/demo2-ajax-upload', getUploadedFiles(upload.fieldName), async (req, res) => {
+  router.post('/demos/demo2-ajax-upload', async (req, res) => {
     const { uploaded, rejected } = await upload.parse(req);
 
     if (rejected.length) {
@@ -55,7 +55,7 @@ module.exports = router => {
     }
 
     const file = uploaded[0];
-    req.uploadedFiles.push(file);
+    await updateUploadedFiles(req, upload.fieldName, files => files.push(file));
 
     res.json({
       file,
@@ -65,8 +65,8 @@ module.exports = router => {
     });
   });
 
-  router.post('/demos/demo2-ajax-delete', getUploadedFiles(upload.fieldName), function(req, res) {
-    removeFileFromFileList(req.uploadedFiles, req.body.delete);
+  router.post('/demos/demo2-ajax-delete', async (req, res) => {
+    await updateUploadedFiles(req, upload.fieldName, files => removeFileFromFileList(files, req.body.delete));
     res.json({});
   });
 
