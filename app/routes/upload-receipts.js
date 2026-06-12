@@ -28,7 +28,8 @@ module.exports = router => {
   })
 
   router.post('/test-cases/upload-receipts', getUploadedFiles(upload.fieldName), async (req, res) => {
-    const { uploaded, rejected } = await upload.parse(req)
+    const { uploaded, rejected, aborted } = await upload.parse(req)
+    if (aborted) return
 
     const realRejections = rejected.filter(r => r.error.code !== 'NO_FILE')
     if (realRejections.length > 0) {

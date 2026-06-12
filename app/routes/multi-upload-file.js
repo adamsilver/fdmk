@@ -35,7 +35,8 @@ module.exports = router => {
   });
 
   router.post('/demos/multi-file-upload', getUploadedFiles(upload.fieldName), async (req, res) => {
-    const { uploaded, rejected, deleteFilename } = await upload.parse(req);
+    const { uploaded, rejected, deleteFilename, aborted } = await upload.parse(req);
+    if (aborted) return;
 
     req.uploadedFiles.push(...uploaded);
     req.flash('uploadErrors', JSON.stringify(rejected));

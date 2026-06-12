@@ -1,5 +1,5 @@
 const fs = require('fs');
-const { formidable } = require('formidable');
+const { formidable, errors: formidableErrors } = require('formidable');
 const { get, set, remove } = require('lodash');
 
 class FileUpload {
@@ -46,6 +46,9 @@ class FileUpload {
     return new Promise((resolve, reject) => {
       form.parse(req, (err, fields, files) => {
         if (err) {
+          if (err.code === formidableErrors.aborted) {
+            return resolve({ uploaded: [], rejected: [], deleteFilename: undefined, aborted: true });
+          }
           return reject(err);
         }
 

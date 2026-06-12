@@ -14,6 +14,8 @@ App.fileApiSupported = function() {
 };
 
 if(App.dragAndDropSupported() && App.formDataSupported() && App.fileApiSupported()) {
+  var STATUS_ANNOUNCEMENT_DELAY = 1000;
+
   App.MultiFileUpload = function(params) {
     this.defaultParams = {
       uploadFileEntryHook: $.noop,
@@ -60,17 +62,25 @@ if(App.dragAndDropSupported() && App.formDataSupported() && App.fileApiSupported
   };
 
   App.MultiFileUpload.prototype.setupStatusBox = function() {
-    this.status = $('<div role="status" class="govuk-visually-hidden" />');
-    this.dropzone.append(this.status);
+    this.status = $('<div role="status" aria-live="polite" class="govuk-visually-hidden" />');
+    this.dropzone.after(this.status);
     this.pendingCount = 0;
     this.batchMessages = [];
     this.nextMessageIndex = 0;
   };
 
+  App.MultiFileUpload.prototype.announce = function(text) {
+    clearTimeout(this.statusTimeout);
+    var delay = Math.max(0, (this.statusGateTime || 0) + STATUS_ANNOUNCEMENT_DELAY - Date.now());
+    this.statusTimeout = setTimeout($.proxy(function() {
+      this.status.html(text);
+    }, this), delay);
+  };
+
   App.MultiFileUpload.prototype.checkBatchComplete = function() {
     this.pendingCount--;
     if (this.pendingCount === 0) {
-      this.status.html(this.batchMessages.join('. '));
+      this.announce(this.batchMessages.join('. '));
       this.batchMessages = [];
       this.nextMessageIndex = 0;
     }
@@ -89,7 +99,9 @@ if(App.dragAndDropSupported() && App.formDataSupported() && App.fileApiSupported
   	e.preventDefault();
   	this.dropzone.removeClass('app-multi-file-upload--dragover');
     var files = e.originalEvent.dataTransfer.files;
-    this.status.html(this.params.uploadStatusText);
+    this.fileInput.focus();
+    this.statusGateTime = Date.now();
+    this.announce(this.params.uploadStatusText);
     this.uploadFiles(files);
   };
 
@@ -105,7 +117,8 @@ if(App.dragAndDropSupported() && App.formDataSupported() && App.fileApiSupported
 
   App.MultiFileUpload.prototype.onFileChange = function(e) {
     var files = e.currentTarget.files;
-    this.status.html(this.params.uploadStatusText);
+    this.statusGateTime = Date.now();
+    this.announce(this.params.uploadStatusText);
     this.uploadFiles(files);
     this.fileInput.val('');
   };
@@ -211,7 +224,8 @@ App.MultiFileUpload.prototype.uploadFile = function(file, index) {
         } else {
           var filename = button.find('.govuk-visually-hidden').text();
           button.parents('.app-multi-file-upload__row').remove();
-          this.status.html(filename + ' deleted.');
+          this.statusGateTime = Date.now();
+          this.announce(filename + ' deleted.');
           if (this.feedbackContainer.find('.app-multi-file-upload__row').length === 0) {
             this.feedbackContainer.hide();
           }
