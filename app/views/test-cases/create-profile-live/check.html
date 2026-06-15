@@ -1,0 +1,66 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Check details and create profile" %}
+
+{% block beforeContent %}
+  {{ govukBackLink({
+    text: "Back",
+    href: "/test-cases/create-profile-live/check-photo"
+  }) }}
+{% endblock %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+
+      <h1 class="govuk-heading-l">Check details and create profile</h1>
+
+      {% set photoHtml %}
+        <a href="adam.jpg">adam.jpg</a>
+      {% endset %}
+
+      {{ govukSummaryList({
+        rows: [
+          {
+            key: { text: "First name" },
+            value: { text: data.createProfileLive.firstName },
+            actions: {
+              items: [{
+                href: "/test-cases/create-profile-live",
+                text: "Change",
+                visuallyHiddenText: "first name"
+              }]
+            }
+          },
+          {
+            key: { text: "Last name" },
+            value: { text: data.createProfileLive.lastName },
+            actions: {
+              items: [{
+                href: "/test-cases/create-profile-live",
+                text: "Change",
+                visuallyHiddenText: "last name"
+              }]
+            }
+          },
+          {
+            key: { text: "Photo" },
+            value: { html: photoHtml },
+            actions: {
+              items: [{
+                href: "/test-cases/create-profile-live/upload",
+                text: "Change",
+                visuallyHiddenText: "photo"
+              }]
+            }
+          }
+        ]
+      }) }}
+
+      <form method="post">
+        {{ govukButton({ text: "Create profile" }) }}
+      </form>
+
+    </div>
+  </div>
+{% endblock %}

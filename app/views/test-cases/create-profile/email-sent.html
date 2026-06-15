@@ -26,10 +26,21 @@
         You can also <a class="govuk-link" href="/test-cases/create-profile/email">request another link</a>.
       </p>
 
+       <p>Once you have uploaded the photo click the button below:</p>
+
       {{ govukButton({
-        text: "Simulate continuing on mobile",
+        text: "I have finished uploading the photo on my other device"
+      }) }}
+
+
+      {{ govukButton({
+        text: "Simulate continuing on other device",
         href: "/test-cases/create-profile/enter-code",
-        classes: "app-simulate-button"
+        classes: "app-simulate-button",
+        attributes: {
+          target: "_blank",
+          rel: "noopener noreferrer"
+        }
       }) }}
 
     </div>

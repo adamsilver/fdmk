@@ -76,7 +76,10 @@ module.exports = router => {
   })
 
   // Step 3d — Enter security code (mobile simulation)
-  router.get('/test-cases/create-profile/enter-code', (req, res) => {
+  router.get('/test-cases/create-profile/enter-code', getUploadedFiles(upload.fieldName), (req, res) => {
+    req.session.data.createProfile = req.session.data.createProfile || {}
+    req.session.data.createProfile.continuingOnOtherDevice = true
+    req.uploadedFiles.length = 0
     res.render('test-cases/create-profile/enter-code.html')
   })
   router.post('/test-cases/create-profile/enter-code', (req, res) => {
