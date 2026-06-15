@@ -210,7 +210,7 @@
         <span class="govuk-caption-l">Create profile</span>
         <h1 class="govuk-heading-l">Waiting for you to upload the photo on your other device</h1>
 
-        <p class="govuk-body">This page will update automatically once you have finished uploading the photo and clicked “Continue on my original device”.</p>
+        {# <p class="govuk-body">This page will update automatically once you have finished uploading the photo and clicked “Continue on my original device”.</p> #}
 
         <form method="post" action="/test-cases/create-profile-live/cancel-other-device">
           {{ govukButton({
@@ -225,8 +225,6 @@
 
         <span class="govuk-caption-l">Create profile</span>
         <h1 class="govuk-heading-l">Photo uploaded</h1>
-
-        <p>Click the button below to continue:</p>
 
         {{ govukButton({
           text: "Continue",
