@@ -13,8 +13,10 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds-from-desktop">
 
+      <form method="post">
+
       <span class="govuk-caption-l">Create profile</span>
-      <h1 class="govuk-heading-l">Take a photo of this QR code with your phone or tablet</h1>
+      <h1 class="govuk-heading-l">Scan the QR code using the camera on your phone or tablet</h1>
 
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 230" width="200" height="200" class="govuk-!-margin-bottom-4" aria-hidden="true" style="display:block">
         <rect width="230" height="230" fill="white"/>
@@ -177,11 +179,25 @@
         </g>
       </svg>
 
-      <p>If you cannot do this, <a class="govuk-link" href="/test-cases/create-profile/how">choose a different method</a>.</p>
+      <p>If you cannot do this, you can <a class="govuk-link" href="/test-cases/create-profile/email">request a link to be sent to your email</a>.</p>
 
-      <p class="govuk-body govuk-!-margin-top-4">
-        <a class="govuk-link" href="/test-cases/create-profile/upload">Simulate continuing on mobile</a>
-      </p>
+      <p>Once you have uploaded the photo click the button below:</p>
+
+      {{ govukButton({
+        text: "I have finished uploading the photo on my other device"
+      }) }}
+
+      {{ govukButton({
+        text: "Simulate continuing on mobile (opens in new tab)",
+        href: "/test-cases/create-profile/qr-code/continue-on-other-device",
+        classes: "app-simulate-button",
+        attributes: {
+          target: "_blank",
+          rel: "noopener noreferrer"
+        }
+      }) }}
+
+      </form>
 
     </div>
   </div>

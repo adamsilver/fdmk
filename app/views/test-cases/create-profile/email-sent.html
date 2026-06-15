@@ -26,9 +26,11 @@
         You can also <a class="govuk-link" href="/test-cases/create-profile/email">request another link</a>.
       </p>
 
-      <p class="govuk-body govuk-!-margin-top-4">
-        <a class="govuk-link" href="/test-cases/create-profile/enter-code">Simulate continuing on mobile</a>
-      </p>
+      {{ govukButton({
+        text: "Simulate continuing on mobile",
+        href: "/test-cases/create-profile/enter-code",
+        classes: "app-simulate-button"
+      }) }}
 
     </div>
   </div>

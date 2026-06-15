@@ -30,18 +30,30 @@ module.exports = router => {
     res.redirect('/test-cases/create-profile/upload')
   })
 
-  // Step 2 — How do you want to get the link?
-  router.get('/test-cases/create-profile/how', (req, res) => {
-    res.render('test-cases/create-profile/how.html')
-  })
-  router.post('/test-cases/create-profile/how', (req, res) => {
-    const photoHow = (req.session.data.createProfile || {}).photoHow
-    res.redirect(photoHow === 'qr' ? '/test-cases/create-profile/qr-code' : '/test-cases/create-profile/email')
-  })
-
   // Step 3a — QR code
   router.get('/test-cases/create-profile/qr-code', (req, res) => {
     res.render('test-cases/create-profile/qr-code.html')
+  })
+
+  // Step 3a — Simulate scanning the QR code and continuing on another device
+  router.get('/test-cases/create-profile/qr-code/continue-on-other-device', getUploadedFiles(upload.fieldName), (req, res) => {
+    req.session.data.createProfile = req.session.data.createProfile || {}
+    req.session.data.createProfile.continuingOnOtherDevice = true
+    req.uploadedFiles.length = 0
+    res.redirect('/test-cases/create-profile/upload')
+  })
+
+  router.post('/test-cases/create-profile/qr-code', getUploadedFiles(upload.fieldName), (req, res) => {
+    if (req.uploadedFiles.length === 0) {
+      return res.redirect('/test-cases/create-profile/qr-code-no-photo')
+    }
+    req.session.data.createProfile.continuingOnOtherDevice = false
+    res.redirect('/test-cases/create-profile/check')
+  })
+
+  // Step 3a-i — No photo received yet
+  router.get('/test-cases/create-profile/qr-code-no-photo', (req, res) => {
+    res.render('test-cases/create-profile/qr-code-no-photo.html')
   })
 
   // Step 3b — Email address
@@ -109,7 +121,15 @@ module.exports = router => {
     if (photoCorrect === 'no') {
       return res.redirect('/test-cases/create-profile/upload')
     }
+    if ((req.session.data.createProfile || {}).continuingOnOtherDevice) {
+      return res.redirect('/test-cases/create-profile/photo-uploaded')
+    }
     res.redirect('/test-cases/create-profile/check')
+  })
+
+  // Step 5a — Photo uploaded on other device
+  router.get('/test-cases/create-profile/photo-uploaded', (req, res) => {
+    res.render('test-cases/create-profile/photo-uploaded.html')
   })
 
   // Step 6 — Check answers
