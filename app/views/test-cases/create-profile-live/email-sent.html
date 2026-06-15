@@ -18,7 +18,7 @@
         <span class="govuk-caption-l">Create profile</span>
         <h1 class="govuk-heading-l">{{ pageName }}</h1>
 
-        <p>A link has been sent to {{ obfuscatedEmail or "adam@example.com" }}.</p>
+        <p>A link has been sent to {{ data.createProfileLive.emailAddress or "adam@example.com" }}.</p>
 
         <p>Open the email on your other device and follow the instructions.</p>
 
@@ -28,11 +28,7 @@
           You can also <a class="govuk-link" href="/test-cases/create-profile-live/email">request another link</a>.
         </p>
 
-        {{ govukButton({
-          text: "Simulate continuing on mobile",
-          href: "/test-cases/create-profile-live/enter-code",
-          classes: "app-simulate-button"
-        }) }}
+        <p class="app-simulate-link"><a class="govuk-link" href="/test-cases/create-profile-live/enter-code">Simulate continuing on mobile</a></p>
 
       </div>
 

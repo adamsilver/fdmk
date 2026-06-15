@@ -1,5 +1,5 @@
 const path = require('path')
-const { FileUpload, getUploadedFiles, removeFileFromFileList } = require('../helpers/FileUpload')
+const { FileUpload, getUploadedFiles } = require('../helpers/FileUpload')
 
 const upload = new FileUpload({
   fieldName: 'createProfile[photo]',
@@ -66,13 +66,19 @@ module.exports = router => {
 
   // Step 3c — Email sent
   router.get('/test-cases/create-profile/email-sent', (req, res) => {
-    const email = (req.session.data.createProfile || {}).emailAddress || ''
-    let obfuscatedEmail = email
-    if (email.includes('@')) {
-      const [local, domain] = email.split('@')
-      obfuscatedEmail = local.charAt(0) + '•••@' + domain
+    res.render('test-cases/create-profile/email-sent.html')
+  })
+  router.post('/test-cases/create-profile/email-sent', getUploadedFiles(upload.fieldName), (req, res) => {
+    if (req.uploadedFiles.length === 0) {
+      return res.redirect('/test-cases/create-profile/email-no-photo')
     }
-    res.render('test-cases/create-profile/email-sent.html', { obfuscatedEmail })
+    req.session.data.createProfile.continuingOnOtherDevice = false
+    res.redirect('/test-cases/create-profile/check')
+  })
+
+  // Step 3c-i — No photo received yet (email)
+  router.get('/test-cases/create-profile/email-no-photo', (req, res) => {
+    res.render('test-cases/create-profile/email-no-photo.html')
   })
 
   // Step 3d — Enter security code (mobile simulation)

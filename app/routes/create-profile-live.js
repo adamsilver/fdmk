@@ -1,5 +1,5 @@
 const path = require('path')
-const { FileUpload, getUploadedFiles, removeFileFromFileList } = require('../helpers/FileUpload')
+const { FileUpload, getUploadedFiles } = require('../helpers/FileUpload')
 
 const upload = new FileUpload({
   fieldName: 'createProfileLive[photo]',
@@ -78,6 +78,10 @@ module.exports = router => {
     getLiveSession(req).cancelled = true
     res.redirect('/test-cases/create-profile-live/upload')
   })
+  router.get('/test-cases/create-profile-live/cancel-other-device', (req, res) => {
+    getLiveSession(req).cancelled = true
+    res.redirect('/test-cases/create-profile-live/upload')
+  })
 
   // Step 3a-i — No photo received yet
   router.get('/test-cases/create-profile-live/qr-code-no-photo', (req, res) => {
@@ -95,13 +99,7 @@ module.exports = router => {
 
   // Step 3c — Email sent
   router.get('/test-cases/create-profile-live/email-sent', (req, res) => {
-    const email = (req.session.data.createProfileLive || {}).emailAddress || ''
-    let obfuscatedEmail = email
-    if (email.includes('@')) {
-      const [local, domain] = email.split('@')
-      obfuscatedEmail = local.charAt(0) + '•••@' + domain
-    }
-    res.render('test-cases/create-profile-live/email-sent.html', { obfuscatedEmail })
+    res.render('test-cases/create-profile-live/email-sent.html')
   })
 
   // Step 3d — Enter security code (mobile simulation)

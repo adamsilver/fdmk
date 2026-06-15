@@ -56,13 +56,9 @@ $hmcts-images-path: "/public/images/";
   }
 }
 
-.app-simulate-button {
+.app-simulate-link {
   position: fixed;
   bottom: govuk-spacing(4);
   right: govuk-spacing(4);
   z-index: 1000;
-
-  &:active {
-    top: auto;
-  }
 }

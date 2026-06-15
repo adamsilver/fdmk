@@ -191,46 +191,26 @@
           }) }}
         </div>
 
-        {{ govukButton({
-          text: "Simulate continuing on other device",
-          href: "/test-cases/create-profile-live/qr-code/continue-on-other-device",
-          classes: "app-simulate-button",
-          attributes: {
-            target: "_blank",
-            rel: "noopener noreferrer"
-          }
-        }) }}
+        <p class="app-simulate-link"><a class="govuk-link" href="/test-cases/create-profile-live/qr-code/continue-on-other-device" target="_blank" rel="noopener noreferrer">Simulate continuing on other device</a></p>
 
         </form>
 
       </div>
 
       <div id="qrCodeConnectedState" hidden>
-
         <span class="govuk-caption-l">Create profile</span>
         <h1 class="govuk-heading-l">Waiting for you to upload the photo on your other device</h1>
 
-        {# <p class="govuk-body">This page will update automatically once you have finished uploading the photo and clicked “Continue on my original device”.</p> #}
-
-        <form method="post" action="/test-cases/create-profile-live/cancel-other-device">
-          {{ govukButton({
-            text: "Continue on this device instead",
-            classes: "govuk-button--secondary"
-          }) }}
-        </form>
-
+        <p>If you prefer, you can <a href="/test-cases/create-profile-live/cancel-other-device">use this device to upload your photo</a>.</p>
       </div>
 
       <div id="qrCodeUploadedState" hidden>
-
         <span class="govuk-caption-l">Create profile</span>
         <h1 class="govuk-heading-l">Photo uploaded</h1>
-
         {{ govukButton({
           text: "Continue",
           href: "/test-cases/create-profile-live/check"
         }) }}
-
       </div>
 
       <div class="govuk-visually-hidden" aria-live="polite" id="qrCodeStatus"></div>

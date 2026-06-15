@@ -13,10 +13,12 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds-from-desktop">
 
+      <form method="post">
+
       <span class="govuk-caption-l">Create profile</span>
       <h1 class="govuk-heading-l">{{ pageName }}</h1>
 
-      <p>A link has been sent to adam@example.com.</p>
+      <p>A link has been sent to {{ data.createProfile.emailAddress or "adam@example.com" }}.</p>
 
       <p>Open the email on your other device and follow the instructions.</p>
 
@@ -26,22 +28,16 @@
         You can also <a class="govuk-link" href="/test-cases/create-profile/email">request another link</a>.
       </p>
 
-       <p>Once you have uploaded the photo click the button below:</p>
+      <h2 class="govuk-heading-m">When you have uploaded your photo from the other device, click the button below to continue</h2>
 
       {{ govukButton({
         text: "I have finished uploading the photo on my other device"
       }) }}
 
 
-      {{ govukButton({
-        text: "Simulate continuing on other device",
-        href: "/test-cases/create-profile/enter-code",
-        classes: "app-simulate-button",
-        attributes: {
-          target: "_blank",
-          rel: "noopener noreferrer"
-        }
-      }) }}
+      <p class="app-simulate-link"><a class="govuk-link" href="/test-cases/create-profile/enter-code" target="_blank" rel="noopener noreferrer">Simulate continuing on other device</a></p>
+
+      </form>
 
     </div>
   </div>

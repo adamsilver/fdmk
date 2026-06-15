@@ -181,21 +181,13 @@
 
       <p>If you cannot do this, you can <a class="govuk-link" href="/test-cases/create-profile/email">request a link to be sent to your email</a>.</p>
 
-      <p>Once you have uploaded the photo click the button below:</p>
+      <h2 class="govuk-heading-m">When you have uploaded your photo from the other device, click the button below to continue</h2>
 
       {{ govukButton({
         text: "I have finished uploading the photo on my other device"
       }) }}
 
-      {{ govukButton({
-        text: "Simulate continuing on other device",
-        href: "/test-cases/create-profile/qr-code/continue-on-other-device",
-        classes: "app-simulate-button",
-        attributes: {
-          target: "_blank",
-          rel: "noopener noreferrer"
-        }
-      }) }}
+      <p class="app-simulate-link"><a class="govuk-link" href="/test-cases/create-profile/qr-code/continue-on-other-device" target="_blank" rel="noopener noreferrer">Simulate continuing on other device</a></p>
 
       </form>
 
