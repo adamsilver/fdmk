@@ -1,6 +1,6 @@
 {% extends "layouts/main.html" %}
 
-{% set pageName = "Take a photo of the QR code below to continue" %}
+{% set pageName = "Scan the QR code using the camera on your phone or tablet" %}
 
 {% block beforeContent %}
   {{ govukBackLink({
@@ -181,13 +181,13 @@
           </g>
         </svg>
 
-        <p>If you cannot do this, you can <a class="govuk-link" href="/test-cases/create-profile-live/email">request a link to be sent to your email</a>.</p>
+        <p>Alternatively, you can <a class="govuk-link" href="/test-cases/create-profile-live/email">get a link sent to your email</a>.</p>
 
         <div id="manualCheckSection">
-          <p>Once you have uploaded the photo click the button below:</p>
+          <p>Once you’ve uploaded the photo on your other device, click the button below:</p>
 
           {{ govukButton({
-            text: "I have finished uploading the photo on my other device"
+            text: "I’ve uploaded my photo"
           }) }}
         </div>
 
