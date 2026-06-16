@@ -213,8 +213,6 @@
         }) }}
       </div>
 
-      <div class="govuk-visually-hidden" aria-live="polite" id="qrCodeStatus"></div>
-
     </div>
   </div>
 {% endblock %}
@@ -222,40 +220,15 @@
 {% block pageScripts %}
   {{ super() }}
   <script>
-    if (typeof App.LiveConnection !== 'undefined') {
-      (function () {
-        var defaultState = document.getElementById('qrCodeDefaultState');
-        var connectedState = document.getElementById('qrCodeConnectedState');
-        var uploadedState = document.getElementById('qrCodeUploadedState');
-        var status = document.getElementById('qrCodeStatus');
-        var manualCheckSection = document.getElementById('manualCheckSection');
-        var shown = 'default';
-
-        // The page now updates itself, so the manual "I have finished
-        // uploading" check button is no longer needed.
-        manualCheckSection.hidden = true;
-
-        new App.LiveConnection({
-          statusUrl: '/test-cases/create-profile-live/status',
-          role: 'primary',
-          onStatus: function (data) {
-            if (data.uploaded && shown !== 'uploaded') {
-              defaultState.hidden = true;
-              connectedState.hidden = true;
-              uploadedState.hidden = false;
-              uploadedState.querySelector('h1').focus();
-              status.textContent = 'The photo has been uploaded on your other device.';
-              shown = 'uploaded';
-            } else if (data.secondaryConnected && shown === 'default') {
-              defaultState.hidden = true;
-              connectedState.hidden = false;
-              connectedState.querySelector('h1').focus();
-              status.textContent = 'Other device connected. Waiting for the photo to be uploaded.';
-              shown = 'connected';
-            }
-          }
-        });
-      })();
-    }
+    new App.LiveConnection({
+      statusUrl: '/test-cases/create-profile-live/status',
+      role: 'primary',
+      hidden: document.getElementById('manualCheckSection'),
+      states: {
+        default: document.getElementById('qrCodeDefaultState'),
+        connected: document.getElementById('qrCodeConnectedState'),
+        uploaded: document.getElementById('qrCodeUploadedState')
+      }
+    })
   </script>
 {% endblock %}

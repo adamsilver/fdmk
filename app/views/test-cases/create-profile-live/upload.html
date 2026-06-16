@@ -51,13 +51,10 @@
 {% block pageScripts %}
   {{ super() }}
   <script>
-    if (typeof App.LiveConnection !== 'undefined') {
-      // Tells the primary device (on the QR code or "check your email" page)
-      // that this device has connected, just by polling for status.
-      new App.LiveConnection({
-        statusUrl: '/test-cases/create-profile-live/status',
-        role: 'secondary'
-      });
-    }
+    // Tells the primary device that this device has connected, by polling for status.
+    new App.LiveConnection({
+      statusUrl: '/test-cases/create-profile-live/status',
+      role: 'secondary'
+    })
   </script>
 {% endblock %}

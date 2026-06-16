@@ -28,41 +28,30 @@
           You can also <a class="govuk-link" href="/test-cases/create-profile-live/email">request another link</a>.
         </p>
 
-        <p class="app-simulate-link"><a class="govuk-link" href="/test-cases/create-profile-live/enter-code">Simulate continuing on mobile</a></p>
+        <p class="app-simulate-link"><a class="govuk-link" href="/test-cases/create-profile-live/enter-code" target="_blank" rel="noopener noreferrer">Simulate continuing on mobile</a></p>
 
       </div>
 
       <div id="emailSentConnectedState" hidden>
 
         <span class="govuk-caption-l">Create profile</span>
-        <h1 class="govuk-heading-l" tabindex="-1">Other device connected</h1>
+        <h1 class="govuk-heading-l">Waiting for you to upload the photo on your other device</h1>
 
-        <p class="govuk-body">Waiting for the photo to be uploaded on your other device. This page will update automatically.</p>
-
-        <form method="post" action="/test-cases/create-profile-live/cancel-other-device">
-          {{ govukButton({
-            text: "Continue on this device instead",
-            classes: "govuk-button--secondary"
-          }) }}
-        </form>
+        <p>If you prefer, you can <a href="/test-cases/create-profile-live/cancel-other-device">use this device to upload your photo</a>.</p>
 
       </div>
 
       <div id="emailSentUploadedState" hidden>
 
         <span class="govuk-caption-l">Create profile</span>
-        <h1 class="govuk-heading-l" tabindex="-1">Photo uploaded</h1>
-
-        <p class="govuk-body">The photo has been uploaded on your other device.</p>
+        <h1 class="govuk-heading-l">Photo uploaded</h1>
 
         {{ govukButton({
           text: "Continue",
-          href: "/test-cases/create-profile-live/check-photo"
+          href: "/test-cases/create-profile-live/check"
         }) }}
 
       </div>
-
-      <div class="govuk-visually-hidden" aria-live="polite" id="emailSentStatus"></div>
 
     </div>
   </div>
@@ -71,35 +60,14 @@
 {% block pageScripts %}
   {{ super() }}
   <script>
-    if (typeof App.LiveConnection !== 'undefined') {
-      (function () {
-        var defaultState = document.getElementById('emailSentDefaultState');
-        var connectedState = document.getElementById('emailSentConnectedState');
-        var uploadedState = document.getElementById('emailSentUploadedState');
-        var status = document.getElementById('emailSentStatus');
-        var shown = 'default';
-
-        new App.LiveConnection({
-          statusUrl: '/test-cases/create-profile-live/status',
-          role: 'primary',
-          onStatus: function (data) {
-            if (data.uploaded && shown !== 'uploaded') {
-              defaultState.hidden = true;
-              connectedState.hidden = true;
-              uploadedState.hidden = false;
-              uploadedState.querySelector('h1').focus();
-              status.textContent = 'The photo has been uploaded on your other device.';
-              shown = 'uploaded';
-            } else if (data.secondaryConnected && shown === 'default') {
-              defaultState.hidden = true;
-              connectedState.hidden = false;
-              connectedState.querySelector('h1').focus();
-              status.textContent = 'Other device connected. Waiting for the photo to be uploaded.';
-              shown = 'connected';
-            }
-          }
-        });
-      })();
-    }
+    new App.LiveConnection({
+      statusUrl: '/test-cases/create-profile-live/status',
+      role: 'primary',
+      states: {
+        default: document.getElementById('emailSentDefaultState'),
+        connected: document.getElementById('emailSentConnectedState'),
+        uploaded: document.getElementById('emailSentUploadedState')
+      }
+    })
   </script>
 {% endblock %}

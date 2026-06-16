@@ -110,6 +110,8 @@ module.exports = router => {
     res.render('test-cases/create-profile-live/enter-code.html')
   })
   router.post('/test-cases/create-profile-live/enter-code', (req, res) => {
+    req.session.data.createProfileLive = req.session.data.createProfileLive || {}
+    req.session.data.createProfileLive.continuingOnOtherDevice = true
     res.redirect('/test-cases/create-profile-live/upload')
   })
 
@@ -159,18 +161,8 @@ module.exports = router => {
 
   // Step 5a — Photo uploaded on other device
   router.get('/test-cases/create-profile-live/photo-uploaded', (req, res) => {
-    res.render('test-cases/create-profile-live/photo-uploaded.html')
-  })
-
-  // Secondary device tells the primary device the photo has been uploaded
-  router.post('/test-cases/create-profile-live/notify-upload', (req, res) => {
     getLiveSession(req).uploaded = true
-    res.redirect('/test-cases/create-profile-live/notified')
-  })
-
-  // Step 5b — Confirmation that the original device has been notified
-  router.get('/test-cases/create-profile-live/notified', (req, res) => {
-    res.render('test-cases/create-profile-live/notified.html')
+    res.render('test-cases/create-profile-live/photo-uploaded.html')
   })
 
   // Polled by both devices to find out about each other and report progress

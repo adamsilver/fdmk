@@ -55,13 +55,10 @@
 {% block pageScripts %}
   {{ super() }}
   <script>
-    if (typeof App.LiveConnection !== 'undefined') {
-      // Keeps telling the primary device that this device is still
-      // connected while the user checks their photo.
-      new App.LiveConnection({
-        statusUrl: '/test-cases/create-profile-live/status',
-        role: 'secondary'
-      });
-    }
+    // Keeps telling the primary device that this device is still connected.
+    new App.LiveConnection({
+      statusUrl: '/test-cases/create-profile-live/status',
+      role: 'secondary'
+    })
   </script>
 {% endblock %}
