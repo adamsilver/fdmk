@@ -1,6 +1,6 @@
 {% extends "layouts/main.html" %}
 
-{% set pageName = "You have uploaded your photo" %}
+{% set pageName = "You’ve uploaded your photo" %}
 
 {% block beforeContent %}
   {{ govukBackLink({
@@ -16,14 +16,11 @@
       <span class="govuk-caption-l">Create profile</span>
       <h1 class="govuk-heading-l">{{pageName}}</h1>
 
-      <p>To continue, go back to your original device and select “I’ve uploaded my photo”.</p>
+      <p>Click “I’ve uploaded my photo” on your original device to continue creating your profile there.</p>
 
-      <p>Or, you can:</p>
+      <p>If you’ve closed the page on your original device <a class="govuk-link" href="/test-cases/create-profile/email">get a link sent to your email</a>.</p>
 
-      <ul class="govuk-list govuk-list--bullet">
-        <li><a class="govuk-link" href="/test-cases/create-profile/email">get a link sent to your email</a> if you’ve navigated away from that page</li>
-        <li><a class="govuk-link" href="/test-cases/create-profile/check">continue on this device</a></li>
-      </ul>
+      <p>Alternatively, you can <a class="govuk-link" href="/test-cases/create-profile/check">continue on this device</a>.</p>
 
     </div>
   </div>

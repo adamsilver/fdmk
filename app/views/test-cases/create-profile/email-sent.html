@@ -13,14 +13,12 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds-from-desktop">
 
-      <form method="post">
-
       <span class="govuk-caption-l">Create profile</span>
       <h1 class="govuk-heading-l">{{ pageName }}</h1>
 
       <p>A link has been sent to {{ data.createProfile.emailAddress or "adam@example.com" }}.</p>
 
-      <p>Open the email on your other device and follow the instructions.</p>
+      <p>Open the email on your phone or tablet and follow the instructions.</p>
 
       <p>Check your spam or trash folder if you cannot find the email.</p>
 
@@ -28,18 +26,9 @@
         If you have not received the email after a few minutes, you can <a class="govuk-link" href="/test-cases/create-profile/email">request another link</a>.
       </p>
 
-      <h2 class="govuk-heading-m">After you’ve uploaded your photo</h2>
-
-      <p>Click the button below when you have confirmation that your photo has been uploaded on your other device.</p>
-
-      {{ govukButton({
-        text: "I’ve uploaded my photo"
-      }) }}
-
+      {% include "_partials/manual-upload-check.html" %}
 
       <p class="app-simulate-link"><a class="govuk-link" href="/test-cases/create-profile/link/continue-on-other-device" target="_blank" rel="noopener noreferrer">Simulate continuing on other device</a></p>
-
-      </form>
 
     </div>
   </div>

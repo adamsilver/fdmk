@@ -101,6 +101,18 @@ module.exports = router => {
   router.get('/test-cases/create-profile-live/email-sent', (req, res) => {
     res.render('test-cases/create-profile-live/email-sent.html')
   })
+  router.post('/test-cases/create-profile-live/email-sent', getUploadedFiles(upload.fieldName), (req, res) => {
+    if (req.uploadedFiles.length === 0) {
+      return res.redirect('/test-cases/create-profile-live/email-no-photo')
+    }
+    req.session.data.createProfileLive.continuingOnOtherDevice = false
+    res.redirect('/test-cases/create-profile-live/check')
+  })
+
+  // Step 3c-i — No photo received yet (email)
+  router.get('/test-cases/create-profile-live/email-no-photo', (req, res) => {
+    res.render('test-cases/create-profile-live/email-no-photo.html')
+  })
 
   // Step 3d — Simulate following the link from the email on another device
   router.get('/test-cases/create-profile-live/link/continue-on-other-device', getUploadedFiles(upload.fieldName), (req, res) => {

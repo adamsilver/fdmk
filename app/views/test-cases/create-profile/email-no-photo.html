@@ -1,6 +1,6 @@
 {% extends "layouts/main.html" %}
 
-{% set pageName = "We have not received your photo yet" %}
+{% set pageName = "You have not uploaded your photo" %}
 
 {% block beforeContent %}
   {{ govukBackLink({
@@ -14,12 +14,10 @@
     <div class="govuk-grid-column-two-thirds-from-desktop">
 
       <span class="govuk-caption-l">Create profile</span>
-      <h1 class="govuk-heading-l">We have not received your photo yet</h1>
-
-      <p class="govuk-body">Open the link from your email on your other device and upload your photo, then try again.</p>
+      <h1 class="govuk-heading-l">{{ pageName }}</h1>
 
       {{ govukButton({
-        text: "Try again",
+        text: "Go back",
         href: "/test-cases/create-profile/email-sent"
       }) }}
 

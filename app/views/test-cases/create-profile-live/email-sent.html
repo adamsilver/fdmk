@@ -20,7 +20,7 @@
 
         <p>A link has been sent to {{ data.createProfileLive.emailAddress or "adam@example.com" }}.</p>
 
-        <p>Open the email on your other device and follow the instructions.</p>
+        <p>Open the email on your phone or tablet and follow the instructions.</p>
 
         <p>Check your spam or trash folder if you cannot find the email.</p>
 
@@ -28,31 +28,21 @@
           If you have not received the email after a few minutes, you can <a class="govuk-link" href="/test-cases/create-profile-live/email">request another link</a>.
         </p>
 
+        <div id="manualCheckSection">
+          {% include "_partials/manual-upload-check.html" %}
+        </div>
+
         <p class="app-simulate-link"><a class="govuk-link" href="/test-cases/create-profile-live/link/continue-on-other-device" target="_blank" rel="noopener noreferrer">Simulate continuing on other device</a></p>
 
       </div>
 
       <div id="emailSentConnectedState" hidden>
-
-        <span class="govuk-caption-l">Create profile</span>
-        <h1 class="govuk-heading-l">Waiting for you to upload the photo on your other device</h1>
-
-        <p>If you prefer, you can <a href="/test-cases/create-profile-live/cancel-other-device">use this device to upload your photo</a>.</p>
-
+        {% include "_partials/connected-state.html" %}
       </div>
 
       <div id="emailSentUploadedState" hidden>
-
-        <span class="govuk-caption-l">Create profile</span>
-        <h1 class="govuk-heading-l">Photo uploaded</h1>
-
-        <img id="emailSentPhoto" alt="Your photo" style="max-width: 200px; display: block; margin-bottom: 20px;">
-
-        {{ govukButton({
-          text: "Continue",
-          href: "/test-cases/create-profile-live/check"
-        }) }}
-
+        {% set photoImgId = "emailSentPhoto" %}
+        {% include "_partials/uploaded-state.html" %}
       </div>
 
     </div>
@@ -65,6 +55,7 @@
     new App.LiveConnection({
       statusUrl: '/test-cases/create-profile-live/status',
       role: 'primary',
+      hidden: document.getElementById('manualCheckSection'),
       image: document.getElementById('emailSentPhoto'),
       states: {
         default: document.getElementById('emailSentDefaultState'),
