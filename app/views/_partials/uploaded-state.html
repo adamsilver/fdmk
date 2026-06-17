@@ -1,7 +1,9 @@
-<span class="govuk-caption-l">Create profile</span>
-<h1 class="govuk-heading-l">You’ve uploaded your photo</h1>
-<img id="{{ photoImgId }}" alt="Your photo" style="max-width: 200px; display: block; margin-bottom: 20px;">
-{{ govukButton({
-  text: "Continue",
-  href: "/test-cases/create-profile-live/check"
-}) }}
+<div id="app-uploaded-state" hidden>
+  <span class="govuk-caption-l">Create profile</span>
+  <h1 class="govuk-heading-l">You’ve uploaded your photo</h1>
+  <img id="app-photo" alt="Your photo" style="max-width: 200px; display: block; margin-bottom: 20px;">
+  {{ govukButton({
+    text: "Continue",
+    href: "/test-cases/create-profile-live/check"
+  }) }}
+</div>

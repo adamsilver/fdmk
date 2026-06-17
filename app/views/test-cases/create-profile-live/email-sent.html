@@ -13,7 +13,7 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds-from-desktop">
 
-      <div id="emailSentDefaultState">
+      <div id="app-default-state">
 
         <span class="govuk-caption-l">Create profile</span>
         <h1 class="govuk-heading-l">{{ pageName }}</h1>
@@ -28,22 +28,15 @@
           If you have not received the email after a few minutes, you can <a class="govuk-link" href="/test-cases/create-profile-live/email">request another link</a>.
         </p>
 
-        <div id="manualCheckSection">
-          {% include "_partials/manual-upload-check.html" %}
-        </div>
+        {% include "_partials/manual-upload-check.html" %}
 
         <p class="app-simulate-link"><a class="govuk-link" href="/test-cases/create-profile-live/link/continue-on-other-device" target="_blank" rel="noopener noreferrer">Simulate continuing on other device</a></p>
 
       </div>
 
-      <div id="emailSentConnectedState" hidden>
-        {% include "_partials/connected-state.html" %}
-      </div>
+      {% include "_partials/connected-state.html" %}
 
-      <div id="emailSentUploadedState" hidden>
-        {% set photoImgId = "emailSentPhoto" %}
-        {% include "_partials/uploaded-state.html" %}
-      </div>
+      {% include "_partials/uploaded-state.html" %}
 
     </div>
   </div>
@@ -55,12 +48,12 @@
     new App.LiveConnection({
       statusUrl: '/test-cases/create-profile-live/status',
       role: 'primary',
-      hidden: document.getElementById('manualCheckSection'),
-      image: document.getElementById('emailSentPhoto'),
+      hidden: document.getElementById('app-manual-check-section'),
+      image: document.getElementById('app-photo'),
       states: {
-        default: document.getElementById('emailSentDefaultState'),
-        connected: document.getElementById('emailSentConnectedState'),
-        uploaded: document.getElementById('emailSentUploadedState')
+        default: document.getElementById('app-default-state'),
+        connected: document.getElementById('app-connected-state'),
+        uploaded: document.getElementById('app-uploaded-state')
       }
     })
   </script>
