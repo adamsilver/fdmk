@@ -102,16 +102,11 @@ module.exports = router => {
     res.render('test-cases/create-profile-live/email-sent.html')
   })
 
-  // Step 3d — Enter security code (mobile simulation)
-  router.get('/test-cases/create-profile-live/enter-code', getUploadedFiles(upload.fieldName), (req, res) => {
+  // Step 3d — Simulate following the link from the email on another device
+  router.get('/test-cases/create-profile-live/link/continue-on-other-device', getUploadedFiles(upload.fieldName), (req, res) => {
     req.session.data.createProfileLive = req.session.data.createProfileLive || {}
     req.session.data.createProfileLive.continuingOnOtherDevice = true
     req.uploadedFiles.length = 0
-    res.render('test-cases/create-profile-live/enter-code.html')
-  })
-  router.post('/test-cases/create-profile-live/enter-code', (req, res) => {
-    req.session.data.createProfileLive = req.session.data.createProfileLive || {}
-    req.session.data.createProfileLive.continuingOnOtherDevice = true
     res.redirect('/test-cases/create-profile-live/upload')
   })
 
