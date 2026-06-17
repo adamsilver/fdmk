@@ -3,6 +3,7 @@ App.LiveConnection = function(options) {
   this.role = options.role
   this.interval = options.interval || 2000
   this.states = options.states || {}
+  this.image = options.image
   this.shown = 'default'
   this.firstPoll = true
 
@@ -33,6 +34,9 @@ App.LiveConnection.prototype.showState = function(name) {
 App.LiveConnection.prototype.handleStatus = function(data) {
   if (this.role === 'primary') {
     if (data.uploaded && this.shown !== 'uploaded') {
+      if (this.image && data.photoFilename) {
+        this.image.src = '/test-cases/create-profile-live/file/' + data.photoFilename
+      }
       this.showState('uploaded')
     } else if (data.secondaryConnected && this.shown === 'default') {
       this.showState('connected')

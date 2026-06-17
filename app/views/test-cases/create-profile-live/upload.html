@@ -33,14 +33,16 @@
             classes: "govuk-label--l"
           },
           hint: {
-            text: "You can upload a PNG or JPG file under 1MB."
+            text: "You can upload a PNG or JPG file under 1MB"
           },
           errorMessage: inlineErrors.photo if inlineErrors
         }) }}
 
         {{ govukButton({ text: "Continue" }) }}
 
-        <p class="govuk-body"><a class="govuk-link" href="/test-cases/create-profile-live/qr-code">Use a different device to upload your photo</a>.</p>
+        {% if not data.createProfileLive.continuingOnOtherDevice %}
+          <p class="govuk-body"><a class="govuk-link" href="/test-cases/create-profile-live/qr-code">Use your phone or tablet to upload your photo</a></p>
+        {% endif %}
 
       </form>
 

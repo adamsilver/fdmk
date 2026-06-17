@@ -16,7 +16,7 @@
       <h1 class="govuk-heading-l">Check details and create profile</h1>
 
       {% set photoHtml %}
-        <a href="adam.jpg">adam.jpg</a>
+        <img src="/test-cases/create-profile-live/file/{{ uploadedFiles[0].filename }}" alt="Your photo" style="max-width: 200px;">
       {% endset %}
 
       {{ govukSummaryList({

@@ -1,6 +1,6 @@
 {% extends "layouts/main.html" %}
 
-{% set pageName = "You have uploaded the photo" %}
+{% set pageName = "You have uploaded your photo" %}
 
 {% block beforeContent %}
   {{ govukBackLink({
@@ -14,7 +14,7 @@
     <div class="govuk-grid-column-two-thirds-from-desktop">
 
       <span class="govuk-caption-l">Create profile</span>
-      <h1 class="govuk-heading-l">You have uploaded the photo</h1>
+      <h1 class="govuk-heading-l">{{pageName}}</h1>
 
       <p>To continue on your original device, go to that device and select “I’ve uploaded my photo”.</p>
 

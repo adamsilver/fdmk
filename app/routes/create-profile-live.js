@@ -29,14 +29,14 @@ const GRACE_MS = 5000
 function getLiveSession(req) {
   let liveSession = liveSessions.get(req.sessionID)
   if (!liveSession) {
-    liveSession = { primaryLastSeen: 0, secondaryLastSeen: 0, uploaded: false, cancelled: false }
+    liveSession = { primaryLastSeen: 0, secondaryLastSeen: 0, uploaded: false, cancelled: false, photoFilename: null }
     liveSessions.set(req.sessionID, liveSession)
   }
   return liveSession
 }
 
 function resetLiveSession(req) {
-  liveSessions.set(req.sessionID, { primaryLastSeen: 0, secondaryLastSeen: 0, uploaded: false, cancelled: false })
+  liveSessions.set(req.sessionID, { primaryLastSeen: 0, secondaryLastSeen: 0, uploaded: false, cancelled: false, photoFilename: null })
 }
 
 module.exports = router => {
@@ -160,8 +160,10 @@ module.exports = router => {
   })
 
   // Step 5a — Photo uploaded on other device
-  router.get('/test-cases/create-profile-live/photo-uploaded', (req, res) => {
-    getLiveSession(req).uploaded = true
+  router.get('/test-cases/create-profile-live/photo-uploaded', getUploadedFiles(upload.fieldName), (req, res) => {
+    const liveSession = getLiveSession(req)
+    liveSession.uploaded = true
+    liveSession.photoFilename = req.uploadedFiles[0] && req.uploadedFiles[0].filename
     res.render('test-cases/create-profile-live/photo-uploaded.html')
   })
 
@@ -180,7 +182,8 @@ module.exports = router => {
       primaryConnected: (now - liveSession.primaryLastSeen) < GRACE_MS,
       secondaryConnected: (now - liveSession.secondaryLastSeen) < GRACE_MS,
       uploaded: liveSession.uploaded,
-      cancelled: liveSession.cancelled
+      cancelled: liveSession.cancelled,
+      photoFilename: liveSession.photoFilename
     })
   })
 

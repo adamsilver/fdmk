@@ -22,7 +22,7 @@
 
         <p>Open the email on your other device and follow the instructions.</p>
 
-        <p>Check your spam and trash folder if you cannot find the email.</p>
+        <p>Check your spam or trash folder if you cannot find the email.</p>
 
         <p>
           You can also <a class="govuk-link" href="/test-cases/create-profile-live/email">request another link</a>.
@@ -46,6 +46,8 @@
         <span class="govuk-caption-l">Create profile</span>
         <h1 class="govuk-heading-l">Photo uploaded</h1>
 
+        <img id="emailSentPhoto" alt="Your photo" style="max-width: 200px; display: block; margin-bottom: 20px;">
+
         {{ govukButton({
           text: "Continue",
           href: "/test-cases/create-profile-live/check"
@@ -63,6 +65,7 @@
     new App.LiveConnection({
       statusUrl: '/test-cases/create-profile-live/status',
       role: 'primary',
+      image: document.getElementById('emailSentPhoto'),
       states: {
         default: document.getElementById('emailSentDefaultState'),
         connected: document.getElementById('emailSentConnectedState'),

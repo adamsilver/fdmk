@@ -181,7 +181,7 @@
           </g>
         </svg>
 
-        <p>Alternatively, you can <a class="govuk-link" href="/test-cases/create-profile-live/email">get a link sent to your email</a>.</p>
+        <p>If you cannot scan the QR code, you can <a class="govuk-link" href="/test-cases/create-profile-live/email">get a link sent to your email</a>.</p>
 
         <div id="manualCheckSection">
           <p>Once you’ve uploaded the photo on your other device, click the button below:</p>
@@ -207,6 +207,7 @@
       <div id="qrCodeUploadedState" hidden>
         <span class="govuk-caption-l">Create profile</span>
         <h1 class="govuk-heading-l">Photo uploaded</h1>
+        <img id="qrCodePhoto" alt="Your photo" style="max-width: 200px; display: block; margin-bottom: 20px;">
         {{ govukButton({
           text: "Continue",
           href: "/test-cases/create-profile-live/check"
@@ -224,6 +225,7 @@
       statusUrl: '/test-cases/create-profile-live/status',
       role: 'primary',
       hidden: document.getElementById('manualCheckSection'),
+      image: document.getElementById('qrCodePhoto'),
       states: {
         default: document.getElementById('qrCodeDefaultState'),
         connected: document.getElementById('qrCodeConnectedState'),
