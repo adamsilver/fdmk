@@ -7,6 +7,9 @@ App.LiveConnection = function(options) {
   this.shown = 'default'
   this.firstPoll = true
 
+  var dashIndex = document.title.indexOf(' - ')
+  this.titleSuffix = dashIndex > -1 ? document.title.slice(dashIndex) : ''
+
   if (options.hidden) {
     options.hidden.hidden = true
   }
@@ -23,9 +26,10 @@ App.LiveConnection.prototype.showState = function(name) {
     this.states[key].hidden = (key !== name)
   }, this)
 
-  if (!this.firstPoll) {
-    var heading = el.querySelector('h1, h2')
-    if (heading) heading.focus()
+  var heading = el.querySelector('h1')
+  if (heading) {
+    document.title = heading.textContent.trim() + this.titleSuffix
+    if (!this.firstPoll) heading.focus()
   }
 
   this.shown = name
