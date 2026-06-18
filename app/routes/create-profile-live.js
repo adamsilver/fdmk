@@ -20,23 +20,40 @@ function uploadError(message) {
   }
 }
 
-// Tracks the live connection between the primary and secondary devices for
-// a given flow. Keyed by session ID rather than a real token, since this is
-// a simulated demo with no database.
-const liveSessions = new Map()
 const GRACE_MS = 5000
 
+// Presence pings are written on every status poll (every 2s), so they're
+// kept out of session.data to avoid racing with the secondary "device"'s
+// session writes (continuingOnOtherDevice, photoCorrect, etc.) when both
+// are polling/posting around the same time.
+const presence = new Map()
+
+function getPresence(req) {
+  let p = presence.get(req.sessionID)
+  if (!p) {
+    p = { primaryLastSeen: 0, secondaryLastSeen: 0 }
+    presence.set(req.sessionID, p)
+  }
+  return p
+}
+
+// Live-connection result state lives in session.data.createProfileLive.live
+// so it resets along with the rest of the prototype's data when "Clear
+// data" is used.
 function getLiveSession(req) {
-  let liveSession = liveSessions.get(req.sessionID)
+  req.session.data.createProfileLive = req.session.data.createProfileLive || {}
+  let liveSession = req.session.data.createProfileLive.live
   if (!liveSession) {
-    liveSession = { primaryLastSeen: 0, secondaryLastSeen: 0, uploaded: false, cancelled: false, photoFilename: null }
-    liveSessions.set(req.sessionID, liveSession)
+    liveSession = { uploaded: false, cancelled: false, photoFilename: null }
+    req.session.data.createProfileLive.live = liveSession
   }
   return liveSession
 }
 
 function resetLiveSession(req) {
-  liveSessions.set(req.sessionID, { primaryLastSeen: 0, secondaryLastSeen: 0, uploaded: false, cancelled: false, photoFilename: null })
+  req.session.data.createProfileLive = req.session.data.createProfileLive || {}
+  req.session.data.createProfileLive.live = { uploaded: false, cancelled: false, photoFilename: null }
+  presence.delete(req.sessionID)
 }
 
 module.exports = router => {
@@ -51,7 +68,9 @@ module.exports = router => {
 
   // Step 3a — QR code
   router.get('/test-cases/create-profile-live/qr-code', (req, res) => {
-    resetLiveSession(req)
+    if (!getLiveSession(req).uploaded) {
+      resetLiveSession(req)
+    }
     res.render('test-cases/create-profile-live/qr-code.html')
   })
 
@@ -112,6 +131,11 @@ module.exports = router => {
   // Step 3c-i — No photo received yet (email)
   router.get('/test-cases/create-profile-live/email-no-photo', (req, res) => {
     res.render('test-cases/create-profile-live/email-no-photo.html')
+  })
+
+  // Step 3c-ii — View the email and follow its link to continue on another device
+  router.get('/test-cases/create-profile-live/link', (req, res) => {
+    res.render('test-cases/create-profile-live/link.html')
   })
 
   // Step 3d — Simulate following the link from the email on another device
@@ -177,17 +201,18 @@ module.exports = router => {
   // Polled by both devices to find out about each other and report progress
   router.get('/test-cases/create-profile-live/status', (req, res) => {
     const liveSession = getLiveSession(req)
+    const presenceState = getPresence(req)
     const now = Date.now()
 
     if (req.query.role === 'primary') {
-      liveSession.primaryLastSeen = now
+      presenceState.primaryLastSeen = now
     } else if (req.query.role === 'secondary') {
-      liveSession.secondaryLastSeen = now
+      presenceState.secondaryLastSeen = now
     }
 
     res.json({
-      primaryConnected: (now - liveSession.primaryLastSeen) < GRACE_MS,
-      secondaryConnected: (now - liveSession.secondaryLastSeen) < GRACE_MS,
+      primaryConnected: (now - presenceState.primaryLastSeen) < GRACE_MS,
+      secondaryConnected: (now - presenceState.secondaryLastSeen) < GRACE_MS,
       uploaded: liveSession.uploaded,
       cancelled: liveSession.cancelled,
       photoFilename: liveSession.photoFilename
@@ -200,7 +225,6 @@ module.exports = router => {
   })
   router.post('/test-cases/create-profile-live/check', (req, res) => {
     req.session.data.createProfileLive = {}
-    liveSessions.delete(req.sessionID)
     res.redirect('/test-cases/create-profile-live')
   })
 

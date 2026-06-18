@@ -1,0 +1,23 @@
+{% extends "layouts/main.html" %}
+
+{% set pageName = "Email example" %}
+
+{% block content %}
+  <div class="govuk-grid-row">
+    <div class="govuk-grid-column-two-thirds-from-desktop">
+      <div class="app-email">
+        <div class="app-email__headers">
+          <div class="app-email__headers__row">
+            <span class="app-email__headers__key">Subject</span>
+            <span class="app-email__headers__value">Continue creating your profile</span>
+          </div>
+        </div>
+
+        <p>Open this link on your phone or tablet to continue creating your profile:</p>
+
+        <p><a class="govuk-link" href="/test-cases/create-profile-live/link/continue-on-other-device">http://example.com/create-profile-live/</a></p>
+      </div>
+
+    </div>
+  </div>
+{% endblock %}

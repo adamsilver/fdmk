@@ -13,7 +13,7 @@
   <div class="govuk-grid-row">
     <div class="govuk-grid-column-two-thirds-from-desktop">
 
-      <div id="app-default-state">
+      <div id="app-default-state" {% if data.createProfileLive.live.uploaded %}hidden{% endif %}>
 
         <span class="govuk-caption-l">Create profile</span>
         <h1 class="govuk-heading-l">{{ pageName }}</h1>
@@ -30,7 +30,7 @@
 
         {% include "_partials/manual-upload-check.html" %}
 
-        <p class="app-simulate-link"><a class="govuk-link" href="/test-cases/create-profile-live/link/continue-on-other-device" target="_blank" rel="noopener noreferrer">Simulate continuing on other device</a></p>
+        <p class="app-simulate-link"><a class="govuk-link" href="/test-cases/create-profile-live/link" target="_blank" rel="noopener noreferrer">Simulate</a></p>
 
       </div>
 
