@@ -22,7 +22,6 @@ if(App.dragAndDropSupported() && App.formDataSupported() && App.fileApiSupported
       uploadFileExitHook: $.noop,
       uploadFileErrorHook: $.noop,
       fileDeleteHook: $.noop,
-      uploadStatusText: 'Uploading files, please wait',
       dropzoneHintText: 'or drop files',
       dropzoneButtonText: 'Choose files'
     };
@@ -64,26 +63,73 @@ if(App.dragAndDropSupported() && App.formDataSupported() && App.fileApiSupported
   App.MultiFileUpload.prototype.setupStatusBox = function() {
     this.status = $('<div role="status" aria-live="polite" class="govuk-visually-hidden" />');
     this.dropzone.after(this.status);
-    this.pendingCount = 0;
-    this.batchMessages = [];
-    this.nextMessageIndex = 0;
+    this.totalFiles = 0;
+    this.completedFiles = 0;
+    this.errorFiles = 0;
+    this.batchActive = false;
+    this.gateOpen = false;
   };
 
-  App.MultiFileUpload.prototype.announce = function(text) {
-    clearTimeout(this.statusTimeout);
-    var delay = Math.max(0, (this.statusGateTime || 0) + STATUS_ANNOUNCEMENT_DELAY - Date.now());
-    this.statusTimeout = setTimeout($.proxy(function() {
-      this.status.html(text);
-    }, this), delay);
-  };
-
-  App.MultiFileUpload.prototype.checkBatchComplete = function() {
-    this.pendingCount--;
-    if (this.pendingCount === 0) {
-      this.announce(this.batchMessages.join('. '));
-      this.batchMessages = [];
-      this.nextMessageIndex = 0;
+  App.MultiFileUpload.prototype.queueFiles = function(count) {
+    if (!this.batchActive) {
+      this.batchActive = true;
+      this.gateOpen = false;
+      setTimeout($.proxy(function() {
+        this.gateOpen = true;
+        this.updateStatus();
+      }, this), STATUS_ANNOUNCEMENT_DELAY);
     }
+    this.totalFiles += count;
+  };
+
+  App.MultiFileUpload.prototype.announceStatus = function(text) {
+    this.status.empty();
+    setTimeout($.proxy(function() {
+      this.status.text(text);
+    }, this), 0);
+  };
+
+  App.MultiFileUpload.prototype.updateStatus = function() {
+    var pending = this.totalFiles - this.completedFiles;
+    var parts = [];
+    if (this.completedFiles > 0) {
+      parts.push('Files uploaded');
+    }
+    if (this.errorFiles > 0) {
+      parts.push(this.errorFiles + ' have errors');
+    }
+    if (pending > 0) {
+      parts.push(pending + ' still in progress');
+    }
+    this.announceStatus(parts.join('. '));
+
+    if (this.completedFiles >= this.totalFiles) {
+      this.totalFiles = 0;
+      this.completedFiles = 0;
+      this.batchActive = false;
+      this.gateOpen = false;
+    }
+  };
+
+  App.MultiFileUpload.prototype.recordSuccess = function() {
+    this.completedFiles++;
+    if (this.gateOpen) {
+      this.updateStatus();
+    }
+  };
+
+  App.MultiFileUpload.prototype.recordError = function() {
+    this.completedFiles++;
+    this.errorFiles++;
+    if (this.gateOpen) {
+      this.updateStatus();
+    }
+  };
+
+  App.MultiFileUpload.prototype.announceDeleted = function(text) {
+    setTimeout($.proxy(function() {
+      this.announceStatus(text);
+    }, this), STATUS_ANNOUNCEMENT_DELAY);
   };
 
   App.MultiFileUpload.prototype.onDragOver = function(e) {
@@ -100,25 +146,53 @@ if(App.dragAndDropSupported() && App.formDataSupported() && App.fileApiSupported
   	this.dropzone.removeClass('app-multi-file-upload--dragover');
     var files = e.originalEvent.dataTransfer.files;
     this.fileInput.focus();
-    this.statusGateTime = Date.now();
-    this.announce(this.params.uploadStatusText);
     this.uploadFiles(files);
   };
 
   App.MultiFileUpload.prototype.uploadFiles = function(files) {
     this.feedbackContainer.find('.app-multi-file-upload__row--error').remove();
+    this.errorFiles = 0;
     files = Array.from(files);
-    this.pendingCount += files.length;
+    this.queueFiles(files.length);
     files.forEach($.proxy(function(file) {
-      var index = this.nextMessageIndex++;
-      this.uploadFile(file, index);
+      var error = this.validateFile(file);
+      if (error) {
+        this.renderInstantError(file, error);
+      } else {
+        this.uploadFile(file);
+      }
     }, this));
+  };
+
+  App.MultiFileUpload.prototype.escapeHtml = function(string) {
+    return $('<div>').text(string).html();
+  };
+
+  App.MultiFileUpload.prototype.formatMessage = function(template, filename) {
+    return template.replace('{filename}', this.escapeHtml(filename));
+  };
+
+  App.MultiFileUpload.prototype.validateFile = function(file) {
+    if (this.params.allowedTypes && file.type && this.params.allowedTypes.indexOf(file.type) === -1) {
+      return this.formatMessage(this.params.fileTypeError, file.name);
+    }
+    if (this.params.maxFileSize && file.size > this.params.maxFileSize) {
+      return this.formatMessage(this.params.fileSizeError, file.name);
+    }
+    return null;
+  };
+
+  App.MultiFileUpload.prototype.renderInstantError = function(file, message) {
+    var item = $(this.getFileRowHtml(file));
+    this.feedbackContainer.find('.app-multi-file-upload__list').append(item);
+    this.feedbackContainer.show();
+    item.addClass('app-multi-file-upload__row--error');
+    item.find('.app-multi-file-upload__message').html(this.getErrorHtml(message));
+    this.recordError();
   };
 
   App.MultiFileUpload.prototype.onFileChange = function(e) {
     var files = e.currentTarget.files;
-    this.statusGateTime = Date.now();
-    this.announce(this.params.uploadStatusText);
     this.uploadFiles(files);
     this.fileInput.val('');
   };
@@ -135,8 +209,8 @@ if(App.dragAndDropSupported() && App.formDataSupported() && App.fileApiSupported
     return '<span class="app-multi-file-upload__success">' + success.messageHtml + '</span>';
   };
 
-  App.MultiFileUpload.prototype.getErrorHtml = function(error) {
-    return '<span class="app-multi-file-upload__error">' + error.message + '</span>';
+  App.MultiFileUpload.prototype.getErrorHtml = function(message) {
+    return '<span class="app-multi-file-upload__error">' + message + '</span>';
   };
 
   App.MultiFileUpload.prototype.getFileRowHtml = function(file) {
@@ -158,7 +232,7 @@ if(App.dragAndDropSupported() && App.formDataSupported() && App.fileApiSupported
     return html;
   };
 
-App.MultiFileUpload.prototype.uploadFile = function(file, index) {
+  App.MultiFileUpload.prototype.uploadFile = function(file) {
     this.params.uploadFileEntryHook(this, file);
     var formData = new FormData();
     formData.append(this.params.fieldName, file);
@@ -175,23 +249,21 @@ App.MultiFileUpload.prototype.uploadFile = function(file, index) {
       success: $.proxy(function(response){
         if(response.error) {
           item.addClass('app-multi-file-upload__row--error');
-          item.find('.app-multi-file-upload__message').html(this.getErrorHtml(response.error));
-          this.batchMessages[index] = response.error.message;
+          item.find('.app-multi-file-upload__message').html(this.getErrorHtml(response.error.message));
+          this.recordError();
         } else {
           item.find('.app-multi-file-upload__message').html(this.getSuccessHtml(response.success));
           item.find('.app-multi-file-upload__actions').append(this.getDeleteButtonHtml(response.file));
-          this.batchMessages[index] = file.name + ' uploaded';
+          this.recordSuccess();
         }
-        this.checkBatchComplete();
         this.params.uploadFileExitHook(this, file, response);
       }, this),
       error: $.proxy(function(jqXHR, textStatus, errorThrown) {
         item.addClass('app-multi-file-upload__row--error');
         item.find('.app-multi-file-upload__message').html(
-          this.getErrorHtml({ message: file.name + ' could not be uploaded' })
+          this.getErrorHtml(file.name + ' could not be uploaded')
         );
-        this.batchMessages[index] = file.name + ' could not be uploaded';
-        this.checkBatchComplete();
+        this.recordError();
         this.params.uploadFileErrorHook(this, file, jqXHR, textStatus, errorThrown);
       }, this),
       xhr: function() {
@@ -224,8 +296,7 @@ App.MultiFileUpload.prototype.uploadFile = function(file, index) {
         } else {
           var filename = button.find('.govuk-visually-hidden').text();
           button.parents('.app-multi-file-upload__row').remove();
-          this.statusGateTime = Date.now();
-          this.announce(filename + ' deleted.');
+          this.announceDeleted(filename + ' deleted.');
           if (this.feedbackContainer.find('.app-multi-file-upload__row').length === 0) {
             this.feedbackContainer.hide();
           }

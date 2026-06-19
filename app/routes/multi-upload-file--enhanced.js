@@ -11,13 +11,23 @@ const upload = new FileUpload({
   }
 });
 
+const clientErrorTemplates = {
+  FILE_TYPE: '{filename} must be a PNG, GIF or JPEG',
+  LIMIT_FILE_SIZE: '{filename} must be smaller than 1MB'
+};
+
 module.exports = router => {
 
   router.get('/demos/multi-file-upload--enhanced', getUploadedFiles(upload.fieldName), function(req, res) {
     const pageObject = {
       uploadedFiles: req.uploadedFiles,
       errorMessage: null,
-      errorSummary: { items: [] }
+      errorSummary: { items: [] },
+      uploadConfig: {
+        allowedTypes: upload.allowedTypes,
+        maxFileSize: upload.maxFileSize,
+        errors: clientErrorTemplates
+      }
     };
 
     const rejectedFiles = JSON.parse(req.flash('uploadErrors')[0] || '[]');

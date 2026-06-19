@@ -73,7 +73,11 @@
         container: $('.app-multi-file-upload'),
         uploadUrl: '/demos/enhanced-ajax-upload',
         deleteUrl: '/demos/enhanced-ajax-delete',
-        fieldName: 'addReceipts[documents]'
+        fieldName: 'addReceipts[documents]',
+        allowedTypes: {{ uploadConfig.allowedTypes | dump | safe }},
+        maxFileSize: {{ uploadConfig.maxFileSize }},
+        fileTypeError: {{ uploadConfig.errors.FILE_TYPE | dump | safe }},
+        fileSizeError: {{ uploadConfig.errors.LIMIT_FILE_SIZE | dump | safe }}
       });
     }
   </script>
