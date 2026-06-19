@@ -46,7 +46,7 @@ module.exports = router => {
   router.get('/account/sign-out', (req, res) => {
     delete req.session.data.signIn
     req.session.data.user = null
-    res.redirect('/account/sign-in')
+    res.redirect(process.env.NODE_ENV !== 'production' ? '/demos' : '/account/sign-in')
   })
 
   router.use((req, res, next) => {
