@@ -65,6 +65,7 @@ if(App.dragAndDropSupported() && App.formDataSupported() && App.fileApiSupported
     this.dropzone.after(this.status);
     this.totalFiles = 0;
     this.completedFiles = 0;
+    this.successFiles = 0;
     this.errorFiles = 0;
     this.batchActive = false;
     this.gateOpen = false;
@@ -89,23 +90,29 @@ if(App.dragAndDropSupported() && App.formDataSupported() && App.fileApiSupported
     }, this), 0);
   };
 
+  App.MultiFileUpload.prototype.pluralizeFiles = function(count) {
+    return count + ' file' + (count === 1 ? '' : 's');
+  };
+
   App.MultiFileUpload.prototype.updateStatus = function() {
     var pending = this.totalFiles - this.completedFiles;
     var parts = [];
-    if (this.completedFiles > 0) {
-      parts.push('Files uploaded');
+    if (this.successFiles > 0) {
+      parts.push(this.pluralizeFiles(this.successFiles) + ' uploaded');
     }
     if (this.errorFiles > 0) {
-      parts.push(this.errorFiles + ' have errors');
+      parts.push(this.pluralizeFiles(this.errorFiles) + (this.errorFiles === 1 ? ' has an error' : ' have errors'));
     }
     if (pending > 0) {
-      parts.push(pending + ' still in progress');
+      parts.push(this.pluralizeFiles(pending) + ' still uploading');
     }
     this.announceStatus(parts.join('. '));
 
     if (this.completedFiles >= this.totalFiles) {
       this.totalFiles = 0;
       this.completedFiles = 0;
+      this.successFiles = 0;
+      this.errorFiles = 0;
       this.batchActive = false;
       this.gateOpen = false;
     }
@@ -113,6 +120,7 @@ if(App.dragAndDropSupported() && App.formDataSupported() && App.fileApiSupported
 
   App.MultiFileUpload.prototype.recordSuccess = function() {
     this.completedFiles++;
+    this.successFiles++;
     if (this.gateOpen) {
       this.updateStatus();
     }
